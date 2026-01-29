@@ -1,0 +1,162 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/ResumeCounter.Tests.csproj": {}
+  },
+  "projects": {
+    "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj",
+        "projectName": "ResumeCounter.Functions",
+        "projectPath": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj",
+        "packagesPath": "/home/john/.nuget/packages/",
+        "outputPath": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/john/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.Azure.Functions.Worker": {
+              "target": "Package",
+              "version": "[1.22.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Extensions.Http": {
+              "target": "Package",
+              "version": "[3.2.0, )"
+            },
+            "Microsoft.Azure.Functions.Worker.Sdk": {
+              "target": "Package",
+              "version": "[1.17.0, )"
+            },
+            "Microsoft.Extensions.Hosting": {
+              "target": "Package",
+              "version": "[8.0.0, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/ResumeCounter.Tests.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/ResumeCounter.Tests.csproj",
+        "projectName": "ResumeCounter.Tests",
+        "projectPath": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/ResumeCounter.Tests.csproj",
+        "packagesPath": "/home/john/.nuget/packages/",
+        "outputPath": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/john/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj": {
+                "projectPath": "/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.NET.Test.Sdk": {
+              "target": "Package",
+              "version": "[18.0.1, )"
+            },
+            "Moq": {
+              "target": "Package",
+              "version": "[4.20.72, )"
+            },
+            "coverlet.collector": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[6.0.0, )"
+            },
+            "xunit": {
+              "target": "Package",
+              "version": "[2.9.3, )"
+            },
+            "xunit.runner.visualstudio": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[3.1.5, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/8.0.122/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}
