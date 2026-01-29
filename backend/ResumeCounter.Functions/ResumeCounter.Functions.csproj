@@ -1,0 +1,38 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <!-- Target framework -->
+    <TargetFramework>net8.0</TargetFramework>
+
+    <!-- Azure Functions version -->
+    <AzureFunctionsVersion>v4</AzureFunctionsVersion>
+
+    <!-- Output type -->
+    <OutputType>Library</OutputType>
+
+    <!-- Enable nullable reference types -->
+    <Nullable>enable</Nullable>
+
+    <!-- Enable implicit using statements -->
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Azure Functions isolated worker -->
+    <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.22.0" />
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.0" OutputItemType="Analyzer" />
+
+    <!-- HTTP trigger support -->
+    <PackageReference Include="Microsoft.Azure.Functions.Worker.Extensions.Http" Version="3.2.0" />
+
+    <!-- Dependency injection & hosting -->
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+  </ItemGroup>
+
+  <!--ItemGroup-->
+    <!-- Reference your core logic project -->
+    <!--ProjectReference Include="..\ResumeCounter.Core\ResumeCounter.Core.csproj" /-->
+    <!--ProjectReference Include="ResumeCounter.Functions.csproj" /-->
+  <!--/ItemGroup-->
+
+</Project>
