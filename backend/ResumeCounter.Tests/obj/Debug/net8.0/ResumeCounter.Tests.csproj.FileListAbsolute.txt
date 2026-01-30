@@ -102,7 +102,6 @@
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/.msCoverageSourceRootsMapping_ResumeCounter.Tests
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/CoverletSourceRootsMapping_ResumeCounter.Tests
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/xunit.abstractions.dll
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/xunit.runner.visualstudio.testadapter.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/functions.metadata
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/worker.config.json
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/extensions.json
@@ -112,6 +111,7 @@
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/.azurefunctions/Microsoft.Azure.WebJobs.Extensions.FunctionMetadataLoader.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/.azurefunctions/Microsoft.Azure.WebJobs.Host.Storage.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/.azurefunctions/Microsoft.WindowsAzure.Storage.dll
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/xunit.runner.visualstudio.testadapter.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/ResumeCounter.Tests.deps.json
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/ResumeCounter.Tests.runtimeconfig.json
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Tests/bin/Debug/net8.0/ResumeCounter.Tests.dll

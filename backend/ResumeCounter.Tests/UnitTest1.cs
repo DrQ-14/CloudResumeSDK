@@ -1,6 +1,3 @@
-using Moq;
-using Xunit;
-using System.Threading.Tasks;
 namespace ResumeCounter.Tests;
 
 public class UnitTest1
