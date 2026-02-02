@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResumeCounter.Functions")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5e5cad75fadf2fd2d77a590d83f218cef3ca3e8b")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+654515e44685fa61e7de1df08694391741214444")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResumeCounter.Functions")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResumeCounter.Functions")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

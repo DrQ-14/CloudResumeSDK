@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <!-- Azure Functions isolated worker -->
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.22.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.0" OutputItemType="Analyzer" />
 
@@ -27,6 +28,9 @@
 
     <!-- Dependency injection & hosting -->
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+
+    <!-- Newtonsoft Package-->
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
   </ItemGroup>
 
   <!--ItemGroup-->
