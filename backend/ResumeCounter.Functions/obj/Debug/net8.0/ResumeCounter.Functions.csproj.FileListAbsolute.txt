@@ -1,9 +1,8 @@
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.csproj.AssemblyReference.cache
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.GeneratedMSBuildEditorConfig.editorconfig
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.AssemblyInfoInputs.cache
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.AssemblyInfo.cs
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.csproj.CoreCompileInputs.cache
-/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.sourcelink.json
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/Microsoft.Azure.Cosmos.ServiceInterop.dll
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/Cosmos.CRTCompat.dll
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/msvcp140.dll
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/vcruntime140.dll
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/vcruntime140_1.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/functions.metadata
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/worker.config.json
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/extensions.json
@@ -16,6 +15,12 @@
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/ResumeCounter.Functions.deps.json
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/ResumeCounter.Functions.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/bin/Debug/net8.0/ResumeCounter.Functions.pdb
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.csproj.AssemblyReference.cache
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.GeneratedMSBuildEditorConfig.editorconfig
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.AssemblyInfoInputs.cache
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.AssemblyInfo.cs
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.csproj.CoreCompileInputs.cache
+/home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.sourcelink.json
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/refint/ResumeCounter.Functions.dll
 /home/john/GIthub/Cloud Resume SDK/backend/ResumeCounter.Functions/obj/Debug/net8.0/ResumeCounter.Functions.pdb
