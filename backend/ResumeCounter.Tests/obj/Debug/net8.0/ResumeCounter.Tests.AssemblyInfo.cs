@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ResumeCounter.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+04c45d488de9b58d28225a611b70314afaa1a572")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+353f3de6e661ac38fb9a2538e4c099b66ef8e995")]
 [assembly: System.Reflection.AssemblyProductAttribute("ResumeCounter.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ResumeCounter.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
