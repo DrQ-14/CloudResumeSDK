@@ -1,41 +1,39 @@
 using Microsoft.Azure.Cosmos;
-namespace ResumeCounter.Functions.Repositories;
+using Xunit;
+using ResumeCounter.Tests.Integration.Fixtures;
 
-public class CounterRepositoryIntegrationTests : IAsyncLifetime
+namespace ResumeCounter.Tests.Integration;
+
+[Collection("Cosmos collection")]
+public class CosmosFixtureSmokeTests
 {
-    private CosmosClient _client = null;
-    private Database _database = null;
-    private Container _container = null;
+    private readonly CosmosFixture _fixture;
 
-    public async Task InitializeAsync()
+    public CosmosFixtureSmokeTests(CosmosFixture fixture)
     {
-        _client = new CosmosClient(
-            "https://localhost:8081",
-            "C2y6yDjf5/R+ob0N8A7Cgv30VRDjEWeZ2R0C4==",
-            new CosmosClientOptions
-            {
-                HttpClientFactory = () =>
-                {
-                    var handler = new HttpClientHandler
-                    {
-                        ServerCertificateCustomValidationCallback =
-                            HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                    };
-                    return new HttpClient(handler);
-                }
-            });
-
-            _database = await _client.CreateDatabaseIfNotExistsAsync("IntegrationTestDb");
-
-        _container = await _database.CreateContainerIfNotExistsAsync(
-            id: "Counters",
-            partitionKeyPath: "/id"
-        );
+        _fixture = fixture;
     }
 
-    public async Task DisposeAsync()
+    [Fact]
+    public async Task Can_write_and_read_item_from_container()
     {
-        await _database.DeleteAsync();
-        _client.Dispose();
+        // Arrange
+        await _fixture.ResetContainerAsync();
+
+        var counter = new Counter
+        {
+            Id = Guid.NewGuid().ToString(),
+            Count = 1
+        };
+
+        // Act
+        await _fixture.Container.CreateItemAsync(counter, new PartitionKey(counter.Id));
+
+        var response = await _fixture.Container.ReadItemAsync<Counter>(
+            counter.Id,
+            new PartitionKey(counter.Id));
+
+        // Assert
+        Assert.Equal(1, response.Resource.Count);
     }
 }
