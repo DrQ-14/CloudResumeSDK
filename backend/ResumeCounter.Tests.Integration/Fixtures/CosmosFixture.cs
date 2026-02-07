@@ -14,6 +14,7 @@ public Container Container { get; private set; } = null!;
             "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
             new CosmosClientOptions
             {
+                ConnectionMode = ConnectionMode.Gateway,
                 HttpClientFactory = () =>
                 {
                     var handler = new HttpClientHandler
@@ -22,7 +23,8 @@ public Container Container { get; private set; } = null!;
                             HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
                     };
                     return new HttpClient(handler);
-                }
+                },
+                LimitToEndpoint = true
             });
 
             Database = await Client.CreateDatabaseIfNotExistsAsync("IntegrationTestDb");
