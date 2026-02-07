@@ -9,6 +9,13 @@ public Container Container { get; private set; } = null!;
     
     public async Task InitializeAsync()
     {
+        if (!IsEmulatorReachable())
+        {
+            throw new InvalidOperationException(
+                "Cosmos emulator is not running. Start the emulator before running integration tests."
+            );
+        }
+        
         Client = new CosmosClient(
             "https://localhost:8081",
             "C2y6yDjf5/R+ob0N8A7Cgv30VRDJIWEHLM+4QDU5DE2nQ9nDuVTqobD4b8mGGyPMbIZnqyMsEcaGQy67XIw/Jw==",
