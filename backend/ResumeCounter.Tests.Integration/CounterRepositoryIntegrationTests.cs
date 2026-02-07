@@ -22,16 +22,16 @@ public class CosmosFixtureSmokeTests
 
         var counter = new Counter
         {
-            Id = Guid.NewGuid().ToString(),
+            id = Guid.NewGuid().ToString(),
             Count = 1
         };
 
         // Act
-        await _fixture.Container.CreateItemAsync(counter, new PartitionKey(counter.Id));
+        await _fixture.Container.CreateItemAsync(counter, new PartitionKey(counter.id));
 
         var response = await _fixture.Container.ReadItemAsync<Counter>(
-            counter.Id,
-            new PartitionKey(counter.Id));
+            counter.id,
+            new PartitionKey(counter.id));
 
         // Assert
         Assert.Equal(1, response.Resource.Count);
