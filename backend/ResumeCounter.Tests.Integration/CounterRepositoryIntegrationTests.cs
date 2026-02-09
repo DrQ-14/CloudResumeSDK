@@ -1,6 +1,7 @@
 using Microsoft.Azure.Cosmos;
 using Xunit;
 using ResumeCounter.Tests.Integration.Fixtures;
+using System.Diagnostics.Metrics;
 
 namespace ResumeCounter.Tests.Integration;
 
