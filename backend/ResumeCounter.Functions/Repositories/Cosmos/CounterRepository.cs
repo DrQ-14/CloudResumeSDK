@@ -14,14 +14,16 @@ public class CounterRepository : ICounterRepository
         _container = client.GetContainer(databaseName, containerName);
     }
 
-    public async Task<Counter> GetAsync()
+    public async Task<Counter> GetCounterAsync()
     {
-        return await _container.ReadItemAsync<Counter>(
-            id: "resume",
-            partitionKey: new PartitionKey("resume"));
+        var response = await _container.ReadItemAsync<Counter>(
+        id: "resume",
+        partitionKey: new PartitionKey("resume"));
+
+    return response.Resource;
     }
 
-    public async Task UpdateAsync(Counter counter)
+    public async Task UpdateCounterAsync(Counter counter)
     {
         await _container.UpsertItemAsync(
             counter,

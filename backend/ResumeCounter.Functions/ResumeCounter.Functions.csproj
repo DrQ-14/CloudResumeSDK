@@ -8,7 +8,7 @@
     <AzureFunctionsVersion>v4</AzureFunctionsVersion>
 
     <!-- Output type -->
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
 
     <!-- Enable nullable reference types -->
     <Nullable>enable</Nullable>
