@@ -7,7 +7,7 @@ var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(services =>
     {
-        // CosmosClien
+        // CosmosClient
         services.AddSingleton(serviceprovider =>
         {
             var connectionString =
