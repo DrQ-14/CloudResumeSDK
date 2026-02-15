@@ -17,10 +17,7 @@ public class ResumeCounterIntegrationTests
     [Fact]
     public async Task IncrementAsync_ShouldIncrementAndPersistCounter()
     {
-        // -----------------------
         // Arrange
-        // -----------------------
-
         await _fixture.ResetContainerAsync();
 
         // Set environment variables required by your repository
@@ -41,16 +38,10 @@ public class ResumeCounterIntegrationTests
         var repository = new CounterRepository(_fixture.Client);
         var service = new ResumeCounterService(repository);
 
-        // -----------------------
         // Act
-        // -----------------------
-
         var result = await service.IncrementAsync();
 
-        // -----------------------
         // Assert
-        // -----------------------
-
         Assert.Equal(1, result);
 
         var persisted = await _fixture.Container.ReadItemAsync<Counter>(
