@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+#Temp Terraform bootstrap code
+/home/john/GIthub/Cloud Resume SDK/infra/.terraform/providers/registry.terraform.io/hashicorp/azurerm/3.117.1/linux_amd64/terraform-provider-azurerm_v3.117.1_x5
+
 # User-specific files
 *.rsuser
 *.suo
