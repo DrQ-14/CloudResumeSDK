@@ -12,10 +12,6 @@
 *.tfstate.*
 crash.log
 
-#Backup
-CloudResumeSDK-backup/
-
-
 # User-specific files
 *.rsuser
 *.suo
