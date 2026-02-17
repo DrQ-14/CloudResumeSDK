@@ -4,15 +4,6 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
 }
 
-##SERVICE PLAN (Frontend)
-#resource "azurerm_service_plan" "frontend_plan" {
-#  name                = "${local.prefix}-frontend-plan"
-#  location            = var.location
-#  resource_group_name = azurerm_resource_group.rg.name
-#  os_type             = "Linux"
-#  sku_name            = var.frontend_sku
-#}
-
 #STATIC WEB APP (Frontend)
 resource "azurerm_static_web_app" "frontend" {
   name                = local.webapp_name
@@ -22,7 +13,6 @@ resource "azurerm_static_web_app" "frontend" {
 }
 
 #STORAGE ACCOUNT (Function Requirement)
-
 resource "azurerm_storage_account" "function_storage" {
   name                     = local.storage_name
   location                 = azurerm_resource_group.rg.location

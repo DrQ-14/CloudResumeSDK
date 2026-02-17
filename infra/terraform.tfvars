@@ -8,4 +8,4 @@ environment           = "prod" #production environment
 
 #PROJECT IDENTIFIERS
 project_name          = "resume"
-location              = "East US"
+location              = "East US 2"

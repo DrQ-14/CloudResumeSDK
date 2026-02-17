@@ -19,9 +19,3 @@ variable "location" {
   description = "Azure region"
   type        = string
 }
-
-#FRONTEND WEB APP
-variable "frontend_sku" {
-  description = "App Service Plan SKU for the frontend"
-  type        = string
-}
