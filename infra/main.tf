@@ -43,6 +43,8 @@ resource "azurerm_linux_function_app" "backend" {
    storage_account_name       = azurerm_storage_account.function_storage.name
    storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 
+   functions_extension_version = "~4"
+
    site_config {}
 }
 
