@@ -19,6 +19,9 @@ crash.log
 *.userosscache
 *.sln.docstates
 
+#Compiled Code
+*.zip
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 

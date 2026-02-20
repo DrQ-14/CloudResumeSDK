@@ -45,7 +45,11 @@ resource "azurerm_linux_function_app" "backend" {
 
    functions_extension_version = "~4"
 
-   site_config {}
+   site_config {
+    application_stack {
+      dotnet_version = "8.0"
+    }
+   }
 }
 
 #COSMOS DB ACCOUNT
