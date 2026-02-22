@@ -10,6 +10,7 @@
 .terraform/
 *.tfstate
 *.tfstate.*
+*.tfvars
 crash.log
 
 # User-specific files

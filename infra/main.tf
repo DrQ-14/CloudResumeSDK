@@ -43,13 +43,23 @@ resource "azurerm_linux_function_app" "backend" {
    storage_account_name       = azurerm_storage_account.function_storage.name
    storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 
-   functions_extension_version = "~4"
-
    site_config {
     application_stack {
       dotnet_version = "8.0"
+      use_dotnet_isolated_runtime = "true"
     }
    }
+
+   app_settings = {
+    functions_extension_version  = "~4"
+    WEBSITE_RUN_FROM_PACKAGE     = "1"
+
+    AzureWebJobsStorage = var.azure_webjobs_storage
+
+    CosmosDb__ConnectionString = var.cosmosdb_connection_string
+    CosmosDb__Database         = local.cosmos_database_name
+    CosmosDb__Container        = local.cosmos_container_name
+  }
 }
 
 #COSMOS DB ACCOUNT

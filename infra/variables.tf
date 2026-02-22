@@ -19,3 +19,13 @@ variable "location" {
   description = "Azure region"
   type        = string
 }
+
+variable "azure_webjobs_storage" {
+  type      = string
+  sensitive = true
+}
+
+variable "cosmosdb_connection_string" {
+  type      = string
+  sensitive = true
+}
