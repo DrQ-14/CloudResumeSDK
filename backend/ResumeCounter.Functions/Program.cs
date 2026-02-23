@@ -13,8 +13,11 @@ var host = new HostBuilder()
             var connectionString =
                 Environment.GetEnvironmentVariable("CosmosDb__ConnectionString");
 
-            return new CosmosClient(connectionString, new CosmosClientOptions
-            {
+            if (string.IsNullOrEmpty(connectionString))
+                throw new Exception("Cosmos connection string is NULL");
+
+            return new CosmosClient(connectionString); //new CosmosClientOptions
+            /*{
                 HttpClientFactory = () =>
                 {
                     var handler = new HttpClientHandler
@@ -24,7 +27,7 @@ var host = new HostBuilder()
                     };
                     return new HttpClient(handler);
                 }
-            });
+            });*/
         });
 
         // Repository

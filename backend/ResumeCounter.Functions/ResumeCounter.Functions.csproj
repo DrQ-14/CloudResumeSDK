@@ -15,6 +15,9 @@
 
     <!-- Enable implicit using statements -->
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Ensure that the assembly name is consistent with the file name -->
+    <AssemblyName>ResumeCounter.Functions</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>

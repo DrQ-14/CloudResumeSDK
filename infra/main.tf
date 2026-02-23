@@ -51,7 +51,7 @@ resource "azurerm_linux_function_app" "backend" {
    }
 
    app_settings = {
-    functions_extension_version  = "~4"
+    FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
     AzureWebJobsStorage = var.azure_webjobs_storage
