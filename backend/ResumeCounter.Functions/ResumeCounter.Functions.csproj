@@ -18,6 +18,9 @@
 
     <!-- Ensure that the assembly name is consistent with the file name -->
     <AssemblyName>ResumeCounter.Functions</AssemblyName>
+
+    <!-- Guarantee that the function.json is generated during publishing -->
+    <GenerateFunctions>true</GenerateFunctions>
   </PropertyGroup>
 
   <ItemGroup>
