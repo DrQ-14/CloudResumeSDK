@@ -2202,3 +2202,47 @@ a.credit {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
   padding-top: 10px;
 }
+
+/* Visitor Counter */
+.visitor-counter {
+  margin-top: 25px;
+  margin-bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.visitor-box {
+  min-width: 170px;
+  height: 55px;
+  padding: 0 18px;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(8px);
+  border: 2px solid rgba(255, 255, 255, 0.6);
+  border-radius: 50px; /* pill shape */
+  display: flex;
+  flex-direction: row; /* horizontal layout */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+  transition: all 0.3s ease;
+}
+
+.visitor-box:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.4);
+}
+
+.visitor-number {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.visitor-label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  opacity: 0.8;
+}
