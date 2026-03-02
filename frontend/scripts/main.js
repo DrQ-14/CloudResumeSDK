@@ -6,6 +6,22 @@ $(document).ready(function() {
     // uncomment below for on-scroll animations to played only once
     // once: true  
   }); // initialize animate on scroll library
+
+   // --- Visitor Counter Code ---
+  const counterElement = document.getElementById("visitor-counter");
+
+  async function updateVisitorCounter() {
+    try {
+      const res = await fetch("https://resume-dev-function.azurewebsites.net/api/ResumeCounter");
+      const data = await res.json();
+      counterElement.textContent = data.count;
+    } catch (err) {
+      console.error("Failed to update visitor counter:", err);
+    }
+  }
+
+  // Run counter on page load
+  updateVisitorCounter();
 });
 
 // Smooth scroll for links with hashes
