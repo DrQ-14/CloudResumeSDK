@@ -10,12 +10,6 @@ resource "azurerm_static_web_app" "frontend" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   sku_tier = "Free"
-
-  app_settings = {
-    repository_url = var.repo_url
-    repository_branch = "main"
-    repository_token = var.repo_token
-  }
 }
 
 #STORAGE ACCOUNT (Function Requirement)
@@ -57,10 +51,10 @@ resource "azurerm_linux_function_app" "backend" {
    }
 
    app_settings = {
-    FUNCTIONS_EXTENSION_VERSION  = "~4"
-    WEBSITE_RUN_FROM_PACKAGE     = "https://resumedevfuncstor.blob.core.windows.net/function-releases/20260224185334-2eee32e2-ed71-4516-b861-1a8b94776c94.zip?st=2026-02-24T23%3A43%3A37Z&se=2036-02-12T23%3A53%3A37Z&sp=r&sv=2026-02-06&sr=b&sig=9p48IsYJ7sKior4Q406f2l%2B/wNju9vC6DOPxsIL/81I%3D"
+    #FUNCTIONS_EXTENSION_VERSION  = "~4"
+    WEBSITE_RUN_FROM_PACKAGE     = "1"
 
-    AZUREWEBJOBSTORAGE = var.azure_webjobs_storage
+    #AzureWebJobsStorage = var.azure_webjobs_storage
 
     CosmosDb__ConnectionString = var.cosmosdb_connection_string
     CosmosDb__Database         = local.cosmos_database_name
