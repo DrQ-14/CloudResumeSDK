@@ -12,6 +12,7 @@
 *.tfstate.*
 *.tfvars
 crash.log
+.github/workflows/azure-static-web-apps-*.yml
 
 # User-specific files
 *.rsuser
