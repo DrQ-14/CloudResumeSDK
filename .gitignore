@@ -21,9 +21,6 @@ crash.log
 *.userosscache
 *.sln.docstates
 
-#Compiled Code
-*.zip
-
 #Local settings
 **/local.settings.json
 
