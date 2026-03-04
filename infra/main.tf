@@ -48,6 +48,14 @@ resource "azurerm_linux_function_app" "backend" {
       dotnet_version = "8.0"
       use_dotnet_isolated_runtime = true
     }
+
+    cors {
+        allowed_origins     = [
+                  "http://localhost:8000",
+                  "https://black-pebble-032af530f.1.azurestaticapps.net",
+                ]
+        support_credentials = true
+      }
    }
 
    app_settings = {
@@ -59,6 +67,12 @@ resource "azurerm_linux_function_app" "backend" {
     CosmosDb__ConnectionString = var.cosmosdb_connection_string
     CosmosDb__Database         = local.cosmos_database_name
     CosmosDb__Container        = local.cosmos_container_name
+  }
+
+  lifecycle {
+    ignore_changes = [
+      app_settings["WEBSITE_RUN_FROM_PACKAGE"]
+    ]
   }
 }
 
