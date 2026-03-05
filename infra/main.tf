@@ -59,7 +59,7 @@ resource "azurerm_linux_function_app" "backend" {
    site_config {
     application_stack {
       dotnet_version = "8.0"
-      use_dotnet_isolated_runtime = true
+      use_dotnet_isolated_runtime = true  
     }
 
     cors {
@@ -73,21 +73,15 @@ resource "azurerm_linux_function_app" "backend" {
    }
 
    app_settings = {
-    #FUNCTIONS_EXTENSION_VERSION  = "~4"
+    FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
-    #AzureWebJobsStorage = var.azure_webjobs_storage
+    AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
 
     CosmosDb__ConnectionString = var.cosmosdb_connection_string
     CosmosDb__Database         = local.cosmos_database_name
     CosmosDb__Container        = local.cosmos_container_name
   }
-
-  #lifecycle {
-  #  ignore_changes = [
-  #    app_settings["WEBSITE_RUN_FROM_PACKAGE"]
-  #  ]
-  #}
 }
 
 #COSMOS DB ACCOUNT
