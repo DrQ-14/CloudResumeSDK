@@ -53,7 +53,7 @@ resource "azurerm_linux_function_app" "backend" {
         allowed_origins     = [
                   "http://localhost:8000",
                   "https://black-pebble-032af530f.1.azurestaticapps.net",
-                  "tanager-solutions.com",
+                  "https://tanager-solutions.com",
                 ]
         support_credentials = true
       }
