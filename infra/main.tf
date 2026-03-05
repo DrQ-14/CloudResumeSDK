@@ -83,11 +83,11 @@ resource "azurerm_linux_function_app" "backend" {
     CosmosDb__Container        = local.cosmos_container_name
   }
 
-  lifecycle {
-    ignore_changes = [
-      app_settings["WEBSITE_RUN_FROM_PACKAGE"]
-    ]
-  }
+  #lifecycle {
+  #  ignore_changes = [
+  #    app_settings["WEBSITE_RUN_FROM_PACKAGE"]
+  #  ]
+  #}
 }
 
 #COSMOS DB ACCOUNT
