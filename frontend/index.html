@@ -5,7 +5,7 @@
   <meta name="description" content="Cloud Engineer portfolio showcasing Azure serverless architecture, 
     Terraform Infrastructure as Code, CosmosDB integration, and automated testing using xUnit and Moq.">
   <meta name="author" content="Spencer Kolwaite">
-  <meta property="og:title" content="Spencer Kolwaite | Cloud Engineer">
+  <meta property="og:title" content="Portfolio | Principle Cloud Engineer">
   <meta property="og:description" content="Azure Serverless | Terraform IaC | Automated Testing | CosmosDB">
   <meta property="og:type" content="website">
   <title>Spencer Kolwaite | Cloud Engineer</title>
@@ -72,7 +72,7 @@
                 <i class="fa fa-linkedin fa-2x"></i>
               </a>
 
-              
+
               <!-- Visitor Counter -->
               <div class="visitor-counter" data-aos="zoom-in" data-aos-delay="300">
                 <div class="visitor-box">
@@ -90,14 +90,18 @@
     <div class="section" id="about">
       <div class="container">
         <div class="card" data-aos="fade-up" data-aos-offset="10">
-          <div class="row">
-            <div class="col-lg-6 col-md-12">
+          <div class="row justify-content-center">
+            <div class="col-lg-10 col-md-12">
               <div class="card-body">
                 <div class="h4 mt-0 title">About</div>
-                <p>
-                  Cloud Engineer specializing in Azure serverless architecture,
-                  Infrastructure as Code, and automated testing.
-                </p>
+                <ul>
+                  <li>Cloud Engineer specializing in Azure serverless architecture, Infrastructure as Code, and CI/CD
+                    automation.</li>
+                  <li>Experienced in building production-ready applications using Azure Functions, Cosmos DB, and
+                    Terraform.</li>
+                  <li>Proficient in automated testing strategies including unit, integration, and smoke testing.</li>
+                  <li>Focused on reliable deployments, secure edge delivery, and scalable cloud-native design.</li>
+                </ul>
               </div>
             </div>
           </div>
@@ -113,26 +117,32 @@
               <div class="col-md-4">
                 <h5>Cloud</h5>
                 <p>
-                  Azure Functions<br>
-                  CosmosDB<br>
-                  Storage Accounts
+                  Azure Functions (Serverless API)<br>
+                  Azure Cosmos DB<br>
+                  Azure Storage<br>
+                  Static Web Hosting
                 </p>
               </div>
+
               <div class="col-md-4">
-                <h5>Infrastructure</h5>
+                <h5>Infrastructure & DevOps</h5>
                 <p>
-                  Terraform<br>
-                  Docker<br>
-                  Cloudflare DNS
+                  Terraform (Infrastructure as Code)<br>
+                  GitHub Actions (CI/CD)<br>
+                  YAML Deployment Pipelines<br>
+                  Docker (CosmosDB Emulator)<br>
+                  Cloudflare (DNS & Security)
                 </p>
               </div>
+
               <div class="col-md-4">
                 <h5>Testing</h5>
                 <p>
                   xUnit<br>
-                  Moq<br>
+                  Moq (Unit Testing)<br>
                   Integration Testing<br>
-                  Smoke Testing
+                  Smoke Testing<br>
+                  CosmosDB Emulator
                 </p>
               </div>
             </div>
@@ -156,10 +166,9 @@
           <div class="col-md-6 ml-auto mr-auto">
             <div class="h4 text-center mb-4 title">Cloud Resume Project</div>
             <div class="nav-align-center">
-
               <ul class="nav nav-pills nav-pills-primary" role="tablist">
                 <li class="nav-item">
-                  <a class="nav-link active" data-toggle="tab" href="#web-development" role="tablist">
+                  <a class="nav-link active" data-toggle="tab" href="#cloud-development" role="tablist">
                     <i class="fa fa-laptop" aria-hidden="true"></i>
                   </a>
                 </li>
@@ -171,14 +180,18 @@
           <div class="card-body">
             <div class="h5">Production-Ready Azure Serverless Application</div>
             <p>
-              Designed and deployed a serverless resume application using Azure Functions
-              and CosmosDB. Infrastructure provisioned and managed using Terraform.
+              Designed and deployed a serverless cloud resume application using an Azure Functions API
+              with Cosmos DB for persistent storage and a static web frontend. Infrastructure is fully
+              provisioned using Terraform and deployments are automated through GitHub Actions CI/CD pipelines.
             </p>
             <ul>
-              <li>Unit tested with xUnit and Moq</li>
-              <li>Integration tested using CosmosDB Emulator (Docker)</li>
-              <li>Smoke tests for endpoint validation</li>
-              <li>Secure HTTPS delivery via Cloudflare</li>
+              <li>Backend API built with Azure Functions and integrated with Cosmos DB</li>
+              <li>Infrastructure provisioned using Terraform (Infrastructure as Code)</li>
+              <li>Automated CI/CD deployments via GitHub Actions using YAML pipelines</li>
+              <li>Unit testing with xUnit and Moq</li>
+              <li>Integration testing using Cosmos DB Emulator (Docker)</li>
+              <li>Smoke tests to validate production API endpoints</li>
+              <li>Frontend protected and delivered securely through Cloudflare</li>
             </ul>
             <a href="https://github.com/DrQ-14/CloudResumeSDK" target="_blank" class="btn btn-primary">
               View Source Code
@@ -190,13 +203,15 @@
     <div class="section" id="experience">
       <div class="container cc-experience">
         <div class="h4 text-center mb-4 title">Engineering Practices</div>
+
         <div class="card" data-aos="fade-up" data-aos-delay="100">
           <div class="card-body">
             <div class="h5">Testing Strategy</div>
             <ul>
-              <li>Unit tests with dependency mocking using Moq</li>
-              <li>Integration testing using Dockerized CosmosDB Emulator</li>
-              <li>Smoke tests validating deployed API endpoints</li>
+              <li>Unit testing with xUnit using dependency mocking via Moq</li>
+              <li>Integration testing using Dockerized Cosmos DB Emulator</li>
+              <li>Smoke tests validating deployed Azure Function API endpoints</li>
+              <li>Local development parity with production database behavior</li>
             </ul>
           </div>
         </div>
@@ -205,10 +220,33 @@
           <div class="card-body">
             <div class="h5">Infrastructure as Code</div>
             <ul>
-              <li>Terraform-managed Azure resources</li>
-              <li>CosmosDB Account provisioning</li>
-              <li>Azure Function App configuration</li>
-              <li>Environment variable and deployment configuration</li>
+              <li>Terraform-managed Azure infrastructure</li>
+              <li>Provisioning of Cosmos DB, Storage Accounts, and Function App</li>
+              <li>Environment configuration and resource dependencies defined in code</li>
+              <li>Repeatable infrastructure deployments across environments</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="300">
+          <div class="card-body">
+            <div class="h5">CI/CD Automation</div>
+            <ul>
+              <li>GitHub Actions workflows triggered on repository changes</li>
+              <li>YAML-based pipelines for automated build and deployment</li>
+              <li>Zip deployment of Azure Function backend</li>
+              <li>Automated frontend deployment for static website hosting</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="card" data-aos="fade-up" data-aos-delay="400">
+          <div class="card-body">
+            <div class="h5">Security & Edge Delivery</div>
+            <ul>
+              <li>Cloudflare DNS and HTTPS protection for frontend delivery</li>
+              <li>Secure routing between frontend and Azure Function API</li>
+              <li>Separation of infrastructure, application code, and deployment workflows</li>
             </ul>
           </div>
         </div>
@@ -277,7 +315,8 @@
               <div class="card-body">
                 <div class="h5">B.S. Software Engineering</div>
                 <p class="category">Southern Polytechnic University</p>
-                <p>Foundation in distributed systems, systems design, and scalable application architecture, applied to production-grade cloud-native solutions.</p>
+                <p>Foundation in distributed systems, systems design, and scalable application architecture, applied to
+                  production-grade cloud-native solutions.</p>
               </div>
             </div>
           </div>

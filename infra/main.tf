@@ -12,6 +12,19 @@ resource "azurerm_static_web_app" "frontend" {
   sku_tier = "Free"
 }
 
+#CUSTOM DOMAINS
+resource "azurerm_static_web_app_custom_domain" "root" {
+  static_web_app_id = azurerm_static_web_app.frontend.id
+  domain_name       = "tanager-solutions.com"
+  validation_type   = "dns-txt-token"
+}
+
+resource "azurerm_static_web_app_custom_domain" "www" {
+  static_web_app_id = azurerm_static_web_app.frontend.id
+  domain_name       = "www.tanager-solutions.com"
+  validation_type   = "cname-delegation"
+}
+
 #STORAGE ACCOUNT (Function Requirement)
 resource "azurerm_storage_account" "function_storage" {
   name                     = local.storage_name
