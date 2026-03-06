@@ -1373,6 +1373,7 @@ img {
     text-align: center;
     position: relative; }
     .page-header .container > .content-center {
+      margin-top: 1.2em;
       position: absolute;
       top: 50%;
       left: 50%;
