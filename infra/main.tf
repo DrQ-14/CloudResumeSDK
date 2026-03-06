@@ -67,6 +67,7 @@ resource "azurerm_linux_function_app" "backend" {
                   "http://localhost:8000",
                   "https://black-pebble-032af530f.1.azurestaticapps.net",
                   "https://tanager-solutions.com",
+                  "https://www.tanager-solutions.com",
                 ]
         support_credentials = true
       }
