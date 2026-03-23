@@ -1,5 +1,4 @@
-# Cloud Resume Challenge
-
+# Personal Cloud Platform
 This project implements the Cloud Resume Challenge using Azure services.
 It demonstrates cloud architecture, infrastructure as code, serverless
 development, and CI/CD practices.
