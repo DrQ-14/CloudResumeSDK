@@ -32,14 +32,9 @@ variable "cosmosdb_connection_string" {
   sensitive = true
 }
 
-variable "repo_url" {
-  description = "Repo URL"
-  type      = string
+variable "client_id" {}
+variable "client_secret" {
   sensitive = true
 }
-
-variable "repo_token" {
-  description = "Repo Personal Access Token"
-  type = string
-  sensitive = true
-}
+variable "tenant_id" {}
+variable "subscription_id" {}

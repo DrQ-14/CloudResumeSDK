@@ -56,6 +56,10 @@ resource "azurerm_linux_function_app" "backend" {
    storage_account_name       = azurerm_storage_account.function_storage.name
    storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 
+  identity {
+    type = "SystemAssigned"
+  }
+
    site_config {
     application_stack {
       dotnet_version = "8.0"
@@ -78,7 +82,7 @@ resource "azurerm_linux_function_app" "backend" {
 
     AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
 
-    CosmosDb__ConnectionString = var.cosmosdb_connection_string
+    CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
     CosmosDb__Database         = local.cosmos_database_name
     CosmosDb__Container        = local.cosmos_container_name
   }
@@ -118,4 +122,16 @@ resource "azurerm_cosmosdb_sql_container" "container" {
   database_name       = azurerm_cosmosdb_sql_database.db.name
 
   partition_key_paths = ["/id"]
+}
+
+resource "azurerm_role_assignment" "function_storage_access" {
+  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
+  role_definition_name = "Storage Blob Data Contributor"
+  scope                = azurerm_storage_account.function_storage.id
+}
+
+resource "azurerm_role_assignment" "function_cosmos_access" {
+  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
+  role_definition_name = "Cosmos DB Built-in Data Contributor"
+  scope                = azurerm_cosmosdb_account.cosmos.id
 }
