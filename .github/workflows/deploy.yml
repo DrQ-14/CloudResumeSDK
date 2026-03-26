@@ -6,7 +6,39 @@ on:
       - main
 
 jobs:
+  terraform:
+    name: "Terraform Infrastructure"
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: ./infra
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan
+        run: terraform plan
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        if: github.ref == 'refs/heads/main'
   deploy_frontend:
+    needs: terraform
     runs-on: ubuntu-latest
 
     steps:
@@ -21,6 +53,7 @@ jobs:
           output_location: "frontend"
 
   deploy_function:
+    needs: terraform
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
