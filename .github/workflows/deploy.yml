@@ -34,7 +34,13 @@ jobs:
       - name: Terraform Plan
         run: TF_LOG=INFO terraform plan -input=false
         env:
-           TF_VAR_cosmosdb_connection_string: ${{ secrets.COSMOS_CONNECTION_STRING }}
+          TF_VAR_project_name: ${{ secrets.PROJECT_NAME }}
+          TF_VAR_subscription_id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          TF_VAR_environment: ${{ secrets.ENVIRONMENT }}
+          TF_VAR_location: ${{ secrets.LOCATION }}
+          TF_VAR_repo_url: ${{ secrets.REPO_URL }}
+          TF_VAR_repo_token: ${{ secrets.REPO_TOKEN }}
+          TF_VAR_cosmosdb_connection_string: ${{ secrets.COSMOS_CONNECTION_STRING }}
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
