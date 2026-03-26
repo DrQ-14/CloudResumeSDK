@@ -32,7 +32,9 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: TF_LOG=INFO terraform plan
+        run: TF_LOG=INFO terraform plan -input=false
+        env:
+           TF_VAR_cosmosdb_connection_string: ${{ secrets.COSMOS_CONNECTION_STRING }}
 
       - name: Terraform Apply
         run: terraform apply -auto-approve
