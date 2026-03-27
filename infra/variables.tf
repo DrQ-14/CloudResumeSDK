@@ -31,9 +31,3 @@ variable "cosmosdb_connection_string" {
   type      = string
   sensitive = true
 }
-
-variable "client_id" {}
-variable "client_secret" {
-  sensitive = true
-}
-variable "tenant_id" {}
