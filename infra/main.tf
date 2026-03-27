@@ -124,14 +124,26 @@ resource "azurerm_cosmosdb_sql_container" "container" {
   partition_key_paths = ["/id"]
 }
 
+#Function Storage Role Assignment
 resource "azurerm_role_assignment" "function_storage_access" {
-  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
+  principal_id         = data.azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Storage Blob Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
 
+#CosmosDB Role Assignment
 resource "azurerm_role_assignment" "function_cosmos_access" {
-  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
+  principal_id         = data.azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Cosmos DB Built-in Data Contributor"
   scope                = azurerm_cosmosdb_account.cosmos.id
+}
+
+#Function App Data Reference
+data "azurerm_linux_function_app" "backend" {
+  name                = azurerm_linux_function_app.backend.name
+  resource_group_name = azurerm_resource_group.rg.name
+
+  depends_on = [
+    azurerm_linux_function_app.backend
+  ]
 }
