@@ -132,10 +132,15 @@ resource "azurerm_role_assignment" "function_storage_access" {
 }
 
 #CosmosDB Role Assignment
-resource "azurerm_role_assignment" "function_cosmos_access" {
-  principal_id         = data.azurerm_linux_function_app.backend.identity[0].principal_id
-  role_definition_name = "Cosmos DB Built-in Data Contributor"
-  scope                = azurerm_cosmosdb_account.cosmos.id
+resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+
+  role_definition_id = "${azurerm_cosmosdb_account.cosmos.id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
+
+  principal_id = data.azurerm_linux_function_app.backend.identity[0].principal_id
+
+  scope = azurerm_cosmosdb_account.cosmos.id
 }
 
 #Function App Data Reference
