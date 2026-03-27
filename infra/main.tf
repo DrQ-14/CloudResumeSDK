@@ -61,6 +61,8 @@ resource "azurerm_linux_function_app" "backend" {
   }
 
    site_config {
+    basic_authentication_enabled = true
+    
     application_stack {
       dotnet_version = "8.0"
       use_dotnet_isolated_runtime = true  
