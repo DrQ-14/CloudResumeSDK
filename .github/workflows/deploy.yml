@@ -75,6 +75,14 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
+      - name: Build Function App
+        run: |
+          dotnet restore backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj
+      
+          dotnet publish backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj \
+            -c Release \
+            -o backend/ResumeCounter.Functions/publish
+
       - name: Create deployment package
         run: |
           cd backend/ResumeCounter.Functions/publish
