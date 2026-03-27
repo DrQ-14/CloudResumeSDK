@@ -65,7 +65,7 @@ jobs:
           output_location: "frontend"
 
   deploy_function:
-    needs: terraform
+    
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -75,30 +75,43 @@ jobs:
         with:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-      - name: Build Function App
-        run: |
-          dotnet restore backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj
-      
-          dotnet publish backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj \
-            -c Release \
-            -o backend/ResumeCounter.Functions/publish
+  build-and-deploy:
+    needs: terraform
+    runs-on: ubuntu-latest
 
-      - name: Create deployment package
-        run: |
-          cd backend/ResumeCounter.Functions/publish
-          zip -r ../../../function.zip .
+    env:
+      AZURE_FUNCTIONAPP_NAME: 'FunctionCounter'
+      AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
+      DOTNET_VERSION: '8.0.x'
 
-      - name: Inspect ZIP
-        run: unzip -l function.zip
 
-      - name: Deploy ZIP to Azure Function
-        run: |
-          az functionapp deployment source config-zip \
-            --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }} \
-            --name ${{ secrets.AZURE_FUNCTIONAPP_NAME }} \
-             --src function.zip
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v3
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v3
+      with:
+        dotnet-version: ${{ env.DOTNET_VERSION }}
+
+    - name: Restore dependencies
+      run: |
+        dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj
+
+    - name: Publish Function App
+      run: |
+        dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
+          -c Release \
+          -o publish_output
+
+    - name: Deploy to Azure Functions
+      uses: Azure/functions-action@v1
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: './publish_output'
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
     
 
-      - name: Debug
-        run: | 
-          az functionapp show --name ${{ secrets.AZURE_FUNCTIONAPP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
+    - name: Debug
+      run: | 
+        az functionapp show --name ${{ secrets.AZURE_FUNCTIONAPP_NAME }} --resource-group ${{ secrets.AZURE_RESOURCE_GROUP }}
