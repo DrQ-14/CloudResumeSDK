@@ -4,10 +4,10 @@ variable "project_name" {
   type        = string
 }
 
-variable "subscription_id" {
-  description = "Azure Subscription ID for this deployment"
-  type        = string
-}
+#variable "subscription_id" {
+#  description = "Azure Subscription ID for this deployment"
+#  type        = string
+#}
 
 
 variable "environment" {
@@ -26,8 +26,8 @@ variable "location" {
   #sensitive = true
 #}
 
-variable "cosmosdb_connection_string" {
-  description = "Cosmos connection string"
-  type      = string
-  sensitive = true
-}
+#variable "cosmosdb_connection_string" {
+#  description = "Cosmos connection string"
+#  type      = string
+#  sensitive = true
+#}
