@@ -37,4 +37,3 @@ variable "client_secret" {
   sensitive = true
 }
 variable "tenant_id" {}
-variable "subscription_id" {}
