@@ -127,21 +127,21 @@ resource "azurerm_cosmosdb_sql_container" "container" {
   partition_key_paths = ["/id"]
 }
 
-#Function Storage Role Assignment
+#FUNCTION STORAGE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_storage_access" {
   principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Storage Blob Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
 
-#Function Queue Role Assignment
+#FUNCTION QUEUE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_queue_access" {
   principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Storage Queue Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
 
-#CosmosDB Role Assignment
+#COSMOSDB ROLE ASSIGNMENT
 resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   resource_group_name = azurerm_resource_group.rg.name
   account_name        = azurerm_cosmosdb_account.cosmos.name
@@ -153,7 +153,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   scope = azurerm_cosmosdb_account.cosmos.id
 }
 
-#Function App Data Reference
+#FUNCTION APP DATA REFERENCE
 data "azurerm_linux_function_app" "backend" {
   name                = azurerm_linux_function_app.backend.name
   resource_group_name = azurerm_resource_group.rg.name
@@ -163,10 +163,20 @@ data "azurerm_linux_function_app" "backend" {
   ]
 }
 
+# AZURE APP REGISTRATION (GitHub OIDC identity)
+resource "azuread_application" "github" {
+  display_name = "terraform-github-actions"
+}
+
+#SERVICE PRINCIPAL
+resource "azuread_service_principal" "github" {
+  client_id = azuread_application.github.client_id
+}
+
 resource "azuread_application_federated_identity_credential" "github" {
-  application_object_id = azuread_application.app.object_id
+  application_object_id = azuread_application.github.object_id
   display_name          = "github-main"
-  description           = "GitHub Actions OIDC"
+  description           = "GitHub Actions OIDC for main branch"
 
   audiences = ["api://AzureADTokenExchange"]
 
