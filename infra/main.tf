@@ -54,7 +54,7 @@ resource "azurerm_linux_function_app" "backend" {
    service_plan_id            = azurerm_service_plan.serverless_plan.id
 
    storage_account_name       = azurerm_storage_account.function_storage.name
-   storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
+   #storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 
   identity {
     type = "SystemAssigned"
@@ -80,7 +80,7 @@ resource "azurerm_linux_function_app" "backend" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
-    AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
+    #AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
 
     CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
     CosmosDb__Database         = local.cosmos_database_name
@@ -99,6 +99,10 @@ resource "azurerm_cosmosdb_account" "cosmos" {
 
   consistency_policy {
     consistency_level = "Session"
+  }
+
+  capabilities {
+    name = "EnableRoleBasedAccessControl"
   }
 
   geo_location {
