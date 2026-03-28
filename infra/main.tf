@@ -171,5 +171,5 @@ resource "azuread_application_federated_identity_credential" "github" {
   audiences = ["api://AzureADTokenExchange"]
 
   issuer  = "https://token.actions.githubusercontent.com"
-  subject = "repo:<org>/<repo>:ref:refs/heads/main"
+  subject = "repo:DrQ-14/CloudResumeSDK:ref:refs/heads/main"
 }
