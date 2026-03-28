@@ -82,6 +82,8 @@ resource "azurerm_linux_function_app" "backend" {
 
     AzureWebJobsStorage__accountName = azurerm_storage_account.function_storage.name
     AzureWebJobsStorage__credential = "managedidentity"
+    AzureWebJobsStorage__blobServiceUri  = "https://${azurerm_storage_account.function_storage.name}.blob.core.windows.net"
+    AzureWebJobsStorage__queueServiceUri = "https://${azurerm_storage_account.function_storage.name}.queue.core.windows.net"
 
     CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
     CosmosDb__Database         = local.cosmos_database_name
@@ -134,7 +136,7 @@ resource "azurerm_role_assignment" "function_storage_access" {
 
 #Function Queue Role Assignment
 resource "azurerm_role_assignment" "function_queue_access" {
-  principal_id         = data.azurerm_linux_function_app.backend.identity[0].principal_id
+  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Storage Queue Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
