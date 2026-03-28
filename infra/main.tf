@@ -80,7 +80,8 @@ resource "azurerm_linux_function_app" "backend" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
-    AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
+    AzureWebJobsStorage__accountName = azurerm_storage_account.function_storage.name
+    AzureWebJobsStorage__credential = "managedidentity"
 
     CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
     CosmosDb__Database         = local.cosmos_database_name
@@ -126,8 +127,15 @@ resource "azurerm_cosmosdb_sql_container" "container" {
 
 #Function Storage Role Assignment
 resource "azurerm_role_assignment" "function_storage_access" {
-  principal_id         = data.azurerm_linux_function_app.backend.identity[0].principal_id
+  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Storage Blob Data Contributor"
+  scope                = azurerm_storage_account.function_storage.id
+}
+
+#Function Queue Role Assignment
+resource "azurerm_role_assignment" "function_queue_access" {
+  principal_id         = data.azurerm_linux_function_app.backend.identity[0].principal_id
+  role_definition_name = "Storage Queue Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
 
