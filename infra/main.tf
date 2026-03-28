@@ -80,7 +80,7 @@ resource "azurerm_linux_function_app" "backend" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
-    #AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
+    AzureWebJobsStorage = azurerm_storage_account.function_storage.primary_connection_string
 
     CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
     CosmosDb__Database         = local.cosmos_database_name
@@ -99,10 +99,6 @@ resource "azurerm_cosmosdb_account" "cosmos" {
 
   consistency_policy {
     consistency_level = "Session"
-  }
-
-  capabilities {
-    name = "EnableRoleBasedAccessControl"
   }
 
   geo_location {
@@ -142,7 +138,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
 
   role_definition_id = "${azurerm_cosmosdb_account.cosmos.id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
 
-  principal_id = data.azurerm_linux_function_app.backend.identity[0].principal_id
+  principal_id = azurerm_linux_function_app.backend.identity[0].principal_id
 
   scope = azurerm_cosmosdb_account.cosmos.id
 }
