@@ -162,3 +162,14 @@ data "azurerm_linux_function_app" "backend" {
     azurerm_linux_function_app.backend
   ]
 }
+
+resource "azuread_application_federated_identity_credential" "github" {
+  application_object_id = azuread_application.app.object_id
+  display_name          = "github-main"
+  description           = "GitHub Actions OIDC"
+
+  audiences = ["api://AzureADTokenExchange"]
+
+  issuer  = "https://token.actions.githubusercontent.com"
+  subject = "repo:<org>/<repo>:ref:refs/heads/main"
+}
