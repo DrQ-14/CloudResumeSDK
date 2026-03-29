@@ -174,7 +174,7 @@ resource "azuread_service_principal" "github" {
 }
 
 resource "azuread_application_federated_identity_credential" "github" {
-  application_object_id = azuread_application.github.object_id
+  application_id = azuread_application.github.id
   display_name          = "github-main"
   description           = "GitHub Actions OIDC for main branch"
 
