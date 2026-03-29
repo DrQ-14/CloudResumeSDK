@@ -8,6 +8,11 @@ output "function_app_url" {
   value       = azurerm_linux_function_app.backend.default_hostname
 }
 
+output "function_app_name" {
+  description = "Function app name"
+  value = azurerm_linux_function_app.backend.name
+}
+
 output "resource_group_name" {
     description = "Internal resource group"
     value       = azurerm_resource_group.rg.name

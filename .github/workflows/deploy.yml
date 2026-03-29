@@ -10,6 +10,10 @@ jobs:
     name: "Terraform Infrastructure"
     runs-on: ubuntu-latest
     
+    outputs:
+      function_app_name: ${{ steps.tf_outputs.outputs.function_app_name }}
+      resource_group_name: ${{ steps.tf_outputs.outputs.resource_group_name }}
+
     permissions:
       id-token: write
       contents: read
@@ -49,6 +53,12 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main'
+    
+      - name: Get Terraform Outputs
+        id: tf_outputs
+        run: |
+          echo "function_app_name=$(terraform output -raw function_app_name)" >> $GITHUB_OUTPUT
+          echo "resource_group_name=$(terraform output -raw resource_group_name)" >> $GITHUB_OUTPUT
         
   deploy_frontend:
     needs: terraform
@@ -74,7 +84,8 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: 'resume-dev-function'
+      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.function_app_name }}
+      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.resource_group_name }}
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
@@ -113,8 +124,15 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-    - name: Deploy to Azure Functions
-      uses: Azure/functions-action@v1
-      with:
-        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-        package: './publish_output'
+    - name: Zip Function App
+      run: |
+        cd publish_output
+        zip -r ../functionapp.zip .
+
+  
+    - name: Deploy via Azure CLI
+      run: |
+        az functionapp deployment source config-zip \
+          --name $AZURE_FUNCTIONAPP_NAME \
+          --resource-group $AZURE_RESOURCE_GROUP \
+          --src functionapp.zip
