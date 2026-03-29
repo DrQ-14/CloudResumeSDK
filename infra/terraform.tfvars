@@ -1,5 +1,5 @@
 #PROVIDER/ENVIRONMENT IDENTIFIERS
-environment           = "prod" #production environment
+environment           = "dev" #production environment
 
 
 #PROJECT IDENTIFIERS
