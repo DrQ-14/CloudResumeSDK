@@ -17,3 +17,7 @@ output "cosmos_account_endpoint" {
   description = "Cosmos DB endpoint"
   value       = azurerm_cosmosdb_account.cosmos.endpoint
 }
+
+output "azure_client_id" {
+  value = azuread_application.github.client_id
+}
