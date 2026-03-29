@@ -74,7 +74,7 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: 'FunctionCounter'
+      AZURE_FUNCTIONAPP_NAME: 'resume-dev-function'
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
