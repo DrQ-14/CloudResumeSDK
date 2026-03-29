@@ -14,9 +14,12 @@ resource "azurerm_static_web_app" "frontend" {
 
 #CUSTOM DOMAINS
 resource "azurerm_static_web_app_custom_domain" "root" {
+  for_each = toset(var.custom_domains)
+
   static_web_app_id = azurerm_static_web_app.frontend.id
-  domain_name       = "tanager-solutions.com"
-  validation_type   = "dns-txt-token"
+  domain_name        = each.value
+
+  validation_type = "dns-txt-token"
 }
 
 resource "azurerm_static_web_app_custom_domain" "www" {
@@ -54,7 +57,6 @@ resource "azurerm_linux_function_app" "backend" {
    service_plan_id            = azurerm_service_plan.serverless_plan.id
 
    storage_account_name       = azurerm_storage_account.function_storage.name
-   #storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 
   identity {
     type = "SystemAssigned"
@@ -67,14 +69,10 @@ resource "azurerm_linux_function_app" "backend" {
     }
 
     cors {
-        allowed_origins     = [
-                  "http://localhost:8000",
-                  "https://black-pebble-032af530f.1.azurestaticapps.net",
-                  "https://www.tanager-solutions.com",
-                ]
-        support_credentials = true
-      }
-   }
+      allowed_origins     = var.cors_origins
+      support_credentials = true
+    }
+  }
 
    app_settings = {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
@@ -82,12 +80,13 @@ resource "azurerm_linux_function_app" "backend" {
 
     AzureWebJobsStorage__accountName = azurerm_storage_account.function_storage.name
     AzureWebJobsStorage__credential = "managedidentity"
+    
     AzureWebJobsStorage__blobServiceUri  = "https://${azurerm_storage_account.function_storage.name}.blob.core.windows.net"
     AzureWebJobsStorage__queueServiceUri = "https://${azurerm_storage_account.function_storage.name}.queue.core.windows.net"
 
     CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
-    CosmosDb__Database         = local.cosmos_database_name
-    CosmosDb__Container        = local.cosmos_container_name
+    CosmosDb__Database  = azurerm_cosmosdb_sql_database.db.name
+    CosmosDb__Container = azurerm_cosmosdb_sql_container.container.name
   }
 }
 

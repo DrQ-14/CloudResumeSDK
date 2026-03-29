@@ -19,3 +19,13 @@ variable "location" {
   description = "Azure region"
   type        = string
 }
+
+variable "custom_domains" {
+  type        = list(string)
+  description = "List of custom domains for the static web app"
+}
+
+variable "cors_origins" {
+  type        = list(string)
+  description = "Allowed CORS origins for the function app"
+}

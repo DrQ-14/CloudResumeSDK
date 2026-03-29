@@ -10,7 +10,7 @@
 .terraform/
 *.tfstate
 *.tfstate.*
-*.tfvars
+
 crash.log
 .github/workflows/azure-static-web-apps-*.yml
 
