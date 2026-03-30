@@ -59,9 +59,8 @@ jobs:
         if: github.ref == 'refs/heads/main'
         working-directory: ./infra
         run: |
-          FUNCTION_APP_NAME=$(terraform output -raw function_app_name | tr -d '"')
-          RESOURCE_GROUP=$(terraform output -raw resource_group_name | tr -d '"')
-      
+          FUNCTION_APP_NAME=$(terraform output -raw function_app_name | tr -d '\r\n[:space:]')
+          RESOURCE_GROUP=$(terraform output -raw resource_group_name | tr -d '\r\n[:space:]')
           echo "function_app_name=$FUNCTION_APP_NAME" >> $GITHUB_OUTPUT
           echo "resource_group_name=$RESOURCE_GROUP" >> $GITHUB_OUTPUT
       
@@ -72,6 +71,9 @@ jobs:
           terraform output function_app_name
           echo "TF resource_group_name:"
           terraform output resource_group_name
+
+          echo "RAW function_app_name='$(terraform output -raw function_app_name | cat -A)'"
+          echo "RAW resource_group_name='$(terraform output -raw resource_group_name | cat -A)'"
         
   deploy_frontend:
     needs: terraform
