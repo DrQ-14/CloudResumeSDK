@@ -116,6 +116,9 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
+    - name: Set package name
+      run: echo "PACKAGE_NAME=functionapp-${{ github.sha }}.zip" >> $GITHUB_ENV
+
     - name: Zip Function App
       run: |
         cd publish_output
@@ -127,7 +130,7 @@ jobs:
           --auth-mode login \
           --account-name $STORAGE \
           --container-name function-releases \
-          --name functionapp-${GITHUB_SHA}.zip \
+          --name $PACKAGE_NAME \
           --file functionapp.zip
     
     - name: Generate SAS + deploy
@@ -138,7 +141,7 @@ jobs:
           --name functionapp.zip \
           --permissions r \
           --expiry 2027-01-01T00:00Z \
-          --auth-mode key \
+          --auth-mode login \
           --output tsv)
     
         URL="https://${STORAGE}.blob.core.windows.net/function-releases/functionapp.zip?$SAS"
