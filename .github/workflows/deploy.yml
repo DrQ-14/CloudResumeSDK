@@ -9,10 +9,6 @@ jobs:
   terraform:
     name: "Terraform Infrastructure"
     runs-on: ubuntu-latest
-    
-    outputs:
-      function_app_name: ${{ steps.tf_outputs.outputs.function_app_name }}
-      resource_group_name: ${{ steps.tf_outputs.outputs.resource_group_name }}
 
     permissions:
       id-token: write
@@ -74,6 +70,11 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 
+    env:
+      RG: resume-dev-rg
+      FUNCTION: resume-dev-function
+      STORAGE: resumedevfuncstor
+
     permissions:
       id-token: write
       contents: read
@@ -124,9 +125,29 @@ jobs:
         cd publish_output
         zip -r ../functionapp.zip .
   
-    - name: Deploy via Azure CLI
+    - name: Upload package to blob
       run: |
-        az functionapp deployment source config-zip \
-          --name $AZURE_FUNCTIONAPP_NAME \
-          --resource-group $AZURE_RESOURCE_GROUP \
-          --src functionapp.zip
+        az storage blob upload \
+          --auth-mode login \
+          --account-name $STORAGE \
+          --container-name function-releases \
+          --name functionapp.zip \
+          --file functionapp.zip
+    
+    - name: Generate SAS + deploy
+      run: |
+        SAS=$(az storage blob generate-sas \
+          --auth-mode login \
+          --account-name $STORAGE \
+          --container-name function-releases \
+          --name functionapp.zip \
+          --permissions r \
+          --expiry 2027-01-01T00:00Z \
+          --output tsv)
+    
+        URL="https://${STORAGE}.blob.core.windows.net/function-releases/functionapp.zip?$SAS"
+    
+        az functionapp config appsettings set \
+          --name $FUNCTION \
+          --resource-group $RG \
+          --settings WEBSITE_RUN_FROM_PACKAGE="$URL"

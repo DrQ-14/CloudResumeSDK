@@ -153,14 +153,14 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
 }
 
 #FUNCTION APP DATA REFERENCE
-data "azurerm_linux_function_app" "backend" {
-  name                = azurerm_linux_function_app.backend.name
-  resource_group_name = azurerm_resource_group.rg.name
-
-  depends_on = [
-    azurerm_linux_function_app.backend
-  ]
-}
+#data "azurerm_linux_function_app" "backend" {
+#  name                = azurerm_linux_function_app.backend.name
+#  resource_group_name = azurerm_resource_group.rg.name
+#
+#  depends_on = [
+#    azurerm_linux_function_app.backend
+#  ]
+#}
 
 # AZURE APP REGISTRATION (GitHub OIDC identity)
 resource "azuread_application" "github" {

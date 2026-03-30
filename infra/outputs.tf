@@ -10,7 +10,12 @@ output "function_app_url" {
 
 output "function_app_name" {
   description = "Function app name"
-  value = azurerm_linux_function_app.backend.name
+  value       = azurerm_linux_function_app.backend.name
+}
+
+output "storage_account_name" {
+  description = "Storage account name"
+  value       = azurerm_storage_account.function_storage.name
 }
 
 output "resource_group_name" {
