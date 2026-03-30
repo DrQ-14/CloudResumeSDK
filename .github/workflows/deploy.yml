@@ -53,26 +53,6 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main'
-    
-      - name: Get Terraform Outputs
-        id: tf_outputs
-        working-directory: ./infra
-        run: |
-          FUNCTION_APP_NAME=$(terraform output -raw function_app_name | tr -d '\r\n[:space:]')
-          RESOURCE_GROUP=$(terraform output -raw resource_group_name | tr -d '\r\n[:space:]')
-          echo "function_app_name=$FUNCTION_APP_NAME" >> $GITHUB_OUTPUT
-          echo "resource_group_name=$RESOURCE_GROUP" >> $GITHUB_OUTPUT
-      
-      - name: Debug Terraform Outputs
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "TF function_app_name:"
-          terraform output function_app_name
-          echo "TF resource_group_name:"
-          terraform output resource_group_name
-
-          echo "RAW function_app_name='$(terraform output -raw function_app_name | cat -A)'"
-          echo "RAW resource_group_name='$(terraform output -raw resource_group_name | cat -A)'"
         
   deploy_frontend:
     needs: terraform
@@ -99,8 +79,8 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.function_app_name }}
-      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.resource_group_name }}
+      AZURE_FUNCTIONAPP_NAME: resume-dev-function
+      AZURE_RESOURCE_GROUP: resume-dev-rg
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
@@ -143,11 +123,6 @@ jobs:
       run: |
         cd publish_output
         zip -r ../functionapp.zip .
-
-    - name: Debug values
-      run: |
-        echo "Function App Name: $AZURE_FUNCTIONAPP_NAME"
-        echo "Resource Group: $AZURE_RESOURCE_GROUP"
   
     - name: Deploy via Azure CLI
       run: |
