@@ -143,13 +143,6 @@ resource "azurerm_role_assignment" "function_queue_access" {
   scope                = azurerm_storage_account.function_storage.id
 }
 
-#FUNCTION BLOB ROLE ASSIGNMENT
-resource "azurerm_role_assignment" "github_blob_access" {
-  principal_id         = azuread_service_principal.github.object_id
-  role_definition_name = "Storage Blob Data Contributor"
-  scope                = azurerm_storage_account.function_storage.id
-}
-
 #COSMOSDB ROLE ASSIGNMENT
 resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   resource_group_name = azurerm_resource_group.rg.name
