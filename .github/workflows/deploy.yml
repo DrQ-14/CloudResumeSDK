@@ -59,8 +59,11 @@ jobs:
         if: github.ref == 'refs/heads/main'
         working-directory: ./infra
         run: |
-          echo "function_app_name=$(terraform output -raw function_app_name)" >> $GITHUB_OUTPUT
-          echo "resource_group_name=$(terraform output -raw resource_group_name)" >> $GITHUB_OUTPUT
+          FUNCTION_APP_NAME=$(terraform output -raw function_app_name | tr -d '"')
+          RESOURCE_GROUP=$(terraform output -raw resource_group_name | tr -d '"')
+      
+          echo "function_app_name=$FUNCTION_APP_NAME" >> $GITHUB_OUTPUT
+          echo "resource_group_name=$RESOURCE_GROUP" >> $GITHUB_OUTPUT
       
       - name: Debug Terraform Outputs
         if: github.ref == 'refs/heads/main'
