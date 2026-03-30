@@ -56,9 +56,19 @@ jobs:
     
       - name: Get Terraform Outputs
         id: tf_outputs
+        if: github.ref == 'refs/heads/main'
+        working-directory: ./infra
         run: |
           echo "function_app_name=$(terraform output -raw function_app_name)" >> $GITHUB_OUTPUT
           echo "resource_group_name=$(terraform output -raw resource_group_name)" >> $GITHUB_OUTPUT
+      
+      - name: Debug Terraform Outputs
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "TF function_app_name:"
+          terraform output function_app_name
+          echo "TF resource_group_name:"
+          terraform output resource_group_name
         
   deploy_frontend:
     needs: terraform
