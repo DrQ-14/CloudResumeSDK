@@ -129,6 +129,10 @@ jobs:
         cd publish_output
         zip -r ../functionapp.zip .
 
+    - name: Debug values
+      run: |
+        echo "Function App Name: $AZURE_FUNCTIONAPP_NAME"
+        echo "Resource Group: $AZURE_RESOURCE_GROUP"
   
     - name: Deploy via Azure CLI
       run: |
