@@ -127,7 +127,7 @@ jobs:
           --auth-mode login \
           --account-name $STORAGE \
           --container-name function-releases \
-          --name functionapp.zip \
+          --name functionapp-${GITHUB_SHA}.zip \
           --file functionapp.zip
     
     - name: Generate SAS + deploy
