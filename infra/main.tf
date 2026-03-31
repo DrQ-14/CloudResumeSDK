@@ -77,6 +77,8 @@ resource "azurerm_linux_function_app" "backend" {
     }
   }
 
+  storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
+
    app_settings = {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
@@ -91,6 +93,12 @@ resource "azurerm_linux_function_app" "backend" {
     CosmosDb__Database  = azurerm_cosmosdb_sql_database.db.name
     CosmosDb__Container = azurerm_cosmosdb_sql_container.container.name
   }
+
+  depends_on = [
+    azurerm_role_assignment.function_storage_access,
+    azurerm_role_assignment.function_queue_access,
+    azurerm_role_assignment.function_file_access
+  ]
 }
 
 #COSMOS DB ACCOUNT
@@ -153,6 +161,12 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   principal_id = azurerm_linux_function_app.backend.identity[0].principal_id
 
   scope = azurerm_cosmosdb_account.cosmos.id
+}
+
+resource "azurerm_role_assignment" "function_file_access" {
+  principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
+  role_definition_name = "Storage File Data Contributor"
+  scope                = azurerm_storage_account.function_storage.id
 }
 
 #FUNCTION APP DATA REFERENCE
