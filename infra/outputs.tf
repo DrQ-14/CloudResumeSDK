@@ -31,7 +31,3 @@ output "cosmos_account_endpoint" {
 output "azure_client_id" {
   value = azuread_application.github.client_id
 }
-
-output "service_plan_id" {
-  value = azurerm_service_plan.this.id
-}
