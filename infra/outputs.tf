@@ -10,7 +10,7 @@ output "function_app_url" {
 
 output "function_app_name" {
   description = "Function app name"
-  value       = module.function.name
+  value       = module.function.id
 }
 
 output "storage_account_name" {
