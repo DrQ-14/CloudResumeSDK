@@ -74,14 +74,14 @@ module "cosmos" {
 
 #FUNCTION STORAGE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_storage_access" {
-  principal_id         = module.function.identity[0].principal_id
+  principal_id         = module.function.principal_id
   role_definition_name = "Storage Blob Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
 
 #FUNCTION QUEUE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_queue_access" {
-  principal_id         = module.function.identity[0].principal_id
+  principal_id         = module.function.principal_id
   role_definition_name = "Storage Queue Data Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
@@ -93,14 +93,14 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
 
   role_definition_id = "${module.cosmos.id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
 
-  principal_id = module.function.identity[0].principal_id
+  principal_id = module.function.principal_id
 
   scope = module.cosmos.id
 }
 
 #FILE ACCESS ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_file_access" {
-  principal_id         = module.function.identity[0].principal_id
+  principal_id         = module.function.principal_id
   role_definition_name = "Storage File Data SMB Share Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
