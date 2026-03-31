@@ -8,6 +8,10 @@ variable "location" {}
 
 variable "resource_group_name" {}
 
+variable "service_plan_id" {
+  type = string
+} 
+
 variable "service_plan_sku" {
   default = "Y1"
 }
