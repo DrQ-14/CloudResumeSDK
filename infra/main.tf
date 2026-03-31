@@ -58,6 +58,11 @@ module "function" {
   cosmos_container_name = module.cosmos.container_name
 
   cors_origins = var.cors_origins
+
+
+  depends_on = [
+    azurerm_storage_account.function_storage
+  ]
 }
 
 #COSMOSDB MODULE
