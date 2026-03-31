@@ -95,40 +95,15 @@ resource "azurerm_linux_function_app" "backend" {
   }
 }
 
-#COSMOS DB ACCOUNT
-resource "azurerm_cosmosdb_account" "cosmos" {
+module "cosmos" {
+  source = "./modules/cosmos"
+
   name                = local.cosmos_account_name
-  location            = azurerm_resource_group.rg.location
+  location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  offer_type = "Standard"
-  kind       = "GlobalDocumentDB"
-
-  consistency_policy {
-    consistency_level = "Session"
-  }
-
-  geo_location {
-    location          = azurerm_resource_group.rg.location
-    failover_priority = 0
-  }
-}
-
-#COSMOS SQL DATABASE
-resource "azurerm_cosmosdb_sql_database" "db" {
-  name                = local.cosmos_database_name
-  resource_group_name = azurerm_resource_group.rg.name
-  account_name        = azurerm_cosmosdb_account.cosmos.name
-}
-
-#COSMOS SQL CONTAINER
-resource "azurerm_cosmosdb_sql_container" "container" {
-  name                = local.cosmos_container_name
-  resource_group_name = azurerm_resource_group.rg.name
-  account_name        = azurerm_cosmosdb_account.cosmos.name
-  database_name       = azurerm_cosmosdb_sql_database.db.name
-
-  partition_key_paths = ["/id"]
+  database_name  = local.cosmos_database_name
+  container_name = local.cosmos_container_name
 }
 
 #FUNCTION STORAGE ROLE ASSIGNMENT
@@ -157,6 +132,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   scope = azurerm_cosmosdb_account.cosmos.id
 }
 
+#FILE ACCESS ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_file_access" {
   principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
   role_definition_name = "Storage File Data SMB Share Contributor"

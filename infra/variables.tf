@@ -4,12 +4,6 @@ variable "project_name" {
   type        = string
 }
 
-#variable "subscription_id" {
-#  description = "Azure Subscription ID for this deployment"
-#  type        = string
-#}
-
-
 variable "environment" {
   description = "Deployment environment (development/production/etc)"
   type        = string
