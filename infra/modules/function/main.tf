@@ -38,6 +38,8 @@ resource "azurerm_linux_function_app" "this" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
+    AzureWebJobsStorage = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key};EndpointSuffix=core.windows.net"
+
     AzureWebJobsStorage__accountName = var.storage_account_name
     AzureWebJobsStorage__credential = "managedidentity"
     
