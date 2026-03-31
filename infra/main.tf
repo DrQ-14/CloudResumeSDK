@@ -61,7 +61,10 @@ module "function" {
 
 
   depends_on = [
-    azurerm_storage_account.function_storage
+    azurerm_storage_account.function_storage,
+    azurerm_role_assignment.function_storage_access,
+    azurerm_role_assignment.function_queue_access,
+    azurerm_role_assignment.function_file_access
   ]
 }
 
