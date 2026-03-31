@@ -89,9 +89,9 @@ resource "azurerm_linux_function_app" "backend" {
     AzureWebJobsStorage__blobServiceUri  = "https://${azurerm_storage_account.function_storage.name}.blob.core.windows.net"
     AzureWebJobsStorage__queueServiceUri = "https://${azurerm_storage_account.function_storage.name}.queue.core.windows.net"
 
-    CosmosDb__AccountEndpoint  = azurerm_cosmosdb_account.cosmos.endpoint
-    CosmosDb__Database  = azurerm_cosmosdb_sql_database.db.name
-    CosmosDb__Container = azurerm_cosmosdb_sql_container.container.name
+    CosmosDb__AccountEndpoint  = module.cosmos.endpoint
+    CosmosDb__Database         = module.cosmos.database_name
+    CosmosDb__Container        = module.cosmos.container_name
   }
 }
 
