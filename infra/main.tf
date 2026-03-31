@@ -123,13 +123,13 @@ resource "azurerm_role_assignment" "function_queue_access" {
 #COSMOSDB ROLE ASSIGNMENT
 resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   resource_group_name = azurerm_resource_group.rg.name
-  account_name        = azurerm_cosmosdb_account.cosmos.name
+  account_name        = module.cosmos.name
 
-  role_definition_id = "${azurerm_cosmosdb_account.cosmos.id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
+  role_definition_id = "${module.cosmos.id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
 
   principal_id = azurerm_linux_function_app.backend.identity[0].principal_id
 
-  scope = azurerm_cosmosdb_account.cosmos.id
+  scope = module.cosmos.id
 }
 
 #FILE ACCESS ROLE ASSIGNMENT
@@ -138,16 +138,6 @@ resource "azurerm_role_assignment" "function_file_access" {
   role_definition_name = "Storage File Data SMB Share Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
-
-#FUNCTION APP DATA REFERENCE
-#data "azurerm_linux_function_app" "backend" {
-#  name                = azurerm_linux_function_app.backend.name
-#  resource_group_name = azurerm_resource_group.rg.name
-#
-#  depends_on = [
-#    azurerm_linux_function_app.backend
-#  ]
-#}
 
 # AZURE APP REGISTRATION (GitHub OIDC identity)
 resource "azuread_application" "github" {
