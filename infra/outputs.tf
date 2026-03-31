@@ -25,7 +25,7 @@ output "resource_group_name" {
 
 output "cosmos_account_endpoint" {
   description = "Cosmos DB endpoint"
-  value       = azurerm_cosmosdb_account.cosmos.endpoint
+  value       = module.cosmos.endpoint
 }
 
 output "azure_client_id" {
