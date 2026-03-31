@@ -93,12 +93,6 @@ resource "azurerm_linux_function_app" "backend" {
     CosmosDb__Database  = azurerm_cosmosdb_sql_database.db.name
     CosmosDb__Container = azurerm_cosmosdb_sql_container.container.name
   }
-
-  depends_on = [
-    azurerm_role_assignment.function_storage_access,
-    azurerm_role_assignment.function_queue_access,
-    azurerm_role_assignment.function_file_access
-  ]
 }
 
 #COSMOS DB ACCOUNT
