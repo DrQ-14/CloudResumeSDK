@@ -40,11 +40,11 @@ resource "azurerm_linux_function_app" "this" {
 
     AzureWebJobsStorage = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key};EndpointSuffix=core.windows.net"
 
-    AzureWebJobsStorage__accountName = var.storage_account_name
-    AzureWebJobsStorage__credential = "managedidentity"
+    #AzureWebJobsStorage__accountName = var.storage_account_name
+    #AzureWebJobsStorage__credential = "managedidentity"
     
-    AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
-    AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
+    #AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
+    #AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
 
     CosmosDb__AccountEndpoint  = var.cosmos_endpoint
     CosmosDb__Database         = var.cosmos_database_name
