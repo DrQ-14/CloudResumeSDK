@@ -159,7 +159,7 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
 
 resource "azurerm_role_assignment" "function_file_access" {
   principal_id         = azurerm_linux_function_app.backend.identity[0].principal_id
-  role_definition_name = "Storage File Data Contributor"
+  role_definition_name = "Storage File Data SMB Share Contributor"
   scope                = azurerm_storage_account.function_storage.id
 }
 
