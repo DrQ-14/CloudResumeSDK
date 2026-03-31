@@ -5,12 +5,12 @@ output "frontend_url" {
 
 output "function_app_url" {
   description = "URL of the Azure Function backend"
-  value       = azurerm_linux_function_app.backend.default_hostname
+  value       = module.function.default_hostname
 }
 
 output "function_app_name" {
   description = "Function app name"
-  value       = azurerm_linux_function_app.backend.name
+  value       = amodule.function.name
 }
 
 output "storage_account_name" {
