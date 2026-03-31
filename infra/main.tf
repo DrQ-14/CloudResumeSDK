@@ -48,6 +48,8 @@ module "function" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
+  function_plan_name = local.function_plan_name
+
   storage_account_name       = azurerm_storage_account.function_storage.name
   storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 

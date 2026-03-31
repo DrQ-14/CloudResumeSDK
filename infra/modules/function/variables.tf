@@ -1,5 +1,9 @@
 variable "name" {}
 
+variable "function_plan_name" {
+  type = string
+}
+
 variable "location" {}
 
 variable "resource_group_name" {}
