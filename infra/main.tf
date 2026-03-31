@@ -40,61 +40,25 @@ resource "azurerm_storage_account" "function_storage" {
   shared_access_key_enabled = true
 }
 
-#FUNCTION APP CONSUMPTION PLAN
-resource "azurerm_service_plan" "serverless_plan" {
-  name                = local.function_plan_name
+#FUNCTION MODULE
+module "function" {
+  source = "./modules/function"
+
+  name                = local.function_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
 
-  os_type             = "Linux"
-  sku_name            = "Y1"  # Consumption plan
-}
-
-
-#FUNCTION APP
-resource "azurerm_linux_function_app" "backend" {
-   name                       = local.function_name
-   location                   = azurerm_resource_group.rg.location
-   resource_group_name        = azurerm_resource_group.rg.name
-
-   service_plan_id            = azurerm_service_plan.serverless_plan.id
-
-   storage_account_name       = azurerm_storage_account.function_storage.name
-
-  identity {
-    type = "SystemAssigned"
-  }
-
-   site_config {
-    application_stack {
-      dotnet_version = "8.0"
-      use_dotnet_isolated_runtime = true  
-    }
-
-    cors {
-      allowed_origins     = var.cors_origins
-      support_credentials = true
-    }
-  }
-
+  storage_account_name       = azurerm_storage_account.function_storage.name
   storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
 
-   app_settings = {
-    FUNCTIONS_EXTENSION_VERSION  = "~4"
-    WEBSITE_RUN_FROM_PACKAGE     = "1"
+  cosmos_endpoint       = module.cosmos.endpoint
+  cosmos_database_name  = module.cosmos.database_name
+  cosmos_container_name = module.cosmos.container_name
 
-    AzureWebJobsStorage__accountName = azurerm_storage_account.function_storage.name
-    AzureWebJobsStorage__credential = "managedidentity"
-    
-    AzureWebJobsStorage__blobServiceUri  = "https://${azurerm_storage_account.function_storage.name}.blob.core.windows.net"
-    AzureWebJobsStorage__queueServiceUri = "https://${azurerm_storage_account.function_storage.name}.queue.core.windows.net"
-
-    CosmosDb__AccountEndpoint  = module.cosmos.endpoint
-    CosmosDb__Database         = module.cosmos.database_name
-    CosmosDb__Container        = module.cosmos.container_name
-  }
+  cors_origins = var.cors_origins
 }
 
+#COSMOSDB MODULE
 module "cosmos" {
   source = "./modules/cosmos"
 
@@ -139,7 +103,7 @@ resource "azurerm_role_assignment" "function_file_access" {
   scope                = azurerm_storage_account.function_storage.id
 }
 
-# AZURE APP REGISTRATION (GitHub OIDC identity)
+#AZURE APP REGISTRATION (GitHub OIDC identity)
 resource "azuread_application" "github" {
   display_name = "terraform-github-actions"
 }
