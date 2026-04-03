@@ -13,7 +13,7 @@ module "core" {
 module "data" {
   source = "./modules/data"
 
-  name                = local.cosmos_account_name
+  account_name                = local.cosmos_account_name
   location            = module.core.location
   resource_group_name = module.core.resource_group_name
 
