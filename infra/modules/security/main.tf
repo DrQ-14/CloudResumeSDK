@@ -1,20 +1,20 @@
 #FUNCTION STORAGE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_storage_access" {
-  principal_id         = var.function.principal_id
+  principal_id         = var.function_principal_id
   role_definition_name = "Storage Blob Data Contributor"
   scope                = var.storage_account_id
 }
 
 #FUNCTION QUEUE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_queue_access" {
-  principal_id         = var.function.principal_id
+  principal_id         = var.function_principal_id
   role_definition_name = "Storage Queue Data Contributor"
   scope                = var.storage_account_id
 }
 
 #FILE ACCESS ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_file_access" {
-  principal_id         = var.function.principal_id
+  principal_id         = var.function_principal_id
   role_definition_name = "Storage File Data SMB Share Contributor"
   scope                = var.storage_account_id
 }

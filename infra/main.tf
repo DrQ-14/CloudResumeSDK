@@ -1,32 +1,56 @@
-#FUNCTION MODULE
+#CORE MODULE
+module "core" {
+  source = "./modules/core"
+
+  resource_group_name   = local.rg_name
+  location              = var.location
+  storage_account_name  = local.storage_name
+  static_web_app_name   = local.webapp_name
+  custom_domains        = var.custom_domains
+}
+
+#DATA MODULE
+module "data" {
+  source = "./modules/data"
+
+  name                = local.cosmos_account_name
+  location            = module.core.location
+  resource_group_name = module.core.resource_group_name
+
+  database_name  = local.cosmos_database_name
+  container_name = local.cosmos_container_name
+}
+
+#COMPUTE MODULE
 module "compute" {
   source = "./modules/compute"
 
   function_app_name                = local.function_name
-  location            = var.location
-  ---resource_group_name = azurerm_resource_group.rg.name
-
   function_plan_name = local.function_plan_name
 
-  ---storage_account_name       = azurerm_storage_account.function_storage.name
-  ---storage_account_access_key = azurerm_storage_account.function_storage.primary_access_key
+  location            = module.core.location
+  resource_group_name = module.core.resource_group_name
+
+  storage_account_name       = module.core.storage_account_name
+  storage_account_access_key = module.core.storage_account_access_key
 
   cosmos_endpoint       = module.data.endpoint
   cosmos_database_name  = module.data.database_name
   cosmos_container_name = module.data.container_name
 
   cors_origins = var.cors_origins
-
 }
 
-#COSMOSDB MODULE
-module "data" {
-  source = "./modules/data"
+#SECURITY MODULE
+module "security" {
+  source = "./modules/security"
 
-  name                = local.cosmos_account_name
-  location            = var.location
-  ---resource_group_name = azurerm_resource_group.rg.name
+  principal_id = module.compute.principal_id
 
-  database_name  = local.cosmos_database_name
-  container_name = local.cosmos_container_name
-}
+  storage_account_id = module.core.storage_account_id
+
+  cosmos_account_id  = module.data.account_id
+  cosmos_account_name = module.data.account_name
+
+  resource_group_name = module.core.resource_group_name
+} `

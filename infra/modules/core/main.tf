@@ -1,13 +1,13 @@
 # RESOURCE GROUP
 resource "azurerm_resource_group" "rg" {
-  name     = local.rg_name
+  name     = var.resource_group_name
   location = var.location
 }
 
 #STORAGE ACCOUNT (Function Requirement)
 resource "azurerm_storage_account" "function_storage" {
-  name                     = local.storage_name
-  location                 = azurerm_resource_group.rg.location
+  name                     = var.storage_account_name
+  location                 = var.location
   resource_group_name      = azurerm_resource_group.rg.name
 
   account_tier             = "Standard"
@@ -18,7 +18,7 @@ resource "azurerm_storage_account" "function_storage" {
 
 #STATIC WEB APP (Frontend)
 resource "azurerm_static_web_app" "frontend" {
-  name                = local.webapp_name
+  name                = var.webapp_name
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   sku_tier = "Free"
