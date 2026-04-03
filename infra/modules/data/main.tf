@@ -1,6 +1,6 @@
 #COSMOS DB ACCOUNT
 resource "azurerm_cosmosdb_account" "account" {
-  name                = var.account_name
+  cosmos_account_name = var.account_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
