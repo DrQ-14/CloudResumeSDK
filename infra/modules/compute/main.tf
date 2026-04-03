@@ -1,22 +1,24 @@
 #FUNCTION APP CONSUMPTION PLAN
-resource "azurerm_service_plan" "this" {
+resource "azurerm_service_plan" "service_plan" {
   name                = var.function_plan_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
   os_type             = "Linux"
-  sku_name            = "Y1"  # Consumption plan
+  sku_name            = var.service_plan_sku
 }
 
 #FUNCTION APP
-resource "azurerm_linux_function_app" "this" {
-   name                       = var.name
+resource "azurerm_linux_function_app" "function_app" {
+   name                       = var.function_app_name
    location                   = var.location
    resource_group_name        = var.resource_group_name
 
-   service_plan_id            = azurerm_service_plan.this.id
+   service_plan_id            = azurerm_service_plan.service_plan.id
 
    storage_account_name       = var.storage_account_name
+
+  storage_account_access_key  = var.storage_account_access_key
 
   identity {
     type = "SystemAssigned"

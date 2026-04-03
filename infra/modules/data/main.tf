@@ -1,6 +1,6 @@
 #COSMOS DB ACCOUNT
-resource "azurerm_cosmosdb_account" "this" {
-  name                = var.name
+resource "azurerm_cosmosdb_account" "account" {
+  name                = var.account_name
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -8,7 +8,7 @@ resource "azurerm_cosmosdb_account" "this" {
   kind       = "GlobalDocumentDB"
 
   consistency_policy {
-    consistency_level = "Session"
+    consistency_level = var.consistency_level
   }
 
   geo_location {
@@ -18,18 +18,18 @@ resource "azurerm_cosmosdb_account" "this" {
 }
 
 #COSMOS SQL DATABASE
-resource "azurerm_cosmosdb_sql_database" "this" {
+resource "azurerm_cosmosdb_sql_database" "database" {
   name                = var.database_name
   resource_group_name = var.resource_group_name
-  account_name        = azurerm_cosmosdb_account.this.name
+  account_name        = azurerm_cosmosdb_account.cosmosdb_account.name
 }
 
 #COSMOS SQL CONTAINER
-resource "azurerm_cosmosdb_sql_container" "this" {
+resource "azurerm_cosmosdb_sql_container" "container" {
   name                = var.container_name
   resource_group_name = var.resource_group_name
-  account_name        = azurerm_cosmosdb_account.this.name
-  database_name       = azurerm_cosmosdb_sql_database.this.name
+  account_name        = azurerm_cosmosdb_account.cosmosdb_account.name
+  database_name       = azurerm_cosmosdb_sql_database.cosmosdb_sql_database.name
 
-  partition_key_paths = ["/id"]
+  partition_key_paths = [var.partition_key_path]
 }

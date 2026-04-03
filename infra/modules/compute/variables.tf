@@ -1,14 +1,15 @@
-variable "name" {}
-
-variable "function_plan_name" {
-  type = string
-}
+variable "function_app_name" {}
 
 variable "location" {}
 
 variable "resource_group_name" {}
 
+variable "function_plan_name" {
+  type = string
+}
+
 variable "service_plan_sku" {
+  type    = string
   default = "Y1"
 }
 
