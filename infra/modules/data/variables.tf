@@ -1,4 +1,4 @@
-variable "account_name" {
+variable "name" {
   type = string
 }
 

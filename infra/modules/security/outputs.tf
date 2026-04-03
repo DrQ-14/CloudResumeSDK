@@ -1,4 +1,4 @@
-output "github_client_id" {
+output "client_id" {
   value = azuread_application.github.client_id
 }
 

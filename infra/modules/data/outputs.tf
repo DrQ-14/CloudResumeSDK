@@ -1,8 +1,8 @@
-output "cosmos_account_name" {
+output "name" {
   value = azurerm_cosmosdb_account.account.name
 }
 
-output "cosmos_account_id" {
+output "id" {
   value = azurerm_cosmosdb_account.account.id
 }
 
@@ -11,9 +11,9 @@ output "endpoint" {
 }
 
 output "database_name" {
-  value = azurerm_cosmosdb_sql_database.sql_database.name
+  value = azurerm_cosmosdb_sql_database.database.name
 }
 
 output "container_name" {
-  value = azurerm_cosmosdb_sql_container.sql_container.name
+  value = azurerm_cosmosdb_sql_container.container.name
 }

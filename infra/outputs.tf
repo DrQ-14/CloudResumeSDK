@@ -1,33 +1,33 @@
 output "frontend_url" {
     description = "Public URL of the frontend"
-    value       = azurerm_static_web_app.frontend.default_host_name
+    value       = module.core.frontend_url
 }
 
 output "function_app_url" {
   description = "URL of the Azure Function backend"
-  value       = module.function.default_hostname
+  value       = module.compute.default_hostname
 }
 
 output "function_app_name" {
   description = "Function app name"
-  value       = module.function.id
+  value       = module.compute.function_app_name
 }
 
 output "storage_account_name" {
   description = "Storage account name"
-  value       = azurerm_storage_account.function_storage.name
+  value       = module.core.storage_account_name
 }
 
 output "resource_group_name" {
     description = "Internal resource group"
-    value       = azurerm_resource_group.rg.name
+    value       = module.core.resource_group_name
 }
 
 output "cosmos_account_endpoint" {
   description = "Cosmos DB endpoint"
-  value       = module.cosmos.endpoint
+  value       = module.data.endpoint
 }
 
 output "azure_client_id" {
-  value = azuread_application.github.client_id
+  value = module.security.client_id
 }

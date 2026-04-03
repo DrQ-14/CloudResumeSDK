@@ -1,6 +1,6 @@
 #COSMOS DB ACCOUNT
 resource "azurerm_cosmosdb_account" "account" {
-  cosmos_account_name = var.account_name
+  name = var.name
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -21,15 +21,15 @@ resource "azurerm_cosmosdb_account" "account" {
 resource "azurerm_cosmosdb_sql_database" "database" {
   name                = var.database_name
   resource_group_name = var.resource_group_name
-  account_name        = azurerm_cosmosdb_account.cosmosdb_account.name
+  name        = azurerm_cosmosdb_account.account.name
 }
 
 #COSMOS SQL CONTAINER
 resource "azurerm_cosmosdb_sql_container" "container" {
   name                = var.container_name
   resource_group_name = var.resource_group_name
-  account_name        = azurerm_cosmosdb_account.cosmosdb_account.name
-  database_name       = azurerm_cosmosdb_sql_database.cosmosdb_sql_database.name
+  name        = azurerm_cosmosdb_account.account.name
+  database_name       = azurerm_cosmosdb_sql_database.database.name
 
   partition_key_paths = [var.partition_key_path]
 }
