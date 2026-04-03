@@ -53,4 +53,4 @@ module "security" {
   cosmos_account_name = module.data.account_name
 
   resource_group_name = module.core.resource_group_name
-} `
+} 
