@@ -45,7 +45,7 @@ module "compute" {
 module "security" {
   source = "./modules/security"
 
-  principal_id = module.compute.principal_id
+  function_principal_id = module.compute.principal_id
 
   storage_account_id = module.core.storage_account_id
 
