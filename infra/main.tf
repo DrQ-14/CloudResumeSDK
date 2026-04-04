@@ -5,7 +5,7 @@ module "core" {
   resource_group_name   = local.rg_name
   location              = var.location
   storage_account_name  = local.storage_name
-  static_web_app_name   = local.webapp_name
+  webapp_name           = local.webapp_name
   custom_domains        = var.custom_domains
 }
 
@@ -13,7 +13,7 @@ module "core" {
 module "data" {
   source = "./modules/data"
 
-  account_name                = local.cosmos_account_name
+  account_name        = local.cosmos_account_name
   location            = module.core.location
   resource_group_name = module.core.resource_group_name
 
@@ -25,8 +25,8 @@ module "data" {
 module "compute" {
   source = "./modules/compute"
 
-  function_app_name                = local.function_name
-  function_plan_name = local.function_plan_name
+  function_app_name   = local.function_name
+  function_plan_name  = local.function_plan_name
 
   location            = module.core.location
   resource_group_name = module.core.resource_group_name
