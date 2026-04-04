@@ -33,9 +33,3 @@ resource "azurerm_static_web_app_custom_domain" "root" {
 
   validation_type = "dns-txt-token"
 }
-
-resource "azurerm_static_web_app_custom_domain" "www" {
-  static_web_app_id = azurerm_static_web_app.frontend.id
-  domain_name       = "www.tanager-solutions.com"
-  validation_type   = "cname-delegation"
-}
