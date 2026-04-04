@@ -129,7 +129,7 @@ jobs:
         az storage blob upload \
           --auth-mode login \
           --account-name $STORAGE \
-          --container-name function-releases \
+          --container-name scm-releases \
           --name $PACKAGE_NAME \
           --file functionapp.zip
     
@@ -137,7 +137,7 @@ jobs:
       run: |
         SAS=$(az storage blob generate-sas \
           --account-name $STORAGE \
-          --container-name function-releases \
+          --container-name scm-releases \
           --name functionapp.zip \
           --permissions r \
           --expiry 2027-01-01T00:00Z \
