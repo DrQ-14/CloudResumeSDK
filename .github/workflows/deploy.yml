@@ -147,6 +147,6 @@ jobs:
         URL="https://${STORAGE}.blob.core.windows.net/function-releases/functionapp.zip?$SAS"
     
         az functionapp config appsettings set \
-          --name $FUNCTION \
-          --resource-group $RG \
+          --name $AZURE_FUNCTIONAPP_NAME \
+          --resource-group $AZURE_RESOURCE_GROUP \
           --settings WEBSITE_RUN_FROM_PACKAGE="$URL"
