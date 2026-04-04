@@ -14,7 +14,7 @@ variable "storage_account_name" {
   type = string
 }
 
-variable "web_app_name" {
+variable "webapp_name" {
   type = string
 }
 
