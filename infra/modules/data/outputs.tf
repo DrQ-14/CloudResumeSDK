@@ -19,5 +19,5 @@ output "container_name" {
 }
 
 output "storage_connection_string" {
-  value = azurerm_storage_account.storage.primary_connection_string
+  value = azurerm_key_vault_secret.storage_conn_string.id
 }

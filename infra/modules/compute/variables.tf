@@ -25,6 +25,10 @@ variable "storage_account_access_key" {
   type = string
 }
 
+variable "key_vault_secret_uri" {
+  type = string
+}
+
 variable "cosmos_endpoint" {}
 variable "cosmos_database_name" {}
 variable "cosmos_container_name" {}

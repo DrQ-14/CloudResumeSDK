@@ -34,6 +34,8 @@ module "compute" {
   storage_account_name       = module.core.storage_account_name
   storage_account_access_key = module.core.storage_account_access_key
 
+  key_vault_secret_uri = module.security.storage_secret_uri
+
   cosmos_endpoint       = module.data.endpoint
   cosmos_database_name  = module.data.database_name
   cosmos_container_name = module.data.container_name
