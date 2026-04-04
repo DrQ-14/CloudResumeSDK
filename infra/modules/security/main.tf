@@ -51,20 +51,3 @@ resource "azuread_application_federated_identity_credential" "github" {
   issuer  = "https://token.actions.githubusercontent.com"
   subject = "repo:DrQ-14/CloudResumeSDK:ref:refs/heads/main"
 }
-
-# Get Microsoft Graph service principal
-data "azuread_service_principal" "msgraph" {
-  display_name = "Microsoft Graph"
-}
-
-# Assign Graph permission to Terraform SP
-resource "azuread_app_role_assignment" "graph_application_readwrite" {
-  principal_object_id = azuread_service_principal.github.object_id
-
-  app_role_id = [
-    for role in data.azuread_service_principal.msgraph.app_roles :
-    role.id if role.value == "Application.ReadWrite.All"
-  ][0]
-
-  resource_object_id = data.azuread_service_principal.msgraph.object_id
-}
