@@ -1,9 +1,9 @@
-output "name" {
-  value = azurerm_cosmosdb_account.account.name
+output "account_id" {
+  value = azurerm_cosmosdb_account.account.id
 }
 
-output "id" {
-  value = azurerm_cosmosdb_account.account.id
+output "account_name" {
+  value = azurerm_cosmosdb_account.account.name
 }
 
 output "endpoint" {
