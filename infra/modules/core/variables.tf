@@ -14,10 +14,6 @@ variable "storage_account_name" {
   type = string
 }
 
-variable "webapp_name" {
-  type = string
-}
-
 variable "custom_domains" {
   type = list(string)
 }
