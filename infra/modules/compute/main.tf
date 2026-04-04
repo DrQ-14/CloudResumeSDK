@@ -18,7 +18,7 @@ resource "azurerm_linux_function_app" "function_app" {
 
    storage_account_name       = var.storage_account_name
 
-  storage_account_access_key  = var.storage_account_access_key
+  #storage_account_access_key  = var.storage_account_access_key
 
   identity {
     type = "SystemAssigned"
@@ -40,13 +40,13 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
-    AzureWebJobsStorage = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key};EndpointSuffix=core.windows.net"
+    #AzureWebJobsStorage = "DefaultEndpointsProtocol=https;AccountName=${var.storage_account_name};AccountKey=${var.storage_account_access_key};EndpointSuffix=core.windows.net"
 
-    #AzureWebJobsStorage__accountName = var.storage_account_name
-    #AzureWebJobsStorage__credential = "managedidentity"
+    AzureWebJobsStorage__accountName = var.storage_account_name
+    AzureWebJobsStorage__credential = "managedidentity"
     
-    #AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
-    #AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
+    AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
+    AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
 
     CosmosDb__AccountEndpoint  = var.cosmos_endpoint
     CosmosDb__Database         = var.cosmos_database_name
