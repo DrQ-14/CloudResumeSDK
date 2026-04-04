@@ -22,3 +22,7 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
+
+variable "storage_connection_string" {
+  type = string
+}

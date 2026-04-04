@@ -44,10 +44,12 @@ module "compute" {
 #SECURITY MODULE
 module "security" {
   source = "./modules/security"
+  depends_on = [module.data]
 
   function_principal_id = module.compute.principal_id
 
   storage_account_id = module.core.storage_account_id
+  storage_connection_string = module.data.storage_connection_string
 
   cosmos_account_id  = module.data.account_id
   cosmos_account_name = module.data.account_name

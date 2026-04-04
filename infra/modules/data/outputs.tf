@@ -17,3 +17,7 @@ output "database_name" {
 output "container_name" {
   value = azurerm_cosmosdb_sql_container.container.name
 }
+
+output "storage_connection_string" {
+  value = azurerm_storage_account.storage.primary_connection_string
+}
