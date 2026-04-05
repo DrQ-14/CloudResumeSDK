@@ -48,6 +48,8 @@ module "security" {
   source = "./modules/security"
   depends_on = [module.data]
 
+  location = module.core.location
+
   storage_account_name       = module.core.storage_account_name
   storage_account_access_key = module.core.storage_account_access_key
 
