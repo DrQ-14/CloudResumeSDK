@@ -28,13 +28,13 @@ module "compute" {
   function_app_name   = local.function_name
   function_plan_name  = local.function_plan_name
 
+  key_vault_secret_uri = module.security.storage_secret_uri
+
   location            = module.core.location
   resource_group_name = module.core.resource_group_name
 
   storage_account_name       = module.core.storage_account_name
   storage_account_access_key = module.core.storage_account_access_key
-
-  key_vault_secret_uri = module.security.storage_secret_uri
 
   cosmos_endpoint       = module.data.endpoint
   cosmos_database_name  = module.data.database_name
@@ -48,10 +48,11 @@ module "security" {
   source = "./modules/security"
   depends_on = [module.data]
 
-  function_principal_id = module.compute.principal_id
+  storage_account_name       = module.core.storage_account_name
+  storage_account_access_key = module.core.storage_account_access_key
 
+  function_principal_id = module.compute.principal_id
   storage_account_id = module.core.storage_account_id
-  storage_connection_string = module.data.storage_connection_string
 
   cosmos_account_id  = module.data.account_id
   cosmos_account_name = module.data.account_name

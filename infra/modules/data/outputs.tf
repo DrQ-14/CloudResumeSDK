@@ -17,7 +17,3 @@ output "database_name" {
 output "container_name" {
   value = azurerm_cosmosdb_sql_container.container.name
 }
-
-output "storage_connection_string" {
-  value = azurerm_key_vault_secret.storage_conn_string.id
-}

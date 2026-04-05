@@ -43,7 +43,7 @@ resource "azurerm_key_vault" "kv" {
 
 resource "azurerm_key_vault_secret" "storage_conn_string" {
   name  = "AzureWebJobsStorage"
-  value = var.storage_connection_string
+  value = local.storage_connection_string
 
   key_vault_id = azurerm_key_vault.kv.id
 }

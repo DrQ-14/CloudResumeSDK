@@ -45,7 +45,10 @@ jobs:
 
       - name: Terraform Plan
         run: TF_LOG=INFO terraform plan -input=false
-        
+
+      - name: Terraform Apply (Phase 1 - Compute Only)
+        run: terraform apply -target=module.compute -auto-approve
+
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main'
