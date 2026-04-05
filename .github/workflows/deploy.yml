@@ -49,6 +49,12 @@ jobs:
       - name: Terraform Apply (Phase 1 - Compute Only)
         run: terraform apply -target=module.compute -auto-approve
 
+      - name: Terraform Apply (Phase 2 - RBAC + Key Vault)
+        run: terraform apply -target=module.security -auto-approve
+
+      - name: Wait for RBAC propagation
+        run: sleep 90
+
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main'
