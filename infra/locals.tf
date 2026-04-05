@@ -8,7 +8,10 @@ locals {
     webapp_name ="${local.prefix}-frontend"
     function_plan_name = "${local.prefix}-func-plan"
     function_name = "${local.prefix}-function"
+
     storage_name = lower("${local.storage_prefix}funcstor") #lowercase formatting for Azure
+    key_vault    = lower("${local.storage_prefix}kyvault")  #lowercase formatting for Azure
+
     cosmos_account_name = "${local.prefix}-cosmos"
     cosmos_database_name = "resume-db"
     cosmos_container_name = "counter"
