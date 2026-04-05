@@ -144,9 +144,9 @@ jobs:
         echo "$STORAGE" | grep -q "AccountKey=" && echo "✔ AccountKey found" || echo "❌ Missing AccountKey"
         echo "$STORAGE" | grep -q "EndpointSuffix=" && echo "✔ EndpointSuffix found" || echo "⚠️ Missing EndpointSuffix (optional)"
 
-        # Safely print partial value for debugging
-        #echo "🔎 First 50 characters:"
-        #echo "${STORAGE:0:50}"
+         Safely print partial value for debugging
+        echo "🔎 First 50 characters:"
+        echo "${STORAGE:0:50}"
 
         # Mask sensitive key if printed
         echo "🔒 Masked view:"
