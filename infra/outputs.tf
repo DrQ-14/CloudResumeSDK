@@ -33,5 +33,5 @@ output "azure_client_id" {
 }
 
 output "core_debug" {
-  value = length(module.core.debug_storage_value)
+  value = nonsensitive(length(module.core.debug_storage_value))
 }
