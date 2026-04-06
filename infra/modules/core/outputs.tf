@@ -28,5 +28,5 @@ output "frontend_url" {
 }
 
 output "debug_storage_value" {
-  value = zurerm_storage_account.function_storage.primary_access_key
+  value = azurerm_storage_account.function_storage.primary_access_key
 }
