@@ -29,10 +29,10 @@ output "frontend_url" {
 
 output "debug_storage_values" {
   value = {
-    name_set = length(var.storage_account_name) > 0
-    key_set  = length(var.storage_account_access_key) > 0
+    name_set = length(storage_account_name) > 0
+    key_set  = length(storage_account_access_key) > 0
 
-    name_value = var.storage_account_name
-    key_length  = length(var.storage_account_access_key)
+    name_value = storage_account_name
+    key_length  = length(storage_account_access_key)
   }
 }
