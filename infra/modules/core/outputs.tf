@@ -27,8 +27,6 @@ output "frontend_url" {
   value = azurerm_static_web_app.frontend.default_host_name
 }
 
-output "debug_storage_values" {
-  value = {
-    key = azurerm_storage_account.function_storage.primary_access_key
-  }
+output "debug_storage_value" {
+  value = zurerm_storage_account.function_storage.primary_access_key
 }
