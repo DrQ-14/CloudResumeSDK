@@ -40,14 +40,3 @@ variable "tags" {
   type    = map(string)
   default = {}
 }
-
-variable "account_name_set" {
-  type = string
-}
-variable "key_set" {
-  type = string
-}
-
-variable "key_length" {
-  type = string
-}

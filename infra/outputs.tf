@@ -32,10 +32,6 @@ output "azure_client_id" {
   value = module.security.client_id
 }
 
-output "debug_vars" {
-  value = {
-    account_name_set = var.storage_account_name != ""
-    key_set          = var.storage_account_access_key != ""
-    key_length       = length(var.storage_account_access_key)
-  }
+output "core_debug" {
+  value = module.core.debug_storage_values
 }
