@@ -41,10 +41,13 @@ variable "tags" {
   default = {}
 }
 
-variable "debug_vars" {
-  value = {
-    account_name_set = var.storage_account_name != ""
-    key_set          = var.storage_account_access_key != ""
-    key_length       = length(var.storage_account_access_key)
-  }
+variable "account_name_set" {
+  type = string
+}
+variable "key_set" {
+  type = string
+}
+
+variable "key_length" {
+  type = string
 }
