@@ -26,8 +26,3 @@ output "static_web_app_id" {
 output "frontend_url" {
   value = azurerm_static_web_app.frontend.default_host_name
 }
-
-output "storage_account_access_key" {
-  value     = azurerm_storage_account.function_storage.primary_access_key
-  sensitive = true
-}
