@@ -34,4 +34,6 @@ output "azure_client_id" {
 
 output "core_debug" {
   value = module.core.debug_storage_values
+
+  sensitive = true
 }
