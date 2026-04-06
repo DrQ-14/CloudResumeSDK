@@ -31,8 +31,8 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   scope = var.cosmos_account_id
 }
 
+#AZURE KEY VAULT
 data "azurerm_client_config" "current" {}
-
 resource "azurerm_key_vault" "kv" {
   name                = var.ky_vault_name
   location            = var.location

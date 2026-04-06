@@ -124,34 +124,7 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-
-        # ✅ NEW STEP (OPTION 2 DEBUG VALIDATION)
-    - name: Validate Storage Connection String Structure
-      shell: bash
-      run: |
-        echo "🔍 Validating STORAGE connection string..."
-
-        # Check if variable exists
-        if [[ -z "$STORAGE" ]]; then
-          echo "❌ STORAGE variable is EMPTY or NOT SET"
-          exit 1
-        fi
-
-        echo "✔ STORAGE variable is set"
-
-        # Check required components exist
-        echo "$STORAGE" | grep -q "AccountName=" && echo "✔ AccountName found" || echo "❌ Missing AccountName"
-        echo "$STORAGE" | grep -q "AccountKey=" && echo "✔ AccountKey found" || echo "❌ Missing AccountKey"
-        echo "$STORAGE" | grep -q "EndpointSuffix=" && echo "✔ EndpointSuffix found" || echo "⚠️ Missing EndpointSuffix (optional)"
-
-         Safely print partial value for debugging
-        echo "🔎 First 50 characters:"
-        echo "${STORAGE:0:50}"
-
-        # Mask sensitive key if printed
-        echo "🔒 Masked view:"
-        echo "$STORAGE" | sed 's/AccountKey=[^;]*/AccountKey=***MASKED***/g'
-
+        
     - name: Zip Function App
       run: |
         cd publish_output
