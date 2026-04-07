@@ -111,7 +111,6 @@ jobs:
         -o publish_output \
         -r linux-x64 \
         --self-contained false \
-        --runtime linux-x64
 
     - name: Clean publish output (CRITICAL FIX)
       run: |
