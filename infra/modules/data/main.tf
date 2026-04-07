@@ -15,6 +15,10 @@ resource "azurerm_cosmosdb_account" "account" {
     location          = var.location
     failover_priority = 0
   }
+
+  identity {
+    type = "SystemAssigned"
+  }
 }
 
 #COSMOS SQL DATABASE
