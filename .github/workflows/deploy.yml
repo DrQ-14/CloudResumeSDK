@@ -109,7 +109,6 @@ jobs:
         dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
           -c Release \
           -o publish_output
-          -r linux-x64
 
     - name: Clean publish output (CRITICAL FIX)
       run: |
