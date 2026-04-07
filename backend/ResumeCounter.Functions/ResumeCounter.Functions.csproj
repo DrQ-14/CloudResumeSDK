@@ -10,6 +10,9 @@
     <!-- Output type -->
     <OutputType>Exe</OutputType>
 
+    <!-- Runtime Identifier-->
+    <RuntimeIdentifiers>linux-x64</RuntimeIdentifiers>
+
     <!-- Enable nullable reference types -->
     <Nullable>enable</Nullable>
 
