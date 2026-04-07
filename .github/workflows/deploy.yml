@@ -109,6 +109,13 @@ jobs:
         dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
           -c Release \
           -o publish_output
+          --no-self-contained
+
+    - name: Clean publish output (CRITICAL FIX)
+      run: |
+        rm -rf publish_output/.azurefunctions
+        rm -rf publish_output/runtimes/browser
+        find publish_output -name "*.pdb" -delete
 
     - name: Inspect publish output
       run: |
@@ -125,10 +132,17 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
         
-    - name: Zip Function App
+    - name: Zip Function App (FIXED)
       run: |
         cd publish_output
-        zip -r ../functionapp.zip .
+        zip -r ../functionapp.zip . \
+          -x "*.pdb" \
+          -x "runtimes/browser/*" \
+          -x ".azurefunctions/*"
+
+    - name: Verify ZIP structure (DEBUG SAFETY STEP)
+      run: |
+        unzip -l functionapp.zip | head -50
   
     - name: Deploy Function App (RBAC Zip Deploy)
       run: |
