@@ -11,15 +11,13 @@ var host = new HostBuilder()
         // CosmosClient
         services.AddSingleton(serviceprovider =>
         {
-            var endpoint =
-                Environment.GetEnvironmentVariable("CosmosDb__AccountEndpoint");
+            var connectionString =
+                Environment.GetEnvironmentVariable("CosmosDb__ConnectionString");
 
-            if (string.IsNullOrEmpty(endpoint))
-                throw new Exception("Cosmos endpoint is NULL");
+            if (string.IsNullOrEmpty(connectionString))
+                throw new Exception("Cosmos connection string is NULL");
 
-            var credential = new DefaultAzureCredential();
-
-            return new CosmosClient(endpoint, credential);
+            return new CosmosClient(connectionString);
         });
 
         // Repository
