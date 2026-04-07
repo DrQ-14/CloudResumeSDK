@@ -107,15 +107,19 @@ jobs:
     - name: Publish Function App
       run: |
         dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
-          -c Release \
-          -o publish_output \
-          -r linux-x64 \
-          --self-contained false
+        -c Release \
+        -o publish_output \
+        -r linux-x64 \
+        --self-contained false \
+        --runtime linux-x64
 
     - name: Clean publish output (CRITICAL FIX)
       run: |
         rm -rf publish_output/.azurefunctions
         rm -rf publish_output/runtimes/browser
+        rm -rf publish_output/runtimes/win*
+        rm -f publish_output/msvcp140.dll
+        rm -f publish_output/vcruntime140*.dll
         find publish_output -name "*.pdb" -delete
 
     - name: Inspect publish output

@@ -24,12 +24,15 @@
 
     <!-- Guarantee that the function.json is generated during publishing -->
     <GenerateFunctions>true</GenerateFunctions>
+
+    <!-- CRITICAL: prevents Windows asset inclusion -->
+    <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
   </PropertyGroup>
 
   <ItemGroup>
     <!-- Azure Functions isolated worker -->
     <PackageReference Include="Azure.Identity" Version="1.19.0" />
-    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.57.0" />
+    <PackageReference Include="Microsoft.Azure.Cosmos" Version="3.58.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker" Version="1.22.0" />
     <PackageReference Include="Microsoft.Azure.Functions.Worker.Sdk" Version="1.17.0" OutputItemType="Analyzer" />
 
