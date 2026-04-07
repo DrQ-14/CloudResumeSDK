@@ -10,6 +10,11 @@ output "storage_secret_uri" {
   value = azurerm_key_vault_secret.storage_conn_string.id
 }
 
+output "storage_connection_string" {
+  value     = local.storage_connection_string
+  sensitive = true
+}
+
 output "debug_connection_string" {
   value = replace(
     local.storage_connection_string,

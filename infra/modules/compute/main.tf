@@ -40,7 +40,7 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "0"
 
-    AzureWebJobsStorage = "@Microsoft.KeyVault(SecretUri=${var.key_vault_secret_uri})"
+    AzureWebJobsStorage = trimspace(var.storage_connection_string)
     
     #AzureWebJobsStorage__accountName = var.storage_account_name
     #AzureWebJobsStorage__credential = "managedidentity"

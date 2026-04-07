@@ -29,6 +29,11 @@ variable "key_vault_secret_uri" {
   type = string
 }
 
+variable "storage_connection_string" {
+  type      = string
+  sensitive = true
+}
+
 variable "cosmos_endpoint" {}
 variable "cosmos_database_name" {}
 variable "cosmos_container_name" {}
