@@ -13,6 +13,6 @@ custom_domains = [
 
 cors_origins = [
   "http://localhost:8000",
-  "https://black-pebble-032af530f.1.azurestaticapps.net",
+  "https://https://thankful-coast-04da4630f.6.azurestaticapps.net",
   "https://www.tanager-solutions.com",
 ]
