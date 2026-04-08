@@ -108,18 +108,7 @@ jobs:
       run: |
         dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
         -c Release \
-        -o publish_output \
-        -r linux-x64 \
-        --self-contained false \
-
-    - name: Clean publish output (CRITICAL FIX)
-      run: |
-        rm -rf publish_output/.azurefunctions
-        rm -rf publish_output/runtimes/browser
-        rm -rf publish_output/runtimes/win*
-        rm -f publish_output/msvcp140.dll
-        rm -f publish_output/vcruntime140*.dll
-        find publish_output -name "*.pdb" -delete
+        -o publish_output 
 
     - name: Inspect publish output
       run: |
@@ -139,10 +128,7 @@ jobs:
     - name: Zip Function App (FIXED)
       run: |
         cd publish_output
-        zip -r ../functionapp.zip . \
-          -x "*.pdb" \
-          -x "runtimes/browser/*" \
-          -x ".azurefunctions/*"
+        zip -r ../functionapp.zip . 
 
     - name: Verify ZIP structure (DEBUG SAFETY STEP)
       run: |
