@@ -102,7 +102,12 @@ jobs:
 
     - name: Restore dependencies
       run: |
-        dotnet restore ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj
+        dotnet restore --no-cache ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj
+
+    - name: Clean build artifacts
+      run: |
+        rm -rf backend/ResumeCounter.Functions/bin
+        rm -rf backend/ResumeCounter.Functions/obj
 
     - name: Publish Function App
       run: |
