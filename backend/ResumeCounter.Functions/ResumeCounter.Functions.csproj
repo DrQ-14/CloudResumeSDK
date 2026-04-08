@@ -23,7 +23,7 @@
     <GenerateFunctions>true</GenerateFunctions>
 
     <!-- CRITICAL: prevents Windows asset inclusion -->
-    <IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract>
+    <!--IncludeNativeLibrariesForSelfExtract>false</IncludeNativeLibrariesForSelfExtract-->
   </PropertyGroup>
 
   <ItemGroup>

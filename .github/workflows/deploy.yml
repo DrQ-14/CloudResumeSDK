@@ -102,11 +102,10 @@ jobs:
 
     - name: Build
       run: |
-        dotnet restore
         dotnet publish backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj \
           -c Release \
           -o publish_output
-          
+
     - name: Deploy to Azure Functions
       uses: Azure/functions-action@v1
       with:
