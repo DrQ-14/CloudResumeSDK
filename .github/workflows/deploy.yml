@@ -100,48 +100,62 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    - name: Restore dependencies
+    - name: Build
       run: |
-        dotnet restore --no-cache ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj
-
-    - name: Clean build artifacts
-      run: |
-        rm -rf backend/ResumeCounter.Functions/bin
-        rm -rf backend/ResumeCounter.Functions/obj
-
-    - name: Publish Function App
-      run: |
-        dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
-        -c Release \
-        -o publish_output 
-
-    - name: Inspect publish output
-      run: |
-        ls -R publish_output
-
-    - name: Validate Function App structure
-      run: |
-        cat publish_output/host.json
-
-    - name: Azure Login (OIDC)
-      uses: azure/login@v2
+        dotnet restore
+        dotnet publish backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj \
+          -c Release \
+          -o publish_output
+          
+    - name: Deploy to Azure Functions
+      uses: Azure/functions-action@v1
       with:
-        client-id: ${{ secrets.AZURE_CLIENT_ID }}
-        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
-        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
-        
-    - name: Zip Function App (FIXED)
-      run: |
-        cd publish_output
-        zip -r ../functionapp.zip . 
+        app-name: resume-dev-function
+        package: publish_output
+        publish-profile: ${{ secrets.AZURE_FUNCTIONAPP_PUBLISH_PROFILE }}
 
-    - name: Verify ZIP structure (DEBUG SAFETY STEP)
-      run: |
-        unzip -l functionapp.zip | head -50
+    # - name: Restore dependencies
+    #   run: |
+    #     dotnet restore --no-cache ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj
+
+    # - name: Clean build artifacts
+    #   run: |
+    #     rm -rf backend/ResumeCounter.Functions/bin
+    #     rm -rf backend/ResumeCounter.Functions/obj
+
+    # - name: Publish Function App
+    #   run: |
+    #     dotnet publish ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/ResumeCounter.Functions.csproj \
+    #     -c Release \
+    #     -o publish_output 
+
+    # - name: Inspect publish output
+    #   run: |
+    #     ls -R publish_output
+
+    # - name: Validate Function App structure
+    #   run: |
+    #     cat publish_output/host.json
+
+    # - name: Azure Login (OIDC)
+    #   uses: azure/login@v2
+    #   with:
+    #     client-id: ${{ secrets.AZURE_CLIENT_ID }}
+    #     tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+    #     subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+        
+    # - name: Zip Function App (FIXED)
+    #   run: |
+    #     cd publish_output
+    #     zip -r ../functionapp.zip . 
+
+    # - name: Verify ZIP structure (DEBUG SAFETY STEP)
+    #   run: |
+    #     unzip -l functionapp.zip | head -50
   
-    - name: Deploy Function App (RBAC Zip Deploy)
-      run: |
-        az functionapp deployment source config-zip \
-          --name $AZURE_FUNCTIONAPP_NAME \
-          --resource-group $AZURE_RESOURCE_GROUP \
-          --src functionapp.zip
+    # - name: Deploy Function App (RBAC Zip Deploy)
+    #   run: |
+    #     az functionapp deployment source config-zip \
+    #       --name $AZURE_FUNCTIONAPP_NAME \
+    #       --resource-group $AZURE_RESOURCE_GROUP \
+    #       --src functionapp.zip
