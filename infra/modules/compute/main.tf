@@ -40,9 +40,10 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "0"
 
-    AzureWebJobsStorage = trimspace(var.storage_connection_string)
+    #AzureWebJobsStorage = trimspace(var.storage_connection_string)
     
-    #AzureWebJobsStorage__accountName = var.storage_account_name
+    AzureWebJobsStorage__accountName = var.storage_account_name
+    storage_uses_managed_identity = true
     #AzureWebJobsStorage__credential = "managedidentity"
     
     #AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
