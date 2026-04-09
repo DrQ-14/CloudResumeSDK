@@ -11,13 +11,16 @@ var host = new HostBuilder()
         // CosmosClient
         services.AddSingleton(serviceprovider =>
         {
-            var connectionString =
-                Environment.GetEnvironmentVariable("CosmosDb__ConnectionString");
+            var endpoint =
+                Environment.GetEnvironmentVariable("CosmosDb__AccountEndpoint");
 
-            if (string.IsNullOrEmpty(connectionString))
-                throw new Exception("Cosmos connection string is NULL");
+            if (string.IsNullOrEmpty(endpoint))
+                throw new Exception("CosmosDb__AccountEndpoint is NULL");
 
-            return new CosmosClient(connectionString);
+            // Uses Managed Identity in Azure, Azure CLI / VS locally
+            var credential = new DefaultAzureCredential();
+
+            return new CosmosClient(endpoint, credential);
         });
 
         // Repository
