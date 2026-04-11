@@ -38,7 +38,7 @@ resource "azurerm_linux_function_app" "function_app" {
 
    app_settings = {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
-    WEBSITE_RUN_FROM_PACKAGE     = "0"
+    WEBSITE_RUN_FROM_PACKAGE     = "1"
 
     #AzureWebJobsStorage = trimspace(var.storage_connection_string)
     
