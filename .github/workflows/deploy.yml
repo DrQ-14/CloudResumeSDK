@@ -101,18 +101,20 @@ jobs:
       with:
         dotnet-version: ${{ env.DOTNET_VERSION }}
 
-    # - name: Build
-    #   run: |
-    #     dotnet publish backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj \
-    #       -c Release \
-    #       -o publish_output
-
     - name: 'Resolve Project Dependencies Using Dotnet'
       shell: bash
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
         dotnet publish --configuration Release --output ./output
         popd
+
+    - name: Inspect publish output
+      run: |
+        echo "===== PUBLISH OUTPUT STRUCTURE ====="
+        ls -R backend/ResumeCounter.Functions/output
+    
+        echo "===== ROOT FILES CHECK ====="
+        find backend/ResumeCounter.Functions/output -maxdepth 2 -type f
 
     - name: Deploy to Azure Functions
       uses: Azure/functions-action@v1
