@@ -61,6 +61,6 @@ resource "azurerm_linux_function_app" "function_app" {
     CosmosDb__Container        = var.cosmos_container_name
 
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
-    AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
+    #AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
 }
