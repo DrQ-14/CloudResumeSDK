@@ -8,6 +8,13 @@ resource "azurerm_service_plan" "service_plan" {
   sku_name            = var.service_plan_sku
 }
 
+  resource "azurerm_application_insights" "appi" {
+  name                = "resume-dev-appinsights"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "web"
+}
+
 #FUNCTION APP
 resource "azurerm_linux_function_app" "function_app" {
    name                       = var.function_app_name
@@ -34,14 +41,7 @@ resource "azurerm_linux_function_app" "function_app" {
       allowed_origins     = var.cors_origins
       support_credentials = true
     }
-}
-
-  resource "azurerm_application_insights" "appi" {
-  name                = "resume-dev-appinsights"
-  location            = azurerm_resource_group.rg.location
-  resource_group_name = azurerm_resource_group.rg.name
-  application_type    = "web"
-}
+  }
 
   app_settings = {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
