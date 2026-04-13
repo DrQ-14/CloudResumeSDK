@@ -34,11 +34,18 @@ resource "azurerm_linux_function_app" "function_app" {
       allowed_origins     = var.cors_origins
       support_credentials = true
     }
-  }
+}
 
-   app_settings = {
+  resource "azurerm_application_insights" "appi" {
+  name                = "resume-dev-appinsights"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  application_type    = "web"
+}
+
+  app_settings = {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
-    WEBSITE_RUN_FROM_PACKAGE     = "1"
+    WEBSITE_RUN_FROM_PACKAGE     = "0"
 
     #AzureWebJobsStorage = trimspace(var.storage_connection_string)
     
@@ -52,5 +59,8 @@ resource "azurerm_linux_function_app" "function_app" {
     CosmosDb__AccountEndpoint  = var.cosmos_endpoint
     CosmosDb__Database         = var.cosmos_database_name
     CosmosDb__Container        = var.cosmos_container_name
+
+    APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
+    AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
 }
