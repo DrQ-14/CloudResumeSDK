@@ -9,19 +9,19 @@ var host = new HostBuilder()
     .ConfigureServices(services =>
     {
         // CosmosClient
-        // services.AddSingleton(serviceprovider =>
-        // {
-        //     var endpoint =
-        //         Environment.GetEnvironmentVariable("CosmosDb__AccountEndpoint");
+        services.AddSingleton(serviceprovider =>
+        {
+            var endpoint =
+                Environment.GetEnvironmentVariable("CosmosDb__AccountEndpoint");
 
-        //     if (string.IsNullOrEmpty(endpoint))
-        //         throw new Exception("CosmosDb__AccountEndpoint is NULL");
+            if (string.IsNullOrEmpty(endpoint))
+                throw new Exception("CosmosDb__AccountEndpoint is NULL");
 
-        //     // Uses Managed Identity in Azure, Azure CLI / VS locally
-        //     var credential = new DefaultAzureCredential();
+            // Uses Managed Identity in Azure, Azure CLI / VS locally
+            var credential = new DefaultAzureCredential();
 
-        //     return new CosmosClient(endpoint, credential);
-        // });
+            return new CosmosClient(endpoint, credential);
+        });
 
         // Repository
         services.AddSingleton<ICounterRepository, CounterRepository>();

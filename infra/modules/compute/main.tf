@@ -47,6 +47,8 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
     WEBSITE_RUN_FROM_PACKAGE     = "1"
 
+    FUNCTION_WORKER_RUNTIME = "dotnet-isolated"
+
     AzureWebJobsStorage = var.storage_connection_string
     
     #AzureWebJobsStorage__accountName = var.storage_account_name
