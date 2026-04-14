@@ -30,7 +30,7 @@ module "compute" {
 
   key_vault_secret_uri = module.security.storage_secret_uri
 
-  storage_connection_string = module.security.storage_connection_string
+  storage_connection_string = module.core.storage_connection_string
 
   location            = module.core.location
   resource_group_name = module.core.resource_group_name

@@ -14,11 +14,3 @@ output "storage_connection_string" {
   value     = local.storage_connection_string
   sensitive = true
 }
-
-output "debug_connection_string" {
-  value = replace(
-    local.storage_connection_string,
-    var.storage_account_access_key,
-    "REDACTED"
-  )
-}
