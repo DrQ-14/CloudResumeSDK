@@ -9,6 +9,10 @@ jobs:
   terraform:
     name: "Terraform Infrastructure"
     runs-on: ubuntu-latest
+    outputs:
+      function_app_name: ${{ steps.tf_outputs.outputs.function_app_name }}
+      resource_group: ${{ steps.tf_outputs.outputs.resource_group }}
+      storage: ${{ steps.tf_outputs.outputs.storage }}
 
     permissions:
       id-token: write
@@ -54,13 +58,13 @@ jobs:
         id: tf_outputs
         run: |
           #Function App Name
-          echo "AZURE_FUNCTIONAPP_NAME=$(terraform output -raw function_app_name)" >> $GITHUB_ENV
+          echo "AZURE_FUNCTIONAPP_NAME=$(terraform output -raw function_app_name)" >> $GITHUB_OUTPUT
 
           #Resource Group
-          echo "AZURE_RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> $GITHUB_ENV
+          echo "AZURE_RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> $GITHUB_OUTPUT
 
           #Storage Account Name
-          echo "STORAGE=$(terraform output -raw storage_account_name)" >> $GITHUB_ENV
+          echo "STORAGE=$(terraform output -raw storage_account_name)" >> $GITHUB_OUTPUT
         
   deploy_frontend:
     needs: terraform
@@ -87,9 +91,9 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
-      AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
-      STORAGE: ${{ env.STORAGE }}
+      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.function_app_name }}
+      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.resource_group }}
+      STORAGE: ${{ needs.terraform.outputs.storage }}
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
