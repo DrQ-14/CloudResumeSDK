@@ -44,11 +44,23 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan
-        run: TF_LOG=INFO terraform plan -input=false
+        run: terraform plan -input=false
 
       - name: Terraform Apply
         run: terraform apply -auto-approve -input=false
         if: github.ref == 'refs/heads/main'
+
+      - name: Capture Terraform Outputs
+        id: tf_outputs
+        run: |
+          #Function App Name
+          echo "AZURE_FUNCTIONAPP_NAME=$(terraform output -raw function_app_name)" >> $GITHUB_ENV
+
+          #Resource Group
+          echo "AZURE_RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> $GITHUB_ENV
+
+          #Storage Account Name
+          echo "STORAGE=$(terraform output -raw storage_account_name)" >> $GITHUB_ENV
         
   deploy_frontend:
     needs: terraform
@@ -75,15 +87,15 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: resume-dev-function
-      AZURE_RESOURCE_GROUP: resume-dev-rg
-      STORAGE: resumedevfuncstor
+      AZURE_FUNCTIONAPP_NAME: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+      AZURE_RESOURCE_GROUP: ${{ env.AZURE_RESOURCE_GROUP }}
+      STORAGE: ${{ env.STORAGE }}
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
     steps:
     - name: Checkout repo
-      uses: actions/checkout@v3
+      uses: actions/checkout@v4
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
