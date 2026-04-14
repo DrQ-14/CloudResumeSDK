@@ -30,6 +30,10 @@ variable "storage_connection_string" {
   sensitive = true
 }
 
+variable "application_insights_name" {
+  type = string
+}
+
 variable "cosmos_endpoint" {}
 variable "cosmos_database_name" {}
 variable "cosmos_container_name" {}

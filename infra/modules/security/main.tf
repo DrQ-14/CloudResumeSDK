@@ -31,25 +31,6 @@ resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   scope = var.cosmos_account_id
 }
 
-#AZURE KEY VAULT
-#data "azurerm_client_config" "current" {}
-#resource "azurerm_key_vault" "kv" {
-#  name                = var.ky_vault_name
-#  location            = var.location
-#  resource_group_name = var.resource_group_name
-#  tenant_id           = data.azurerm_client_config.current.tenant_id
-#  sku_name            = "standard"
-#
-#  rbac_authorization_enabled = true
-#}
-
-#resource "azurerm_key_vault_secret" "cosmos_conn_string" {
-#  name  = "AzureWebJobsStorage"
-#  value = local.storage_connection_string
-#
-#  key_vault_id = azurerm_key_vault.kv.id
-#}
-
 #AZURE APP REGISTRATION (GitHub OIDC identity)
 resource "azuread_application" "github" {
   display_name = "terraform-github-actions"

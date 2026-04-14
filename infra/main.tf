@@ -30,7 +30,7 @@ module "compute" {
   function_app_name   = local.function_name
   function_plan_name  = local.function_plan_name
 
-  #key_vault_secret_uri = module.security.storage_secret_uri
+  application_insights_name = local.appinsights_name
 
   storage_connection_string = module.core.storage_connection_string
 
@@ -53,8 +53,6 @@ module "security" {
   depends_on = [module.core, module.compute, module.data]
 
   location = module.core.location
-
-  #ky_vault_name = local.key_vault
 
   storage_account_name       = module.core.storage_account_name
   storage_account_access_key = module.core.storage_account_access_key
