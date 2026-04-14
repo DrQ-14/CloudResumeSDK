@@ -58,13 +58,13 @@ jobs:
         id: tf_outputs
         run: |
           #Function App Name
-          echo "AZURE_FUNCTIONAPP_NAME=$(terraform output -raw function_app_name)" >> $GITHUB_OUTPUT
+          echo "function_app_name=$(terraform output -raw function_app_name)" >> $GITHUB_OUTPUT
 
           #Resource Group
-          echo "AZURE_RESOURCE_GROUP=$(terraform output -raw resource_group_name)" >> $GITHUB_OUTPUT
+          echo "resource_group=$(terraform output -raw resource_group_name)" >> $GITHUB_OUTPUT
 
           #Storage Account Name
-          echo "STORAGE=$(terraform output -raw storage_account_name)" >> $GITHUB_OUTPUT
+          echo "storage=$(terraform output -raw storage_account_name)" >> $GITHUB_OUTPUT
         
   deploy_frontend:
     needs: terraform
@@ -91,9 +91,9 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.AZURE_FUNCTIONAPP_NAME }}
-      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.AZURE_RESOURCE_GROUP }}
-      STORAGE: ${{ needs.terraform.outputs.STORAGE }}
+      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.function_app_name }}
+      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.resource_group }}
+      STORAGE: ${{ needs.terraform.outputs.storage }}
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
