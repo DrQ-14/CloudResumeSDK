@@ -46,3 +46,8 @@ variable "partition_key_path" {
   type        = string
   default     = "/id"
 }
+
+variable "tags" {
+  description = "Standard tags applied to all resources for cost tracking and organization"
+  type        = map(string)
+}

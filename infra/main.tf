@@ -7,6 +7,8 @@ module "core" {
   storage_account_name  = local.storage_name
   webapp_name           = local.webapp_name
   custom_domains        = var.custom_domains
+
+  tags = local.tags
 }
 
 #DATA MODULE
@@ -20,6 +22,8 @@ module "data" {
 
   database_name  = local.cosmos_database_name
   container_name = local.cosmos_container_name
+
+  tags = local.tags
 }
 
 #COMPUTE MODULE
@@ -45,6 +49,8 @@ module "compute" {
   cosmos_container_name = module.data.container_name
 
   cors_origins = var.cors_origins
+
+  tags = local.tags
 }
 
 #SECURITY MODULE
@@ -64,4 +70,6 @@ module "security" {
   cosmos_account_name = module.data.account_name
 
   resource_group_name = module.core.resource_group_name
-} 
+
+  tags = local.tags
+}

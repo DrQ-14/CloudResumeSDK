@@ -69,3 +69,8 @@ variable "cosmos_container_name" {
   description = "Name of the Cosmos DB container"
   type        = string
 }
+
+variable "tags" {
+  description = "Standard tags applied to all resources for cost tracking and organization"
+  type        = map(string)
+}

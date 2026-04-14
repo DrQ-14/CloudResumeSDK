@@ -22,3 +22,8 @@ variable "custom_domains" {
   description = "List of custom domains assigned to the Web App"
   type        = list(string)
 }
+
+variable "tags" {
+  description = "Standard tags applied to all resources for cost tracking and organization"
+  type        = map(string)
+}

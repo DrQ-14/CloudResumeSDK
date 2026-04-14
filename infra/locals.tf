@@ -15,4 +15,11 @@ locals {
     cosmos_account_name = "${local.prefix}-cosmos"
     cosmos_database_name = "resume-db"
     cosmos_container_name = "counter"
+
+    
+  tags = {
+    project     = var.project_name
+    environment = var.environment
+    managed_by  = "terraform"
+  }
 }

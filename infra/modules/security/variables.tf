@@ -44,3 +44,8 @@ variable "tags" {
   type        = map(string)
   default     = {}
 }
+
+variable "tags" {
+  description = "Standard tags applied to all resources for cost tracking and organization"
+  type        = map(string)
+}

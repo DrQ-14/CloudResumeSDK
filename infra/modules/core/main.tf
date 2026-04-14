@@ -2,6 +2,8 @@
 resource "azurerm_resource_group" "rg" {
   name     = var.resource_group_name
   location = var.location
+
+  tags = var.tags
 }
 
 #STORAGE ACCOUNT (Function Requirement)
@@ -12,6 +14,8 @@ resource "azurerm_storage_account" "function_storage" {
 
   account_tier             = "Standard"
   account_replication_type = "LRS"
+
+  tags = var.tags
 }
 
 #STATIC WEB APP (Frontend)
@@ -20,6 +24,8 @@ resource "azurerm_static_web_app" "frontend" {
   location            = var.location
   resource_group_name = azurerm_resource_group.rg.name
   sku_tier = "Free"
+
+  tags = var.tags
 }
 
 #CUSTOM DOMAINS
