@@ -43,12 +43,12 @@ resource "azurerm_key_vault" "kv" {
   rbac_authorization_enabled = true
 }
 
-resource "azurerm_key_vault_secret" "storage_conn_string" {
-  name  = "AzureWebJobsStorage"
-  value = local.storage_connection_string
-
-  key_vault_id = azurerm_key_vault.kv.id
-}
+#resource "azurerm_key_vault_secret" "storage_conn_string" {
+#  name  = "AzureWebJobsStorage"
+#  value = local.storage_connection_string
+#
+#  key_vault_id = azurerm_key_vault.kv.id
+#}
 
 #AZURE APP REGISTRATION (GitHub OIDC identity)
 resource "azuread_application" "github" {
