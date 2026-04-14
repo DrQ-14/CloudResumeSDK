@@ -50,7 +50,7 @@ module "compute" {
 #SECURITY MODULE
 module "security" {
   source = "./modules/security"
-  depends_on = [module.core, module.security, module.data]
+  depends_on = [module.core, module.compute, module.data]
 
   location = module.core.location
 
