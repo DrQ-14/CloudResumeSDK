@@ -19,12 +19,18 @@ resource "azurerm_role_assignment" "function_file_access" {
   scope                = var.storage_account_id
 }
 
+data "azurerm_cosmosdb_sql_role_definition" "data_reader" {
+  name                = "Cosmos DB Built-in Data Reader"
+  resource_group_name = var.resource_group_name
+  account_name        = var.cosmos_account_name
+}
+
 #COSMOSDB ROLE ASSIGNMENT
 resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   resource_group_name = var.resource_group_name
   account_name        = var.cosmos_account_name
 
-  role_definition_id = "${var.cosmos_account_id}/sqlRoleDefinitions/00000000-0000-0000-0000-000000000002"
+  role_definition_id = data.azurerm_cosmosdb_sql_role_definition.data_reader.id
 
   principal_id = var.function_principal_id
 
