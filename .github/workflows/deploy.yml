@@ -91,9 +91,9 @@ jobs:
       contents: read
 
     env:
-      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.function_app_name }}
-      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.resource_group }}
-      STORAGE: ${{ needs.terraform.outputs.storage }}
+      AZURE_FUNCTIONAPP_NAME: ${{ needs.terraform.outputs.AZURE_FUNCTIONAPP_NAME }}
+      AZURE_RESOURCE_GROUP: ${{ needs.terraform.outputs.AZURE_RESOURCE_GROUP }}
+      STORAGE: ${{ needs.terraform.outputs.STORAGE }}
       AZURE_FUNCTIONAPP_PACKAGE_PATH: 'backend/ResumeCounter.Functions'
       DOTNET_VERSION: '8.0.x'
 
