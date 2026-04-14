@@ -40,12 +40,6 @@ variable "storage_account_access_key" {
 }
 
 variable "tags" {
-  description = "Tags for cost tracking and resource organization"
-  type        = map(string)
-  default     = {}
-}
-
-variable "tags" {
   description = "Standard tags applied to all resources for cost tracking and organization"
   type        = map(string)
 }
