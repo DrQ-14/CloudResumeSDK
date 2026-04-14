@@ -65,8 +65,4 @@ resource "azurerm_linux_function_app" "function_app" {
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
     #AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
-
-  identity {
-    SystemAssigned
-  }
 }
