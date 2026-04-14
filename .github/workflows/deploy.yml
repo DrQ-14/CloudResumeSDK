@@ -105,8 +105,12 @@ jobs:
       shell: bash
       run: |
         pushd './${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}'
-        dotnet publish --configuration Release --output ./output
+        dotnet publish --configuration Release --output ./output --self-contained false
         popd
+
+    - name: Validate function app structure
+      run: |
+        test -f backend/ResumeCounter.Functions/output/host.json || (echo "Missing host.json" && exit 1)
 
     - name: Inspect publish output
       run: |
