@@ -12,6 +12,7 @@ module "core" {
 #DATA MODULE
 module "data" {
   source = "./modules/data"
+  depends_on = [module.core]
 
   name                = local.cosmos_account_name
   location            = module.core.location
@@ -24,11 +25,12 @@ module "data" {
 #COMPUTE MODULE
 module "compute" {
   source = "./modules/compute"
+  depends_on = [module.core, module.data]
 
   function_app_name   = local.function_name
   function_plan_name  = local.function_plan_name
 
-  key_vault_secret_uri = module.security.storage_secret_uri
+  #key_vault_secret_uri = module.security.storage_secret_uri
 
   storage_connection_string = module.core.storage_connection_string
 
@@ -48,7 +50,7 @@ module "compute" {
 #SECURITY MODULE
 module "security" {
   source = "./modules/security"
-  depends_on = [module.data]
+  depends_on = [module.core, module.security, module.data]
 
   location = module.core.location
 
