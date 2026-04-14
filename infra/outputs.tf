@@ -32,9 +32,9 @@ output "azure_client_id" {
   value = module.security.client_id
 }
 
-output "core_debug" {
-  value = nonsensitive(module.security.debug_connection_string)
-}
+#output "core_debug" {
+#  value = nonsensitive(module.security.debug_connection_string)
+#}
 
 output "account_name_debug" {
   value = can(regex("^[a-z0-9]+$", module.core.storage_account_name))
