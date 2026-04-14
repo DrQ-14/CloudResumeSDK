@@ -1,39 +1,71 @@
-variable "function_app_name" {}
+variable "function_app_name" {
+  description = "Name of the Azure Function App"
+  type        = string
+}
 
-variable "location" {}
+variable "location" {
+  description = "Azure region where resources will be deployed"
+  type        = string
+}
 
-variable "resource_group_name" {}
+variable "resource_group_name" {
+  description = "Name of the resource group"
+  type        = string
+}
 
 variable "function_plan_name" {
-  type = string
+  description = "Name of the Function App Service Plan"
+  type        = string
 }
 
 variable "service_plan_sku" {
-  type    = string
+  description = "SKU for the Function App Service Plan"
+  type        = string
   default = "Y1"
+
+  validation {
+    condition     = contains(["Y1", "B1", "S1", "P1v3"], var.service_plan_sku)
+    error_message = "Unsupported SKU selected."
+  }
 }
 
 variable "cors_origins" {
-  type = list(string)
+  description = "List of allowed CORS origins for the Function App"
+  type        = list(string)
 }
 
 variable "storage_account_name" {
-  type = string
+  description = "Name of the Storage Account used by the Function App"
+  type        = string
 }
 
 variable "storage_account_access_key" {
-  type = string
+  description = "Access key for the Storage Account"
+  type        = string
 }
 
 variable "storage_connection_string" {
-  type      = string
-  sensitive = true
+  description = "Connection string for the Storage Account"
+  type        = string
+  sensitive   = true
 }
 
 variable "application_insights_name" {
-  type = string
+  description = "Name of the Application Insights instance"
+  type        = string
 }
 
-variable "cosmos_endpoint" {}
-variable "cosmos_database_name" {}
-variable "cosmos_container_name" {}
+variable "cosmos_endpoint" {
+  description = "Endpoint URL for Cosmos DB account"
+  type        = string
+}
+
+variable "cosmos_database_name" {
+  description = "Name of the Cosmos DB database"
+  type        = string
+}
+
+variable "cosmos_container_name" {
+  description = "Name of the Cosmos DB container"
+  type        = string
+}

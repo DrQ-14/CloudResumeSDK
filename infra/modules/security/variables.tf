@@ -1,42 +1,46 @@
 variable "location" {
-  type = string
+  description = "Azure region (used for consistency across modules)"
+  type        = string
 }
 
 variable "function_principal_id" {
-  type = string
+  description = "Principal ID of the Function App's managed identity"
+  type        = string
 }
 
 variable "storage_account_id" {
-  type = string
+  description = "Resource ID of the Storage Account"
+  type        = string
 }
 
 variable "cosmos_account_id" {
-  type = string
+  description = "Resource ID of the Cosmos DB account"
+  type        = string
 }
 
 variable "cosmos_account_name" {
-  type = string
+  description = "Name of the Cosmos DB account"
+  type        = string
 }
 
 variable "resource_group_name" {
-  type = string
+  description = "Name of the resource group"
+  type        = string
 }
 
 variable "storage_account_name" {
-  type = string
+  description = "Name of the Storage Account"
+  type        = string
 }
 
 variable "storage_account_access_key" {
-  type      = string
-  sensitive = true
+  description = "Access key for the Storage Account"
+  type        = string
+  sensitive   = true
 }
 
-#variable "ky_vault_name" {
-#  type      = string
-#  sensitive = true
-#}
-
 variable "tags" {
-  type    = map(string)
-  default = {}
+  description = "Tags for cost tracking and resource organization"
+  type        = map(string)
+  default     = {}
 }
