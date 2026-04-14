@@ -25,10 +25,6 @@ variable "storage_account_access_key" {
   type = string
 }
 
-#variable "key_vault_secret_uri" {
-#  type = string
-#}
-
 variable "storage_connection_string" {
   type      = string
   sensitive = true

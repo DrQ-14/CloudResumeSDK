@@ -54,7 +54,7 @@ module "security" {
 
   location = module.core.location
 
-  ky_vault_name = local.key_vault
+  #ky_vault_name = local.key_vault
 
   storage_account_name       = module.core.storage_account_name
   storage_account_access_key = module.core.storage_account_access_key

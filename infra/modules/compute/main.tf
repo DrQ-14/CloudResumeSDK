@@ -9,7 +9,7 @@ resource "azurerm_service_plan" "service_plan" {
 }
 
   resource "azurerm_application_insights" "appi" {
-  name                = "resume-dev-appinsights"
+  name                = "resume-dev-appinsights" #-----------------------Needs fix-------------------------
   location            = var.location
   resource_group_name = var.resource_group_name
   application_type    = "web"
@@ -45,11 +45,8 @@ resource "azurerm_linux_function_app" "function_app" {
 
   app_settings = {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
-    #WEBSITE_RUN_FROM_PACKAGE     = "1"
 
     FUNCTIONS_WORKER_RUNTIME = "dotnet-isolated"
-
-    #AzureWebJobsStorage = var.storage_connection_string
     
     AzureWebJobsStorage__accountName = var.storage_account_name
     storage_uses_managed_identity = true
@@ -63,6 +60,6 @@ resource "azurerm_linux_function_app" "function_app" {
     CosmosDb__Container        = var.cosmos_container_name
 
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
-    #AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
+    AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
 }

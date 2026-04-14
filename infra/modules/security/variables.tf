@@ -31,10 +31,10 @@ variable "storage_account_access_key" {
   sensitive = true
 }
 
-variable "ky_vault_name" {
-  type      = string
-  sensitive = true
-}
+#variable "ky_vault_name" {
+#  type      = string
+#  sensitive = true
+#}
 
 variable "tags" {
   type    = map(string)
