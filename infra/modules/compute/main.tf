@@ -6,13 +6,18 @@ resource "azurerm_service_plan" "service_plan" {
 
   os_type             = "Linux"
   sku_name            = var.service_plan_sku
+
+  tags = var.tags
 }
 
-  resource "azurerm_application_insights" "appi" {
+#APPLICATION INSIGHTS
+resource "azurerm_application_insights" "appi" {
   name                = var.application_insights_name
   location            = var.location
   resource_group_name = var.resource_group_name
   application_type    = "web"
+
+  tags = var.tags
 }
 
 #FUNCTION APP
@@ -62,4 +67,6 @@ resource "azurerm_linux_function_app" "function_app" {
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
+
+  tags = var.tags
 }

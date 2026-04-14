@@ -15,6 +15,8 @@ resource "azurerm_cosmosdb_account" "account" {
     location          = var.location
     failover_priority = 0
   }
+
+  tags = var.tags
 }
 
 #COSMOS SQL DATABASE
