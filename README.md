@@ -1,3 +1,5 @@
+[![Personal Cloud Platform](assets/banner.png)](https://tanager-solutions.com)
+
 # Personal Cloud Platform
 This project implements the Cloud Resume Challenge using Azure services.
 It demonstrates cloud architecture, infrastructure as code, serverless
