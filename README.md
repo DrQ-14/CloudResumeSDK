@@ -1,10 +1,13 @@
 [![Personal Cloud Platform](assets/banner.png)](https://tanager-solutions.com)
 # Personal Cloud Platform
 
-![Static Badge](https://img.shields.io/badge/Demo%20Badge-red)
-[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)]
-[![Microsoft Azure](https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?logo=msazure&logoColor=white)]((https://azure.microsoft.com))
-[![Terraform](https://img.shields.io/badge/Terraform-844FBA?logo=terraform&logoColor=fff)](#)
+![Static Badge](https://img.shields.io/badge/Demo%20Badge-red?style=for-the-badge&)
+[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&)]
+[![Microsoft Azure](https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?style=for-the-badge&logo=msazure&logoColor=white)]((https://azure.microsoft.com))
+[![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=fff)](#)
+[![Deploy to Azure Static Web App](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml/badge.svg)](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml)
+![Static Badge](https://img.shields.io/badge/Online-%23F38020?style=for-the-badge&logo=cloudflare&label=Live%20Site&link=https%3A%2F%2Fwww.tanager-solutions.com%2F)
+
 
 This project implements the Cloud Resume Challenge using Azure services.
 It demonstrates cloud architecture, infrastructure as code, serverless
