@@ -1,6 +1,11 @@
 [![Personal Cloud Platform](assets/banner.png)](https://tanager-solutions.com)
-
 # Personal Cloud Platform
+
+![Static Badge](https://img.shields.io/badge/Demo%20Badge-red)
+[![.NET](https://img.shields.io/badge/.NET-8.0-512BD4)]
+[![Microsoft Azure](https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?logo=msazure&logoColor=white)]((https://azure.microsoft.com))
+[![Terraform](https://img.shields.io/badge/Terraform-844FBA?logo=terraform&logoColor=fff)](#)
+
 This project implements the Cloud Resume Challenge using Azure services.
 It demonstrates cloud architecture, infrastructure as code, serverless
 development, and CI/CD practices.
