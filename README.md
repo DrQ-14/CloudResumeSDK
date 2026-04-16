@@ -3,7 +3,7 @@
 
 ![Static Badge](https://img.shields.io/badge/Demo%20Badge-red?style=for-the-badge&)
 ![Static Badge](https://img.shields.io/badge/Online-%23F38020?style=for-the-badge&logo=cloudflare&label=Live%20Site&link=https%3A%2F%2Fwww.tanager-solutions.com%2F)
-[![Deploy to Azure Static Web App](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml/badge.svg?style=for-the-badge&)](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml)
+[![Deploy to Azure Static Web App](https://img.shields.io/github/actions/workflow/status/DrQ-14/CloudResumeSDK/deploy.yml?style=for-the-badge)](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml)
 [![Microsoft Azure](https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?style=for-the-badge&logo=msazure&logoColor=white)]((https://azure.microsoft.com))
 [![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=fff)](#)
 ![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&)
