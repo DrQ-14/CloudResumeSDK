@@ -3,7 +3,12 @@
 
 ## Table of Contents
 
-- [About](#-about)
+- [About](#about-what-is-this)
+- [Project Evaluation](#project-evaluation)
+- [Architecture](#architecture-decisions-and-why-they-were-made)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact-me)
 
 ## About (What is this)
 
