@@ -50,7 +50,6 @@
 ## Architecture Decisions and Why They Were Made
 
 - Backend decisions (and why)
-
     - Unit test
     - Integration test
         - Fixture
@@ -65,15 +64,11 @@
         - Repositories
             - Interface
         - Services
-
 - Frontend decisions (and why)
-
     - Html (page)
         - css
         - script
-
 - Infrastructure decisions (and why)
-
     - Bootstrap
     - Modules
         - Core
@@ -81,7 +76,6 @@
         - Data
         - Security
     - Root
-
 - Testing decisions (and why)
 
 ## Contributing
