@@ -41,9 +41,11 @@
 
 - Who does this help?
 
-    This platform helps any organizations that are in need of cloud talent and determine that I can solve problems that their organization is currently attempting to solve.
+    This platform helps any organizations that are in need of cloud talent and determine that I can solve problems that their organization is currently grappling with.
 
 - Where did this come from?
+
+    During the hiring process for many cloud engineer positions my resume was getting lost in translation and getting shoved into piles with other CVs. This platform intends to solve the issue of my skills and capabilites being overlooked due to looking the exact same as every other candidate, or my CV not getting passed around due to difficulty moving it between people.
 
 ## Architecture Decisions and Why They Were Made
 
