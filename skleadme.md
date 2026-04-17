@@ -50,8 +50,38 @@
 ## Architecture Decisions and Why They Were Made
 
 - Backend decisions (and why)
+
+    - Unit test
+    - Integration test
+        - Fixture
+        - Collection
+        - Tests
+            - Integration test
+            - Smoke test
+    - Backend
+        - Dependency injection
+        - Functions
+        - Models
+        - Repositories
+            - Interface
+        - Services
+
 - Frontend decisions (and why)
+
+    - Html (page)
+        - css
+        - script
+
 - Infrastructure decisions (and why)
+
+    - Bootstrap
+    - Modules
+        - Core
+        - Compute
+        - Data
+        - Security
+    - Root
+
 - Testing decisions (and why)
 
 ## Contributing
