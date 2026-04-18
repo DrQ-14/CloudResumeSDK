@@ -51,16 +51,8 @@
 
     The following is my cloud platform's architecture and is set up as a classic seperation of concerns architecture. The stack is seperated into each individual piece and why they exist as they do.
 
-- Backend decisions (and why)
-    - Unit test
-    - Integration test components
-        - Fixture
-        - Collection
-        - Tests
-            - Integration test
-            - Smoke test
 
-    Backend decisions (and why)
+- Testing decisions (and why)
 
     - Unit test: I created unit tests to validate business logic in isolation by mocking dependencies like the repository. I chose this to ensure fast, reliable tests that focus only on logic, avoiding external systems like databases. This solves the problem of slow and brittle tests caused by real infrastructure dependencies.
 
@@ -72,35 +64,42 @@
     
     - Tests:
         - Integration test: These tests validate the full application flow (service → repository → database). I included them to ensure components work together correctly in a real environment. This solves the problem of missing issues that only appear during real data persistence and retrieval.
-        
+
         - Smoke test: Smoke tests perform basic read/write operations against the database to confirm the environment is functioning correctly. I separated these from integration tests to quickly identify whether failures are caused by infrastructure or application logic. This solves the problem of unclear test failures and speeds up debugging.
+
 
     When I previously attempted to build this cloud platform, I used Cosmos DB triggers and bindings. This approach proved less suitable for my needs, as it created tight coupling between components, made debugging more difficult, and in some cases resulted in failures that were hard to trace.
 
     To address these issues, I redesigned the system using a more explicit, layered architecture with dependency injection and clear separation of concerns. They are listed below.
     
-    - Function
-        - Host configuration: This is where I set up dependency injection and the core wiring of my Azure Function. I used this approach to avoid tight coupling between components and to make the system easier to test and modify without changing core logic.
 
-        - Function: The function receives a service via dependency injection, calls it to increment the counter, and returns the updated value as JSON for the client to use (e.g. a frontend). I chose to keep this layer minimal so it only handles request/response logic, which reduces complexity, improves testability, and makes debugging deployment issues easier because business logic is not embedded in the function.
-        
-        - Models: I created this domain model to represent the counter in a consistent structure across the system. I used a dedicated model to ensure a single source of truth for the data shape, reduce inconsistencies between layers, and simplify testing by allowing logic to operate on structured objects instead of raw values.
-        
-        - Repository: This implements the data access layer and handles reading and updating the counter in Cosmos DB. I designed this layer to isolate database logic so that the rest of the system is not dependent on a specific storage technology. This makes the system more flexible and easier to maintain, since the database can be changed without impacting business logic. During development, this also allowed me to use a mock repository for testing before switching to Cosmos DB.
-        
-        - Interface: The interface defines a contract for repository implementations, requiring only get and update counter operations. I introduced this abstraction to enforce separation between business logic and data access, and to enable dependency inversion so that real, mock, or alternative implementations can be swapped easily for testing or future changes.
-        
-        - Service: This contains the business logic for incrementing the counter. I created this as a separate service layer to centralise business logic away from the function and repository layers, improving maintainability, enabling reuse across different triggers, and reducing coupling between components.
+- Function
+    - Host configuration: This is where I set up dependency injection and the core wiring of my Azure Function. I used this approach to avoid tight coupling between components and to make the system easier to test and modify without changing core logic.
+    - Function: The function receives a service via dependency injection, calls it to increment the counter, and returns the updated value as JSON for the client to use (e.g. a frontend). I chose to keep this layer minimal so it only handles request/response logic, which reduces complexity, improves testability, and makes debugging deployment issues easier because business logic is not embedded in the function.
+    
+    - Models: I created this domain model to represent the counter in a consistent structure across the system. I used a dedicated model to ensure a single source of truth for the data shape, reduce inconsistencies between layers, and simplify testing by allowing logic to operate on structured objects instead of raw values.
+    
+    - Repository: This implements the data access layer and handles reading and updating the counter in Cosmos DB. I designed this layer to isolate database logic so that the rest of the system is not dependent on a specific storage technology. This makes the system more flexible and easier to maintain, since the database can be changed without impacting business logic. During development, this also allowed me to use a mock repository for testing before switching to Cosmos DB.
+    
+    - Interface: The interface defines a contract for repository implementations, requiring only get and update counter operations. I introduced this abstraction to enforce separation between business logic and data access, and to enable dependency inversion so that real, mock, or alternative implementations can be swapped easily for testing or future changes.
+    
+    - Service: This contains the business logic for incrementing the counter. I created this as a separate service layer to centralise business logic away from the function and repository layers, improving maintainability, enabling reuse across different triggers, and reducing coupling between components.
 
-- Infrastructure decisions (and why)
-    - Bootstrap
-    - Modules
-        - Core
-        - Compute
-        - Data
-        - Security
-    - Root
-- Testing decisions (and why)
+
+ - Infrastructure decisions (and why)
+
+    - Bootstrap: This layer initializes Terraform itself by setting up the backend state storage (resource group, storage account, container). I chose to separate this because Terraform cannot manage its own state until storage exists. This ensures infrastructure state is persisted and protected, and prevents state loss or conflicting deployments.
+
+    - Modules: I split infrastructure into modules (Core, Compute, Data, Security) to separate concerns and make each part independently manageable, reusable, and easier to reason about. This reduces complexity and avoids tightly coupled, monolithic configurations that are difficult to maintain.
+        - Core: This module provisions foundational resources like the resource group, storage account, and frontend (static web app). I separated this because these are shared dependencies required by other modules. This ensures consistent base infrastructure and avoids duplication of foundational resources.
+
+        - Compute: This module defines the function app, service plan, and application insights. I isolated compute resources so application runtime concerns are separate from storage and data concerns. This decouples runtime configuration from other infrastructure and simplifies scaling and updates.
+
+        - Data: This module provisions Cosmos DB (account, database, container). I separated data resources to isolate persistence concerns and allow independent changes to data configuration (e.g. scaling, consistency levels). This isolates database changes and prevents them from impacting unrelated infrastructure.
+        
+        - Security: This module manages role assignments and identity (managed identity, RBAC, GitHub OIDC). I isolated security to centralize access control and avoid scattering permissions across modules. This enforces consistent access policies and reduces the risk of misconfigured or overly permissive access.
+
+    - Root: The root module orchestrates all other modules and passes outputs between them (storage -> compute, data -> compute, compute -> security). I designed this as the single entry point to control dependencies and configuration in one place. This ensures coordinated deployments and simplifies management by centralizing how all components are connected.
 
 ## Contributing
 
