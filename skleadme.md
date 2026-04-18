@@ -21,31 +21,34 @@
 
 ## About (What is this)
 
-- What is it called?
+## About
 
-    This repo is called my personal cloud platform.
+**What is this?**  
+This repository contains my personal cloud platform—a live, production-style system that demonstrates my skills in backend development, cloud infrastructure, and CI/CD.
 
-- Why does it exist?
+**Why does it exist?**  
+It provides a practical, real-world example of the technologies I use and the problems I can solve, rather than relying solely on a CV.
 
-    This platform exists as an easy way to share the cloud technology, praxis and problems that I am familiar with and capable of solving.
+- Where can I see it?
 
-- Where do I find it again?
+    The static website can be found here: [tanager-solutions.com](https://www.tanager-solutions.com/) and the associated backend code for the website is found in this repo. An explanation of the full tech stack and why I made my decisions can be found below under [Architecture](#architecture-
+    decisions-and-why-they-were-made), though it should be noted that I focus less on the frontend and more on the backend, the infrastructure and CI/CD pipeline.
 
-    The static website can be found here: [tanager-solutions.com](https://www.tanager-solutions.com/) and the associated backend code for the website is found in this repo. An explanation of the full tech stack and why I made my decisions can be found below under [Architecture](#architecture-decisions-and-why-they-were-made), though it should be noted that I focus less on the frontend and more on the backend, the infrastructure and CI/CD pipeline.
+**Where can I see it?**  
+    The live platform is available at: [tanager-solutions.com](https://www.tanager-solutions.com/)
+    This repository contains the backend, infrastructure, and deployment logic.  
+    A detailed breakdown of the design decisions is available in the [Architecture](#architecture-decisions-and-why-they-were-made) section.
 
 ## Project Evaluation
 
-- Who is this for?
+**Who is this for?**  
+Hiring managers and engineers who want a fast, practical way to evaluate my capabilities as a cloud engineer.
 
-    This platform is for hiring managers and engineers to quickly assess my capabilities as a cloud engineer and decide whether or not I am suitable for solving the problems that their company is currently working through. Sharing a link to a publicly available website is often faster than uploading, sending, downloading and assessing a CV, thus I have built my platform to be a more scalable solution to the problem of competency assessment by many different teams and organizations that have different needs, hiring processes and talent preferences.
+**What problem does it solve?**  
+It replaces static CVs with a working system, making it easier to assess real skills without relying on documents that are often overlooked or hard to share internally.
 
-- Who does this help?
-
-    This platform helps any organizations that are in need of cloud talent and determine that I can solve problems that their organization is currently grappling with.
-
-- Where did this come from?
-
-    During the hiring process for many cloud engineer positions my resume was getting lost in translation and getting shoved into piles with other CVs. This platform intends to solve the issue of my skills and capabilites being overlooked due to looking the exact same as every other candidate, or my CV not getting passed around due to difficulty moving it between people.
+**Why did I build it?**  
+During previous hiring processes, my CV was often overlooked or indistinguishable from others. This platform ensures my skills are demonstrated through a tangible, accessible system instead.
 
 ## Architecture Decisions and Why They Were Made
 
