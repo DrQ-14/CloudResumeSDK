@@ -49,6 +49,8 @@
 
 ## Architecture Decisions and Why They Were Made
 
+    The following is my cloud platform's architecture and is set up as a classic seperation of concerns architecture. The stack is seperated into each individual piece and why they exist as they do.
+
 - Backend decisions (and why)
     - Unit test
     - Integration test
@@ -57,17 +59,24 @@
         - Tests
             - Integration test
             - Smoke test
-    - Backend
-        - Dependency injection
-        - Functions
-        - Models
-        - Repositories
-            - Interface
-        - Services
-- Frontend decisions (and why)
-    - Html (page)
-        - css
-        - script
+
+    When I previously attempted to build this cloud platform, I used Cosmos DB triggers and bindings. This approach proved less suitable for my needs, as it created tight coupling between components, made debugging more difficult, and in some cases resulted in failures that were hard to trace.
+
+    To address these issues, I redesigned the system using a more explicit, layered architecture with dependency injection and clear separation of concerns. They are listed below.
+    
+    - Function
+        - Host configuration: This is where I set up dependency injection and the core wiring of my Azure Function. I used this approach to avoid tight coupling between components and to make the system easier to test and modify without changing core logic.
+
+        - Function: The function receives a service via dependency injection, calls it to increment the counter, and returns the updated value as JSON for the client to use (e.g. a frontend). I chose to keep this layer minimal so it only handles request/response logic, which reduces complexity, improves testability, and makes debugging deployment issues easier because business logic is not embedded in the function.
+        
+        - Models: I created this domain model to represent the counter in a consistent structure across the system. I used a dedicated model to ensure a single source of truth for the data shape, reduce inconsistencies between layers, and simplify testing by allowing logic to operate on structured objects instead of raw values.
+        
+        - Repository: This implements the data access layer and handles reading and updating the counter in Cosmos DB. I designed this layer to isolate database logic so that the rest of the system is not dependent on a specific storage technology. This makes the system more flexible and easier to maintain, since the database can be changed without impacting business logic. During development, this also allowed me to use a mock repository for testing before switching to Cosmos DB.
+        
+        - Interface: The interface defines a contract for repository implementations, requiring only get and update counter operations. I introduced this abstraction to enforce separation between business logic and data access, and to enable dependency inversion so that real, mock, or alternative implementations can be swapped easily for testing or future changes.
+        
+        - Service: This contains the business logic for incrementing the counter. I created this as a separate service layer to centralise business logic away from the function and repository layers, improving maintainability, enabling reuse across different triggers, and reducing coupling between components.
+
 - Infrastructure decisions (and why)
     - Bootstrap
     - Modules
