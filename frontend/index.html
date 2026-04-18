@@ -213,6 +213,23 @@
           </div>
         </div>
 
+        <div class="card" data-aos="fade-up" data-aos-delay="150">
+          <div class="card-body">
+            <div class="h5">Architecture Philosophy</div>
+            <ul>
+              <li>Designed using a layered architecture with dependency injection to reduce coupling and improve
+                testability.</li>
+              <li>Repository pattern used to abstract Cosmos DB, enabling flexibility in swapping or mocking data
+                stores.</li>
+              <li>Separation of concerns between Function, Service, Repository, and Infrastructure layers.</li>
+              <li>Testing strategy built around isolation, with unit, integration, and smoke tests to clearly separate
+                logic from infrastructure issues.</li>
+              <li>Infrastructure structured using modular Terraform design (Core, Compute, Data, Security) to improve
+                maintainability and scalability.</li>
+            </ul>
+          </div>
+        </div>
+
         <div class="card" data-aos="fade-up" data-aos-delay="200">
           <div class="card-body">
             <div class="h5">Infrastructure as Code</div>

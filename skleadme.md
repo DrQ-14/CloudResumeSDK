@@ -19,8 +19,6 @@
 - [License](#license)
 - [Contact](#contact-me)
 
-## About (What is this)
-
 ## About
 
 **What is this?**  
@@ -116,11 +114,11 @@ During previous hiring processes, my CV was often overlooked or indistinguishabl
 
 ## License
 
-- License info
+This project is licensed under the [MIT License](LICENSE.md).
 
 ## Contact
 
-- LinkedIn: 
-- Email: 
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/spencer-kolwaite/)
+- Email: [Email](mailto:skolwaite@gmail.com)
 
 [Back to top](#top)
