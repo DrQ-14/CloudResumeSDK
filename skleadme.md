@@ -53,12 +53,27 @@
 
 - Backend decisions (and why)
     - Unit test
-    - Integration test
+    - Integration test components
         - Fixture
         - Collection
         - Tests
             - Integration test
             - Smoke test
+
+    Backend decisions (and why)
+
+    - Unit test: I created unit tests to validate business logic in isolation by mocking dependencies like the repository. I chose this to ensure fast, reliable tests that focus only on logic, avoiding external systems like databases. This solves the problem of slow and brittle tests caused by real infrastructure dependencies.
+
+    - Integration test components: I separated integration testing into distinct components (fixture, collection, and test types) to clearly isolate responsibilities such as environment setup, resource sharing, and validation. I chose this structure to improve maintainability, reduce duplication, and make failures easier to diagnose by distinguishing between infrastructure issues and application logic issues.
+
+    - Fixture: The fixture manages setup and teardown of the Cosmos DB emulator, database, and container. I created this to centralize expensive and repeated setup logic, ensuring all tests run against a consistent environment. This solves the problem of duplicated setup code and inconsistent test states.
+    
+    - Collection: The collection groups tests that share the same fixture instance. I used this to reuse the Cosmos DB environment across tests, improving performance and preventing repeated initialization. This solves the problem of slow test execution and unnecessary resource creation.
+    
+    - Tests:
+        - Integration test: These tests validate the full application flow (service → repository → database). I included them to ensure components work together correctly in a real environment. This solves the problem of missing issues that only appear during real data persistence and retrieval.
+        
+        - Smoke test: Smoke tests perform basic read/write operations against the database to confirm the environment is functioning correctly. I separated these from integration tests to quickly identify whether failures are caused by infrastructure or application logic. This solves the problem of unclear test failures and speeds up debugging.
 
     When I previously attempted to build this cloud platform, I used Cosmos DB triggers and bindings. This approach proved less suitable for my needs, as it created tight coupling between components, made debugging more difficult, and in some cases resulted in failures that were hard to trace.
 
