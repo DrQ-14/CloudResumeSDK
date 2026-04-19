@@ -1,6 +1,11 @@
 variable "function_app_name" {
   description = "Name of the Azure Function App"
   type        = string
+
+  validation {
+  condition     = length(trim(var.function_app_name)) > 0
+  error_message = "Function App name cannot be empty."
+}
 }
 
 variable "location" {
@@ -11,11 +16,21 @@ variable "location" {
 variable "resource_group_name" {
   description = "Name of the resource group"
   type        = string
+  
+  validation {
+  condition     = length(trim(var.function_app_name)) > 0
+  error_message = "Function App name cannot be empty."
+}
 }
 
 variable "function_plan_name" {
   description = "Name of the Function App Service Plan"
   type        = string
+
+  validation {
+  condition     = length(trim(var.function_app_name)) > 0
+  error_message = "Function App name cannot be empty."
+  }
 }
 
 variable "service_plan_sku" {
@@ -63,11 +78,21 @@ variable "cosmos_endpoint" {
 variable "cosmos_database_name" {
   description = "Name of the Cosmos DB database"
   type        = string
+
+  validation {
+    condition     = length(trim(var.function_app_name)) > 0
+    error_message = "Function App name cannot be empty."
+  }
 }
 
 variable "cosmos_container_name" {
   description = "Name of the Cosmos DB container"
   type        = string
+
+  validation {
+    condition     = length(trim(var.function_app_name)) > 0
+    error_message = "Function App name cannot be empty."
+  }
 }
 
 variable "tags" {

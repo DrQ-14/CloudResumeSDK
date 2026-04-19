@@ -2,6 +2,11 @@
 variable "project_name" {
   description = "Project name prefix used for resource naming"
   type        = string
+
+  validation {
+    condition     = length(trim(var.function_app_name)) > 0
+    error_message = "Function App name cannot be empty."
+  }
 }
 
 variable "environment" {

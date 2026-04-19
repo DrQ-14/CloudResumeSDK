@@ -21,6 +21,18 @@ variable "cosmos_account_id" {
 variable "cosmos_account_name" {
   description = "Name of the Cosmos DB account"
   type        = string
+
+  validation {
+    condition = (
+      length(var.cosmos_account_name) >= 3 &&
+      length(var.cosmos_account_name) <= 44 &&
+      can(regex("^[a-z0-9-]+$", var.cosmos_account_name)) &&
+      !can(regex("--", var.cosmos_account_name)) &&
+      !startswith(var.cosmos_account_name, "-") &&
+      !endswith(var.cosmos_account_name, "-")
+    )
+    error_message = "Cosmos DB account name must be 3–44 characters, lowercase letters, numbers, and hyphens only. It cannot start/end with '-' or contain '--'."
+  }
 }
 
 variable "resource_group_name" {
