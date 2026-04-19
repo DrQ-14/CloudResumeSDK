@@ -3,7 +3,7 @@ variable "function_app_name" {
   type        = string
 
   validation {
-    condition     = length(trim(var.function_app_name)) > 0
+    condition     = length(trimspace(var.function_app_name)) > 0
     error_message = "Function App name cannot be empty."
   }
 }
@@ -18,7 +18,7 @@ variable "resource_group_name" {
   type        = string
   
   validation {
-    condition     = length(trim(var.resource_group_name)) > 0
+    condition     = length(trimspace(var.resource_group_name)) > 0
     error_message = "Resource Group name cannot be empty."
   }
 }
@@ -28,7 +28,7 @@ variable "function_plan_name" {
   type        = string
 
   validation {
-    condition     = length(trim(var.function_plan_name)) > 0
+    condition     = length(trimspace(var.function_plan_name)) > 0
     error_message = "Function Plan name cannot be empty."
   }
 }
@@ -70,7 +70,7 @@ variable "application_insights_name" {
   type        = string
 
   validation {
-    condition     = length(trim(var.application_insights_name)) > 0
+    condition     = length(trimspace(var.application_insights_name)) > 0
     error_message = "Application Insights name cannot be empty."
   }
 }
@@ -85,7 +85,7 @@ variable "cosmos_database_name" {
   type        = string
 
   validation {
-    condition     = length(trim(var.cosmos_database_name)) > 0
+    condition     = length(trimspace(var.cosmos_database_name)) > 0
     error_message = "Cosmos Database name cannot be empty."
   }
 }
@@ -95,7 +95,7 @@ variable "cosmos_container_name" {
   type        = string
 
   validation {
-    condition     = length(trim(var.cosmos_container_name)) > 0
+    condition     = length(trimspace(var.cosmos_container_name)) > 0
     error_message = "Cosmos Container name cannot be empty."
   }
 }
