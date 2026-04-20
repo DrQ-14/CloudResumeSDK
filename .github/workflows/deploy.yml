@@ -138,7 +138,7 @@ jobs:
         uses: dorny/test-reporter@v1
         with:
           name: .NET Tests
-          path: TestResults/*.trx
+          path: TestResults/**/*.trx
           reporter: dotnet-trx
 
   deploy_frontend:
