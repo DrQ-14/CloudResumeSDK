@@ -54,10 +54,10 @@ variable "storage_account_name" {
   type        = string
 }
 
-variable "storage_account_access_key" {
-  description = "Access key for the Storage Account"
-  type        = string
-}
+#variable "storage_account_access_key" {
+#  description = "Access key for the Storage Account"
+#  type        = string
+#}
 
 variable "storage_connection_string" {
   description = "Connection string for the Storage Account"
