@@ -30,8 +30,6 @@ resource "azurerm_linux_function_app" "function_app" {
 
    storage_account_name       = var.storage_account_name
 
-  #storage_account_access_key  = var.storage_account_access_key
-
   identity {
     type = "SystemAssigned"
   }

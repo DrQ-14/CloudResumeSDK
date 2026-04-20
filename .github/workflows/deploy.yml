@@ -65,9 +65,47 @@ jobs:
 
           #Storage Account Name
           echo "storage=$(terraform output -raw storage_account_name)" >> $GITHUB_OUTPUT
-        
-  deploy_frontend:
+
+  test:
+    name: "Run .NET Tests"
     needs: terraform
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build solution
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Run tests
+        run: dotnet test --no-build --configuration Release --logger trx --results-directory TestResults
+
+      - name: Upload test results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: TestResults
+
+      - name: Publish test report
+        if: always()
+        uses: dorny/test-reporter@v1
+        with:
+          name: .NET Tests
+          path: TestResults/*.trx
+          reporter: dotnet-trx
+
+  deploy_frontend:
+    needs: [terraform, test]
     runs-on: ubuntu-latest
 
     steps:
@@ -82,7 +120,7 @@ jobs:
           output_location: "frontend"
 
   build_and_deploy_function:
-    needs: terraform
+    needs: [terraform, test]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
 

@@ -45,12 +45,6 @@ variable "storage_account_name" {
   type        = string
 }
 
-#variable "storage_account_access_key" {
-#  description = "Access key for the Storage Account"
-#  type        = string
-#  sensitive   = true
-#}
-
 variable "tags" {
   description = "Standard tags applied to all resources for cost tracking and organization"
   type        = map(string)
