@@ -27,7 +27,7 @@ public class ResumeCounterIntegrationTests
             seedCounter,
             new PartitionKey(seedCounter.id));
 
-        var repository = new CounterRepository(_fixture.Client);
+        var repository = new CounterRepository(_fixture.Container);
         var service = new ResumeCounterService(repository);
 
         // Act

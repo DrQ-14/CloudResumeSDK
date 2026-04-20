@@ -4,14 +4,9 @@ public class CounterRepository : ICounterRepository
 {
     private readonly Container _container;
 
-    public CounterRepository(CosmosClient client)
+    public CounterRepository(Container container)
     {
-        var databaseName =
-            Environment.GetEnvironmentVariable("CosmosDb__Database");
-        var containerName =
-            Environment.GetEnvironmentVariable("CosmosDb__Container");
-
-        _container = client.GetContainer(databaseName, containerName);
+        _container = container;
     }
 
     public async Task<Counter> GetCounterAsync()
