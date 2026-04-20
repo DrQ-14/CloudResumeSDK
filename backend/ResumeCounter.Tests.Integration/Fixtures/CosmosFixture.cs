@@ -26,6 +26,22 @@ public class CosmosFixture : IAsyncLifetime
         Container = Database.GetContainer("counters");
     }
 
+    public async Task ResetContainerAsync()
+    {
+        var iterator = Container.GetItemQueryIterator<dynamic>("SELECT * FROM c");
+    
+        while (iterator.HasMoreResults)
+        {
+            foreach (var item in await iterator.ReadNextAsync())
+            {
+                await Container.DeleteItemAsync<dynamic>(
+                    item.id.ToString(),
+                    new PartitionKey(item.id.ToString())
+                );
+            }
+        }
+    }
+
     public Task DisposeAsync()
     {
         Client?.Dispose();
