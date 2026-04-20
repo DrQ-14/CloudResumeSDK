@@ -35,3 +35,21 @@ resource "azurerm_cosmosdb_sql_container" "container" {
 
   partition_key_paths = [var.partition_key_path]
 }
+
+#INTEGRATION TEST DATABASE AND SQL CONTAINER
+
+resource "azurerm_cosmosdb_sql_database" "app_db" {
+  name                = "app-db"
+  resource_group_name = var.resource_group_name
+  account_name        = var.cosmos_account_name
+}
+
+resource "azurerm_cosmosdb_sql_container" "counters" {
+  name                = "counters"
+  resource_group_name = var.resource_group_name
+  account_name        = var.cosmos_account_name
+  database_name       = azurerm_cosmosdb_sql_database.app_db.name
+
+  partition_key_path = "/id"
+  throughput         = 400
+}

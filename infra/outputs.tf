@@ -28,11 +28,14 @@ output "cosmos_endpoint" {
   value       = module.data.endpoint
 }
 
-#output "cosmos_key" {
-#  value     = module.data.cosmos_primary_key
-#  sensitive = true
-#}
-
 output "azure_client_id" {
   value = module.security.client_id
+}
+
+output "test_cosmos_db_name" {
+  value = azurerm_cosmosdb_sql_database.app_db.name
+}
+
+output "test_cosmos_container_name" {
+  value = azurerm_cosmosdb_sql_container.counters.name
 }
