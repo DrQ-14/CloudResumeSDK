@@ -18,9 +18,6 @@ public class CosmosFixtureSmokeTests
     [Fact]
     public async Task Can_write_and_read_item_from_container()
     {
-        // Arrange
-        await _fixture.ResetContainerAsync();
-
         var counter = new Counter
         {
             id = Guid.NewGuid().ToString(),
