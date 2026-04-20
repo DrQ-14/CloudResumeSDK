@@ -19,14 +19,26 @@ resource "azurerm_role_assignment" "function_file_access" {
   scope                = var.storage_account_id
 }
 
-#COSMOSDB ROLE ASSIGNMENT
+#COSMOSDB ROLE ASSIGNMENT (Azure Function)
 resource "azurerm_cosmosdb_sql_role_assignment" "function_cosmos_access" {
   resource_group_name = var.resource_group_name
   account_name        = var.cosmos_account_name
 
-  role_definition_id = "${var.cosmos_account_id}/sqlRoleDefinitions/${local.cosmos_data_reader_role_id}"
+  role_definition_id = "${var.cosmos_account_id}/sqlRoleDefinitions/${local.cosmos_contributor_role_id}"
 
   principal_id = var.function_principal_id
+
+  scope = var.cosmos_account_id
+}
+
+# COSMOSDB ROLE ASSIGNMENT (GitHub Actions CI identity)
+resource "azurerm_cosmosdb_sql_role_assignment" "github_cosmos_access" {
+  resource_group_name = var.resource_group_name
+  account_name        = var.cosmos_account_name
+
+  role_definition_id = "${var.cosmos_account_id}/sqlRoleDefinitions/${local.cosmos_contributor_role_id}"
+
+  principal_id = azuread_service_principal.github.object_id
 
   scope = var.cosmos_account_id
 }
