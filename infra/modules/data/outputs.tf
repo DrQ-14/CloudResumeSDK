@@ -17,3 +17,8 @@ output "database_name" {
 output "container_name" {
   value = azurerm_cosmosdb_sql_container.container.name
 }
+
+output "cosmos_primary_key" {
+  value     = azurerm_cosmosdb_account.account.primary_master_key
+  sensitive = true
+}

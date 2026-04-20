@@ -66,10 +66,21 @@ jobs:
           #Storage Account Name
           echo "storage=$(terraform output -raw storage_account_name)" >> $GITHUB_OUTPUT
 
+          #Cosmos Endpoint
+          echo "cosmos_endpoint=$(terraform output -raw cosmos_endpoint)" >> $GITHUB_OUTPUT
+
+          #Cosmos Key
+          echo "cosmos_key=$(terraform output -raw cosmos_primary_key)" >> $GITHUB_OUTPUT
+
   test:
     name: "Run .NET Tests"
     needs: terraform
     runs-on: ubuntu-latest
+
+    env:
+      COSMOS_ENDPOINT: ${{ needs.terraform.outputs.cosmos_endpoint }}
+      COSMOS_KEY: ${{ needs.terraform.outputs.cosmos_key }}
+
 
     steps:
       - name: Checkout repo
