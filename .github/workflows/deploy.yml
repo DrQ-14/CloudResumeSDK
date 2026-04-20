@@ -80,14 +80,23 @@ jobs:
         with:
           dotnet-version: '8.0.x'
 
-      - name: Restore dependencies
-        run: dotnet restore
+      - name: Restore Function App
+        run: dotnet restore backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj
 
-      - name: Build solution
-        run: dotnet build --no-restore --configuration Release
+      - name: Restore Unit Tests
+        run: dotnet restore backend/ResumeCounter.Tests.Unit/ResumeCounter.Tests.Unit.csproj
 
-      - name: Run tests
-        run: dotnet test --no-build --configuration Release --logger trx --results-directory TestResults
+      - name: Restore Integration Tests
+        run: dotnet restore backend/ResumeCounter.Tests.Integration/ResumeCounter.Tests.Integration.csproj
+
+      - name: Build Function App
+        run: dotnet build backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj --configuration Release --no-restore
+
+      - name: Run Unit Tests
+        run: dotnet test backend/ResumeCounter.Tests.Unit/ResumeCounter.Tests.Unit.csproj --configuration Release --logger trx --results-directory TestResults/Unit
+
+      - name: Run Integration Tests
+        run: dotnet test backend/ResumeCounter.Tests.Integration/ResumeCounter.Tests.Integration.csproj --configuration Release --logger trx --results-directory TestResults/Integration
 
       - name: Upload test results
         if: always()
