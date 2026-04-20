@@ -59,7 +59,7 @@ module "security" {
 
   location = module.core.location
 
-  storage_account_name       = module.core.storage_account_name
+  storage_account_name = module.core.storage_account_name
 
   function_principal_id = module.compute.principal_id
   storage_account_id = module.core.storage_account_id
