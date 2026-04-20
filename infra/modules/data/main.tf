@@ -16,8 +16,6 @@ resource "azurerm_cosmosdb_account" "account" {
     failover_priority = 0
   }
 
-  EnableAzureRBAC = true
-  
   tags = var.tags
 }
 
