@@ -108,6 +108,9 @@ jobs:
       - name: Run Unit Tests
         run: dotnet test backend/ResumeCounter.Tests.Unit/ResumeCounter.Tests.Unit.csproj --configuration Release --logger trx --results-directory TestResults/Unit
 
+      - name: Debug Cosmos Key
+        run: echo "${{ COSMOS_KEY }}"
+
       - name: Run Integration Tests
         run: dotnet test backend/ResumeCounter.Tests.Integration/ResumeCounter.Tests.Integration.csproj --configuration Release --logger trx --results-directory TestResults/Integration
 

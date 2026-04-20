@@ -30,7 +30,7 @@ output "cosmos_account_endpoint" {
 
 output "cosmos_key" {
   value     = module.data.cosmos_primary_key
-  sensitive = true
+  #sensitive = true
 }
 
 output "azure_client_id" {

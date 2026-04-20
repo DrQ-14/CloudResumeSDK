@@ -20,5 +20,5 @@ output "container_name" {
 
 output "cosmos_primary_key" {
   value     = azurerm_cosmosdb_account.account.primary_key
-  sensitive = true
+  #sensitive = true
 }
