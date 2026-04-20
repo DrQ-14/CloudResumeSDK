@@ -7,7 +7,10 @@ public class CosmosFixture : IAsyncLifetime
     public CosmosClient Client { get; private set; } = null!;
     public Database Database { get; private set; } = null!;
     public Container Container { get; private set; } = null!;
+
     private readonly string _endpoint;
+    private readonly string _databaseName;
+    private readonly string _containerName;
 
     public CosmosFixture()
     {
