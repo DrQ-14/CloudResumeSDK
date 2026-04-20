@@ -18,17 +18,15 @@ public class CosmosFixture : IAsyncLifetime
     public async Task InitializeAsync()
     {
         Client = new CosmosClient(
-            new CosmosClientOptions
-            {
-                _endpoint,
-                new DefaultAzureCredential()
-            });
+            accountEndpoint: _endpoint,
+            tokenCredential: new DefaultAzureCredential()
+        );
 
         Database = await Client.CreateDatabaseIfNotExistsAsync("IntegrationTestDb");
 
         Container = await Database.CreateContainerIfNotExistsAsync(
-        id: "Counters",
-        partitionKeyPath: "/id"
+            id: "Counters",
+            partitionKeyPath: "/id"
         );
     }
 
