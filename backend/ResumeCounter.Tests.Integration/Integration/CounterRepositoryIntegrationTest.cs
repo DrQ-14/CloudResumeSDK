@@ -17,21 +17,13 @@ public class ResumeCounterIntegrationTests
     [Fact]
     public async Task IncrementAsync_ShouldIncrementAndPersistCounter()
     {
-        // Arrange
-        await _fixture.ResetContainerAsync();
-
-        // Set environment variables required by your repository
-        Environment.SetEnvironmentVariable("CosmosDb__Database", "IntegrationTestDb");
-        Environment.SetEnvironmentVariable("CosmosDb__Container", "Counters");
-
-        // Seed the required "resume" document
         var seedCounter = new Counter
         {
             id = "resume",
             Count = 0
         };
 
-        await _fixture.Container.CreateItemAsync(
+        await _fixture.Container.UpsertItemAsync(
             seedCounter,
             new PartitionKey(seedCounter.id));
 

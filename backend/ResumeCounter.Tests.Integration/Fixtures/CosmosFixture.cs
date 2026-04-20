@@ -13,6 +13,12 @@ public class CosmosFixture : IAsyncLifetime
     {
         _endpoint = Environment.GetEnvironmentVariable("COSMOS_ENDPOINT")
             ?? throw new InvalidOperationException("COSMOS_ENDPOINT not set");
+
+        _databaseName = Environment.GetEnvironmentVariable("COSMOS_DB_NAME")
+            ?? throw new InvalidOperationException("COSMOS_DB_NAME not set");
+
+        _containerName = Environment.GetEnvironmentVariable("COSMOS_CONTAINER")
+            ?? throw new InvalidOperationException("COSMOS_CONTAINER not set");
     }
 
     public async Task InitializeAsync()
@@ -24,22 +30,6 @@ public class CosmosFixture : IAsyncLifetime
 
         Database = Client.GetDatabase("app-db");
         Container = Database.GetContainer("counters");
-    }
-
-    public async Task ResetContainerAsync()
-    {
-        var iterator = Container.GetItemQueryIterator<dynamic>("SELECT * FROM c");
-    
-        while (iterator.HasMoreResults)
-        {
-            foreach (var item in await iterator.ReadNextAsync())
-            {
-                await Container.DeleteItemAsync<dynamic>(
-                    item.id.ToString(),
-                    new PartitionKey(item.id.ToString())
-                );
-            }
-        }
     }
 
     public Task DisposeAsync()
