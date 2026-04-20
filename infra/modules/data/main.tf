@@ -50,6 +50,6 @@ resource "azurerm_cosmosdb_sql_container" "counters" {
   account_name        = azurerm_cosmosdb_account.account.name
   database_name       = azurerm_cosmosdb_sql_database.app_db.name
 
-  partition_key_path = "/id"
+  partition_key_paths = [var.partition_key_path]
   throughput         = 400
 }
