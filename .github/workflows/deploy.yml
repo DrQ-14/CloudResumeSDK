@@ -13,6 +13,8 @@ jobs:
       function_app_name: ${{ steps.tf_outputs.outputs.function_app_name }}
       resource_group: ${{ steps.tf_outputs.outputs.resource_group }}
       storage: ${{ steps.tf_outputs.outputs.storage }}
+      cosmos_endpoint: ${{ steps.tf_outputs.outputs.cosmos_endpoint }}
+      cosmos_key: ${{ steps.tf_outputs.outputs.cosmos_key }}
 
     permissions:
       id-token: write
