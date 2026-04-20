@@ -23,7 +23,7 @@ output "resource_group_name" {
     value       = module.core.resource_group_name
 }
 
-output "cosmos_account_endpoint" {
+output "cosmos_endpoint" {
   description = "Cosmos DB endpoint"
   value       = module.data.endpoint
 }
