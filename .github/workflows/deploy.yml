@@ -86,6 +86,7 @@ jobs:
     permissions:
       id-token: write
       contents: read
+      checks: write
 
     env:
       COSMOS_ENDPOINT: ${{ needs.terraform.outputs.cosmos_endpoint }}
