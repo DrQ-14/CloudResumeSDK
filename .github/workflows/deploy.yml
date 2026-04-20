@@ -14,7 +14,6 @@ jobs:
       resource_group: ${{ steps.tf_outputs.outputs.resource_group }}
       storage: ${{ steps.tf_outputs.outputs.storage }}
       cosmos_endpoint: ${{ steps.tf_outputs.outputs.cosmos_endpoint }}
-      cosmos_key: ${{ steps.tf_outputs.outputs.cosmos_key }}
 
     permissions:
       id-token: write
@@ -71,9 +70,6 @@ jobs:
           #Cosmos Endpoint
           echo "cosmos_endpoint=$(terraform output -raw cosmos_endpoint)" >> $GITHUB_OUTPUT
 
-          #Cosmos Key
-          echo "cosmos_key=$(terraform output -raw cosmos_primary_key)" >> $GITHUB_OUTPUT
-
   test:
     name: "Run .NET Tests"
     needs: terraform
@@ -81,7 +77,6 @@ jobs:
 
     env:
       COSMOS_ENDPOINT: ${{ needs.terraform.outputs.cosmos_endpoint }}
-      COSMOS_KEY: ${{ needs.terraform.outputs.cosmos_key }}
 
 
     steps:
@@ -107,9 +102,6 @@ jobs:
 
       - name: Run Unit Tests
         run: dotnet test backend/ResumeCounter.Tests.Unit/ResumeCounter.Tests.Unit.csproj --configuration Release --logger trx --results-directory TestResults/Unit
-
-      - name: Debug Cosmos Key
-        run: echo "${{ needs.terraform.outputs.cosmos_key }}"
 
       - name: Run Integration Tests
         run: dotnet test backend/ResumeCounter.Tests.Integration/ResumeCounter.Tests.Integration.csproj --configuration Release --logger trx --results-directory TestResults/Integration

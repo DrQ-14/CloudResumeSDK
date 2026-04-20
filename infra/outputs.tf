@@ -28,10 +28,10 @@ output "cosmos_account_endpoint" {
   value       = module.data.endpoint
 }
 
-output "cosmos_key" {
-  value     = module.data.cosmos_primary_key
-  sensitive = true
-}
+#output "cosmos_key" {
+#  value     = module.data.cosmos_primary_key
+#  sensitive = true
+#}
 
 output "azure_client_id" {
   value = module.security.client_id
