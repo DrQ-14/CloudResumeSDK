@@ -1,5 +1,8 @@
+<a name="top"></a>
 [![Personal Cloud Platform](assets/banner.png)](https://tanager-solutions.com)
-# Personal Cloud Platform
+
+# Improved Readme
+**Status: In Progress**
 
 [![Static Badge](https://img.shields.io/badge/Online-%23F38020?style=for-the-badge&logo=cloudflare&label=live%20site)](https://www.tanager-solutions.com/)
 [![Deploy to Azure Static Web App](https://img.shields.io/github/actions/workflow/status/DrQ-14/CloudResumeSDK/deploy.yml?style=for-the-badge)](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml)
@@ -7,152 +10,115 @@
 [![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=fff)](https://developer.hashicorp.com/terraform)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&)](https://dotnet.microsoft.com/en-us/)
 
-This project implements the Cloud Resume Challenge using Azure services.
-It demonstrates cloud architecture, infrastructure as code, serverless
-development, and CI/CD practices.
+## Table of Contents
 
-The resume is hosted as a static website with a visitor counter powered
-by a serverless backend. The backend is configured using the cosmosDB SDK
-through the Dotnet isolated worker model rather than using extensions through
-the in process model and is focused on setting up more robust business logic
-for real world applicability.
+- [About](#about-what-is-this)
+- [Project Evaluation](#project-evaluation)
+- [Architecture](#architecture-decisions-and-why-they-were-made)
+- [Contributing](#contributing)
+- [License](#license)
+- [Contact](#contact-me)
 
-Live Site: https://tanager-solutions.com
+## About
 
-## Architecture
+**What is this?**  
+This repository contains my personal cloud platform—a live, production-style system that demonstrates my skills in backend development, cloud infrastructure, and CI/CD.
 
-This project implements a cloud-native resume application using a serverless backend, automated infrastructure provisioning, and a fully automated CI/CD pipeline.
+**Why does it exist?**  
+It provides a practical, real-world example of the technologies I use and the problems I can solve, rather than relying solely on a CV.
 
-### Frontend
+- Where can I see it?
 
-The frontend is a static website that serves the resume content to users.
+    The static website can be found here: [tanager-solutions.com](https://www.tanager-solutions.com/) and the associated backend code for the website is found in this repo. An explanation of the full tech stack and why I made my decisions can be found below under [Architecture](#architecture-
+    decisions-and-why-they-were-made), though it should be noted that I focus less on the frontend and more on the backend, the infrastructure and CI/CD pipeline.
 
-- Hosted as a **static webpage**
-- Delivered securely through **Cloudflare**, which provides:
-  - DNS management
-  - CDN caching
-  - Security protections
+**Where can I see it?**  
+    The live platform is available at: [tanager-solutions.com](https://www.tanager-solutions.com/)
+    This repository contains the backend, infrastructure, and deployment logic.  
+    A detailed breakdown of the design decisions is available in the [Architecture](#architecture-decisions-and-why-they-were-made) section.
 
-### Backend
+## Project Evaluation
 
-The backend provides a visitor counter API.
+**Who is this for?**  
+Hiring managers and engineers who want a fast, practical way to evaluate my capabilities as a cloud engineer.
 
-- Built using **Azure Functions**
-- Exposes a **serverless API endpoint**
-- Stores visitor data in **Azure Cosmos DB**
+**What problem does it solve?**  
+It replaces static CVs with a working system, making it easier to assess real skills without relying on documents that are often overlooked or hard to share internally.
 
-**Request Flow**
+**Why did I build it?**  
+During previous hiring processes, my CV was often overlooked or indistinguishable from others. This platform ensures my skills are demonstrated through a tangible, accessible system instead.
 
-1. A visitor loads the webpage.
-2. The frontend calls the API endpoint.
-3. The Azure Function processes the request.
-4. The visitor count is read from and updated in Cosmos DB.
-5. The updated count is returned to the frontend.
+## Architecture Decisions and Why They Were Made
 
-### Infrastructure
+### Testing Suite
+- Unit tests:
+    - Unit tests **validate business logic** in isolation by **mocking dependencies** like the repository. This keeps tests **fast and reliable** by **avoiding external systems** such as databases.
+- Integration test components:
+    - Integration testing is **split into fixtures, collections, and test types** to **separate setup, resource sharing, and validation.** This **improves maintainability** and makes failures easier to diagnose.
+    - Fixture:
+        - The fixture **manages setup and teardown** of the **Cosmos DB emulator, database, and container.** This **centralizes setup logic** and ensures a **consistent test environment.**
+    - Collection:
+        - The collection **groups tests that share a fixture instance.** This **reduces repeated initialization,** improving **performance and efficiency.**
+    - Integration tests:
+        - Integration tests **validate the full flow from service to database.** This ensures **components work together** correctly in a **real environment.**
+    - Smoke tests:
+        - Smoke tests **perform basic read/write operations** against the database. This quickly confirms the **environment works** and helps **distinguish infrastructure issues from logic failures.**
 
-All cloud resources are managed using **Infrastructure as Code**.
+### Architectural redesign
 
-- **Terraform** provisions and manages Azure resources
-- Infrastructure configuration is version controlled in the repository
-- Changes to infrastructure are reproducible and automated
+- Redesign decision:
+    - I replaced Cosmos DB triggers and bindings with a layered architecture using dependency injection. This **reduces coupling** and makes **debugging and testing more manageable.**
 
-### CI/CD Pipeline
+### Application (Function)
 
-Both the frontend and backend are deployed automatically.
+- Host configuration:
+    - Sets up dependency injection and application wiring. This **reduces coupling** and **makes components easier to test and modify.**
 
-- **GitHub Actions** triggers workflows on code pushes
-- Deployment pipelines are defined using **YAML configuration**
-- Backend Azure Functions are deployed using a **ZIP package**
-- Frontend static files are deployed automatically through the same pipeline
+- Function:
+    - Handles request/response logic and calls the service. Keeping it minimal **improves testability** and **simplifies debugging.**
 
-### Testing Strategy
+- Model:
+    - Defines the counter structure used across the system. This **ensures consistency** and **simplifies testing** with a single source of truth.
 
-The project includes multiple levels of automated testing.
+- Repository:
+    - Handles data access for Cosmos DB. This **isolates database logic** and **allows the storage layer to change without affecting other components.**
 
-**Unit Testing**
+- Interface:
+    - Defines a contract for repository operations. This **enables dependency inversion** and **easy swapping of implementations** for testing or future changes.
 
-- Implemented using **xUnit**
-- Dependencies mocked using **Moq**
+- Service:
+    - Contains the business logic for incrementing the counter. This **centralizes logic, improving reuse** and **separation from infrastructure concerns.**
 
-**Integration Testing**
+### Infrastructure decisions
 
-- Uses the **Cosmos DB Emulator** running locally in **Docker**
-- Validates interactions between the API and database
+- Bootstrap:
+    - Initializes Terraform backend storage before deployments. This **ensures state is persisted** and **prevents conflicts or loss.**
 
-**Smoke Testing**
+- Modules:
+    - Infrastructure is split into Core, Compute, Data, and Security modules. This **separates concerns, improving maintainability and reusability.**
 
-- Ensures core functionality works after deployment
-- Confirms that the API and database integration remain operational
+- Core:
+    - Provides shared foundational resources like resource groups and storage. This **avoids duplication** and **ensures consistency across modules.**
 
-## Technologies
+- Compute:
+    - Defines runtime resources like the function app and monitoring. This **isolates application execution concerns** and **simplifies scaling.**
 
-### Cloud Platform
+- Data:
+    - Manages Cosmos DB resources. This **isolates persistence configuration** and **allows independent updates.**
 
-- **`Microsoft Azure`** – Primary cloud platform used to host and manage the application infrastructure.
-- **`Azure Functions`** – Serverless compute powering the backend API.
-- **`Azure Cosmos DB`** – Globally distributed NoSQL database used to store application data.
-- **`Azure Storage`** – Stores static assets for the application.
-- **`Static Web Hosting`** – Hosts and serves the frontend resume site.
+- Security:
+    - Handles identity and access control. This **centralizes permissions** and **reduces the risk of misconfiguration.**
 
-### Infrastructure & DevOps
+- Root module:
+    - Orchestrates all modules and passes outputs between them. This **centralizes configuration** and **ensures coordinated deployments.**
 
-- **`Terraform`** – Infrastructure as Code used to provision and manage Azure resources.
-- **`GitHub Actions`** – CI/CD pipelines used to automate testing and deployment.
-- **`YAML Deployment Pipelines`** – Defines automated workflows and deployment steps.
-- **`Docker`** – Runs the Cosmos DB Emulator locally for development and testing.
-- **`Cloudflare`** – Provides DNS management, CDN delivery, and security protection.
+## License
 
-### Testing
+This project is licensed under the [MIT License](LICENSE.md).
 
-- **`xUnit`** – Framework used for automated unit testing of backend services.
-- **`Moq`** – Mocking framework used to isolate dependencies in unit tests.
-- **Integration Testing** – Ensures multiple components work together correctly.
-- **Smoke Testing** – Validates critical functionality after deployments.
-- **`Cosmos DB Emulator`** – Local testing environment for Azure Cosmos DB interactions.
+## Contact
 
-## Visitor Counter
+- LinkedIn: [LinkedIn](https://www.linkedin.com/in/spencer-kolwaite/)
+- Email: [Email](mailto:skolwaite@gmail.com)
 
-A serverless visitor counter tracks page views and displays the total number of visits on the resume webpage.
-
-### Flow
-
-1. A user visits the static resume webpage.
-2. The frontend sends a request to the backend API endpoint.
-3. An **Azure Function** processes the request.
-4. The function reads and updates the visitor count stored in **Azure Cosmos DB**.
-5. The updated count is returned to the frontend and displayed on the webpage.
-
-### Implementation Details
-
-- Backend API built using **Azure Functions**
-- Visitor data stored in **Azure Cosmos DB**
-- Frontend calls the API using JavaScript
-- The API returns the updated visitor count in the response
-
-## CI/CD
-
-Deployment is fully automated using **GitHub Actions**.
-
-- Code pushed to the **main branch** triggers the workflow
-- **Backend Azure Functions** deployed using a **ZIP package** via **YAML deployment pipelines**
-- **Frontend static website** deployed automatically through YAML configuration
-- **Infrastructure** provisioned and managed with **Terraform**
-- Entire process ensures repeatable, automated deployments for both backend and frontend
-
-## Lessons Learned
-
-- Designing and implementing a **serverless backend** using Azure Functions
-- Managing cloud infrastructure using **Terraform Infrastructure as Code**
-- Integrating a **static frontend with a serverless API**
-- Storing and retrieving application data using **Azure Cosmos DB**
-- Implementing **automated CI/CD pipelines** with GitHub Actions and YAML workflows
-- Writing **unit tests with xUnit and Moq** to ensure backend reliability
-- Running **integration and smoke tests** using the Cosmos DB Emulator in Docker
-- Securing and delivering a web application using **Cloudflare DNS and CDN**
-
-## Future Improvements
-
-- **Minify and optimize CSS** to reduce file size and improve page load speed  
-- Implement **unique visitor tracking** to only increment the counter for new visitors
-- Add **improved comments for clarity** throughout the codebase
+[Back to top](#top)
