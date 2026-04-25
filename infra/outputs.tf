@@ -23,13 +23,13 @@ output "resource_group_name" {
     value       = module.core.resource_group_name
 }
 
+output "azure_client_id" {
+  value = module.security.client_id
+}
+
 output "cosmos_endpoint" {
   description = "Cosmos DB endpoint"
   value       = module.data.endpoint
-}
-
-output "azure_client_id" {
-  value = module.security.client_id
 }
 
 output "test_cosmos_db_name" {
