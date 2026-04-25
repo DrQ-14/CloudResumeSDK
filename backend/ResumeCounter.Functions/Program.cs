@@ -26,8 +26,6 @@ var host = new HostBuilder()
         // Container
         services.AddSingleton<Container>(sp =>
         {
-            Console.WriteLine("🔥 CONTAINER REGISTRATION HIT");
-            
             var client = sp.GetRequiredService<CosmosClient>();
 
             var databaseName = Environment.GetEnvironmentVariable("CosmosDb__DatabaseName");
