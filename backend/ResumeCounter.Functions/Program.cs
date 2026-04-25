@@ -26,6 +26,8 @@ var host = new HostBuilder()
         // Container
         services.AddSingleton<Container>(sp =>
         {
+            Console.WriteLine("🔥 CONTAINER REGISTRATION HIT");
+            
             var client = sp.GetRequiredService<CosmosClient>();
 
             var databaseName = Environment.GetEnvironmentVariable("CosmosDb__DatabaseName");
@@ -35,7 +37,7 @@ var host = new HostBuilder()
 
             var containerName = Environment.GetEnvironmentVariable("CosmosDb__ContainerName");
             
-            if (string.IsNullOrEmpty(databaseName))
+            if (string.IsNullOrEmpty(containerName))
                 throw new Exception("CosmosDb__ContainerName is NULL");
 
             return client.GetContainer(databaseName, containerName);
