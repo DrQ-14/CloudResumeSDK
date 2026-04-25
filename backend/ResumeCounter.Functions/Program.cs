@@ -29,7 +29,14 @@ var host = new HostBuilder()
             var client = sp.GetRequiredService<CosmosClient>();
 
             var databaseName = Environment.GetEnvironmentVariable("CosmosDb__DatabaseName");
+
+            if (string.IsNullOrEmpty(databaseName))
+                throw new Exception("CosmosDb__DatabaseName is NULL");
+
             var containerName = Environment.GetEnvironmentVariable("CosmosDb__ContainerName");
+            
+            if (string.IsNullOrEmpty(databaseName))
+                throw new Exception("CosmosDb__ContainerName is NULL");
 
             return client.GetContainer(databaseName, containerName);
         });
