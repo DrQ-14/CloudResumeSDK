@@ -23,6 +23,17 @@ var host = new HostBuilder()
             return new CosmosClient(endpoint, credential);
         });
 
+        // Container
+        services.AddSingleton<Container>(sp =>
+        {
+            var client = sp.GetRequiredService<CosmosClient>();
+
+            var databaseName = Environment.GetEnvironmentVariable("CosmosDb__DatabaseName");
+            var containerName = Environment.GetEnvironmentVariable("CosmosDb__ContainerName");
+
+            return client.GetContainer(databaseName, containerName);
+        });
+
         // Repository
         services.AddSingleton<ICounterRepository, CounterRepository>();
 
