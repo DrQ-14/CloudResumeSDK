@@ -50,6 +50,8 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_EXTENSION_VERSION  = "~4"
 
     FUNCTIONS_WORKER_RUNTIME = "dotnet-isolated"
+
+    #[previously had webjob storage key here]
     
     AzureWebJobsStorage__accountName = var.storage_account_name
     storage_uses_managed_identity = true
@@ -57,7 +59,7 @@ resource "azurerm_linux_function_app" "function_app" {
     
     AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
     AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
-    AzureWebJobsStorage__tableServiceUri  = "https://${var.storage_account_name}.table.core.windows.net"
+    AzureWebJobsStorage__tableServiceUri = "https://${var.storage_account_name}.table.core.windows.net"
 
     CosmosDb__AccountEndpoint  = var.cosmos_endpoint
     CosmosDb__Database         = var.cosmos_database_name
@@ -66,6 +68,6 @@ resource "azurerm_linux_function_app" "function_app" {
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
-
+  
   tags = var.tags
 }
