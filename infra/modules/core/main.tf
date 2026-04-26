@@ -15,8 +15,6 @@ resource "azurerm_storage_account" "function_storage" {
   account_tier             = "Standard"
   account_replication_type = "LRS"
 
-  shared_access_key_enabled = false
-
   tags = var.tags
 }
 

@@ -53,6 +53,8 @@ resource "azurerm_linux_function_app" "function_app" {
 
     WEBSITE_RUN_FROM_PACKAGE = "1"
     
+    AzureWebJobsStorage = var.storage_connection_string
+
     AzureWebJobsStorage__accountName = var.storage_account_name
     storage_uses_managed_identity = true
     AzureWebJobsStorage__credential = "managedidentity"
