@@ -20,6 +20,13 @@ resource "azurerm_storage_account" "function_storage" {
   tags = var.tags
 }
 
+#STORAGE BLOB CONTAINER
+resource "azurerm_storage_container" "deploy" {
+  name                  = "deploy"
+  storage_account_id    = azurerm_storage_account.function_storage.id
+  container_access_type = "private"
+}
+
 #STATIC WEB APP (Frontend)
 resource "azurerm_static_web_app" "frontend" {
   name                = var.webapp_name
