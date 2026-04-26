@@ -192,7 +192,7 @@ jobs:
         popd
 
     - name: Zip Function App
-    shell: bash
-    run: |
-      cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
-      zip -r ../function.zip .
+      shell: bash
+      run: |
+        cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
+        zip -r ../function.zip .
