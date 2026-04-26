@@ -39,3 +39,7 @@ output "test_cosmos_db_name" {
 output "test_cosmos_container_name" {
   value = module.data.integration_test_cosmos_container_name
 }
+
+output "debug_function_principal_id" {
+  value = module.compute.principal_id
+}
