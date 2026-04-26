@@ -41,7 +41,7 @@ module "compute" {
   location            = module.core.location
   resource_group_name = module.core.resource_group_name
 
-  #storage_account_name       = module.core.storage_account_name
+  storage_account_name       = module.core.storage_account_name
 
   cosmos_endpoint       = module.data.endpoint
   cosmos_database_name  = module.data.database_name

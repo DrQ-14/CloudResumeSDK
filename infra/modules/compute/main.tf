@@ -28,7 +28,7 @@ resource "azurerm_linux_function_app" "function_app" {
 
    service_plan_id            = azurerm_service_plan.service_plan.id
 
-   #storage_account_name       = var.storage_account_name
+   storage_account_name       = var.storage_account_name
 
   identity {
     type = "SystemAssigned"

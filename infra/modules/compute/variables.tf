@@ -49,10 +49,10 @@ variable "cors_origins" {
   type        = list(string)
 }
 
-#variable "storage_account_name" {
-#  description = "Name of the Storage Account used by the Function App"
-#  type        = string
-#}
+variable "storage_account_name" {
+  description = "Name of the Storage Account used by the Function App"
+  type        = string
+}
 
 variable "storage_connection_string" {
   description = "Connection string for the Storage Account"
