@@ -203,7 +203,7 @@ jobs:
       run: |
         az storage blob upload \
           --account-name $STORAGE \
-          --container-name function-packages \
+          --container-name deploy \
           --name app-${{ github.sha }}.zip \
           --file ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/function.zip \
           --auth-mode login
