@@ -204,7 +204,7 @@ jobs:
           --container-name deploy \
           --name app.zip \
           --file ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/function.zip \
-          --auth-mode login
+          --auth-mode login \
           --overewrite
 
     - name: Generate SAS URL
