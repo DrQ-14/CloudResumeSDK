@@ -51,7 +51,7 @@ resource "azurerm_linux_function_app" "function_app" {
 
     FUNCTIONS_WORKER_RUNTIME = "dotnet-isolated"
 
-    WEBSITE_RUN_FROM_PACKAGE = "1"
+    #WEBSITE_RUN_FROM_PACKAGE = "1"
     
     AzureWebJobsStorage__accountName = var.storage_account_name
     storage_uses_managed_identity = true

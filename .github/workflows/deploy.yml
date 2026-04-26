@@ -197,29 +197,8 @@ jobs:
         cd ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/output
         zip -r ../function.zip .
 
-    - name: Upload package to Blob
-      run: |
-        az storage blob upload \
-          --account-name $STORAGE \
-          --container-name deploy \
-          --name app-${{ github.sha }}.zip \
-          --file ${{ env.AZURE_FUNCTIONAPP_PACKAGE_PATH }}/function.zip \
-          --auth-mode login
-        
-    - name: Set package URL
-      id: package
-      run: |
-        echo "url=https://${STORAGE}.blob.core.windows.net/function-packages/app-${GITHUB_SHA}.zip" >> $GITHUB_OUTPUT
-
-    - name: Configure WEBSITE_RUN_FROM_PACKAGE
-      run: |
-        az functionapp config appsettings set \
-          --name $AZURE_FUNCTIONAPP_NAME \
-          --resource-group $AZURE_RESOURCE_GROUP \
-          --settings WEBSITE_RUN_FROM_PACKAGE=${{ steps.package.outputs.url }}
-
-    - name: Restart Function App
-      run: |
-        az functionapp restart \
-          --name $AZURE_FUNCTIONAPP_NAME \
-          --resource-group $AZURE_RESOURCE_GROUP
+    - name: Deploy Function App
+      uses: azure/functions-action@v1
+      with:
+        app-name: ${{ env.AZURE_FUNCTIONAPP_NAME }}
+        package: ./output
