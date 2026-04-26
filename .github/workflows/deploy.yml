@@ -116,12 +116,6 @@ jobs:
       - name: Build Function App
         run: dotnet build backend/ResumeCounter.Functions/ResumeCounter.Functions.csproj --configuration Release --no-restore
 
-      - name: Debug env vars
-        run: |
-          echo "COSMOS_ENDPOINT=$COSMOS_ENDPOINT"
-          echo "COSMOS_DB_NAME=$COSMOS_DB_NAME"
-          echo "COSMOS_CONTAINER=$COSMOS_CONTAINER"
-
       - name: Run Unit Tests
         run: dotnet test backend/ResumeCounter.Tests.Unit/ResumeCounter.Tests.Unit.csproj --configuration Release --logger trx --results-directory TestResults/Unit
 

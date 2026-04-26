@@ -1,3 +1,10 @@
+#FUNCTION STORAGE ACCOUNT CONTRIBUTOR ROLE ASSIGNMENT
+resource "azurerm_role_assignment" "function_storage_account_contributor" {
+  principal_id         = var.function_principal_id
+  role_definition_name = "Storage Account Contributor"
+  scope                = var.storage_account_id
+}
+
 #FUNCTION STORAGE ROLE ASSIGNMENT
 resource "azurerm_role_assignment" "function_storage_access" {
   principal_id         = var.function_principal_id
@@ -16,6 +23,13 @@ resource "azurerm_role_assignment" "function_queue_access" {
 resource "azurerm_role_assignment" "function_file_access" {
   principal_id         = var.function_principal_id
   role_definition_name = "Storage File Data SMB Share Contributor"
+  scope                = var.storage_account_id
+}
+
+#TABLE ACCESS CONTRIBUTOR ROLE ASSIGNMENT
+resource "azurerm_role_assignment" "function_table_access" {
+  principal_id         = var.function_principal_id
+  role_definition_name = "Storage Table Data Contributor"
   scope                = var.storage_account_id
 }
 

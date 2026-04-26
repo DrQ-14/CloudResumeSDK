@@ -26,11 +26,6 @@ public class CosmosFixture : IAsyncLifetime
 
     public async Task InitializeAsync()
     {
-        // 🔥 Debug (keep temporarily)
-        Console.WriteLine("COSMOS_ENDPOINT = " + _endpoint);
-        Console.WriteLine("COSMOS_DB_NAME = " + _databaseName);
-        Console.WriteLine("COSMOS_CONTAINER = " + _containerName);
-
         Client = new CosmosClient(
             _endpoint,
             new DefaultAzureCredential()
