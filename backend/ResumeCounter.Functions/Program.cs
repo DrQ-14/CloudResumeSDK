@@ -26,12 +26,12 @@ var host = new HostBuilder()
         {
             
             var client = sp.GetRequiredService<CosmosClient>();
-        
+
             try
             {
-                var db = client.GetDatabase("YOUR_DB_NAME");
-                var container = db.GetContainer("counter");
-        
+                var db = client.GetDatabase("CosmosDb__Database");
+                var container = db.GetContainer("CosmosDb__Container");
+
                 return container;
             }
             catch (Exception ex)
