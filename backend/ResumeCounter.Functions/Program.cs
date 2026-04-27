@@ -13,10 +13,10 @@ var host = new HostBuilder()
         // CosmosClient (Managed Identity)
         services.AddSingleton(sp =>
         {
-            var endpoint = config["CosmosDb:Endpoint"];
+            var endpoint = config["CosmosDb__AccountEndpoint"];
 
             if (string.IsNullOrEmpty(endpoint))
-                throw new Exception("CosmosDb:Endpoint is NULL");
+                throw new Exception("CosmosDb__AccountEndpoint is NULL");
 
             return new CosmosClient(endpoint, new DefaultAzureCredential());
         });
@@ -26,14 +26,14 @@ var host = new HostBuilder()
         {
             var client = sp.GetRequiredService<CosmosClient>();
 
-            var databaseName = config["CosmosDb:DatabaseName"];
-            var containerName = config["CosmosDb:ContainerName"];
+            var databaseName = config["CosmosDb__DatabaseName"];
+            var containerName = config["CosmosDb__ContainerName"];
 
             if (string.IsNullOrEmpty(databaseName))
-                throw new Exception("CosmosDb:DatabaseName is NULL");
+                throw new Exception("CosmosDb__DatabaseName is NULL");
 
             if (string.IsNullOrEmpty(containerName))
-                throw new Exception("CosmosDb:ContainerName is NULL");
+                throw new Exception("CosmosDb__ContainerName is NULL");
 
             return client.GetContainer(databaseName, containerName);
         });
