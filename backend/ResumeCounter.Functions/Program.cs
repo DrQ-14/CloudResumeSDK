@@ -2,7 +2,7 @@ using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Azure.Cosmos;
-using Azure.Identity;
+using Microsoft.Extensions.Configuration;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
@@ -13,20 +13,24 @@ var host = new HostBuilder()
         // CosmosClient (Managed Identity)
         services.AddSingleton(sp =>
         {
-            var endpoint = config["CosmosDb__AccountEndpoint"];
-
-            return new CosmosClient(endpoint, new DefaultAzureCredential());
+            var config = sp.GetRequiredService<IConfiguration>();
+            var connectionString = config["CosmosDb__ConnectionString"];
+        
+            if (string.IsNullOrWhiteSpace(connectionString))
+                throw new Exception("CosmosDb__ConnectionString is missing");
+        
+            return new CosmosClient(connectionString);
         });
 
         // Container
         services.AddSingleton(sp =>
         {
             var client = sp.GetRequiredService<CosmosClient>();
-
-            var database= config["CosmosDb__Database"];
-            var container = config["CosmosDb__Container"];
-
-            return client.GetContainer(database, container);
+            var config = sp.GetRequiredService<IConfiguration>();
+        
+            return client
+                .GetDatabase(config["CosmosDb__DatabaseName"])
+                .GetContainer(config["CosmosDb__ContainerName"]);
         });
 
         // Repository
