@@ -3,16 +3,20 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Azure.Cosmos;
 using Microsoft.Extensions.Configuration;
+using Azure.Identity;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
     .ConfigureServices(services =>
     {
         // Cosmos client
-        services.AddSingleton(serviceProvider =>
+        services.AddSingleton(s =>
         {
-            var config = serviceProvider.GetRequiredService<IConfiguration>();
-            return new CosmosClient(config["CosmosDbConnection"]);
+            var config = s.GetRequiredService<IConfiguration>();
+        
+            var endpoint = config["CosmosDb:AccountEndpoint"];
+        
+            return new CosmosClient(endpoint, new DefaultAzureCredential());
         });
 
         // Container
