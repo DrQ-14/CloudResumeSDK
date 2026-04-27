@@ -210,6 +210,8 @@ jobs:
     - name: Generate SAS URL
       id: sas
       run: |
+        EXPIRY=$(date -u -d "1 day" '+%Y-%m-%dT%H:%MZ')
+
         SAS=$(az storage blob generate-sas \
           --account-name $STORAGE \
           --container-name deploy \
@@ -217,7 +219,7 @@ jobs:
           --permissions r \
           --auth-mode login \
           --as-user \
-          --expiry 2026-04-27T00:00Z \
+          --expiry "$EXPIRY" \
           -o tsv)
 
         echo "url=https://${STORAGE}.blob.core.windows.net/deploy/app.zip?$SAS" >> $GITHUB_OUTPUT
