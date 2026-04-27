@@ -24,7 +24,22 @@ var host = new HostBuilder()
         // Container
         services.AddSingleton(sp =>
         {
+            
             var client = sp.GetRequiredService<CosmosClient>();
+        
+            try
+            {
+                var db = client.GetDatabase("YOUR_DB_NAME");
+                var container = db.GetContainer("counter");
+        
+                return container;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Cosmos container resolution failed", ex);
+            }
+            
+            /* var client = sp.GetRequiredService<CosmosClient>();
 
             var databaseName = config["CosmosDb__Database"];
             var containerName = config["CosmosDb__Container"];
@@ -35,7 +50,7 @@ var host = new HostBuilder()
             if (string.IsNullOrEmpty(containerName))
                 throw new Exception("CosmosDb__ContainerName is NULL");
 
-            return client.GetContainer(databaseName, containerName);
+            return client.GetContainer(databaseName, containerName); */
         });
 
         // Repository
