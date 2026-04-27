@@ -6,37 +6,34 @@ using Azure.Identity;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices(services =>
+    .ConfigureServices((context, services) =>
     {
-        // CosmosClient
-        services.AddSingleton(serviceprovider =>
+        var config = context.Configuration;
+
+        // CosmosClient (Managed Identity)
+        services.AddSingleton(sp =>
         {
-            var endpoint =
-                Environment.GetEnvironmentVariable("CosmosDb__AccountEndpoint");
+            var endpoint = config["CosmosDb:AccountEndpoint"];
 
             if (string.IsNullOrEmpty(endpoint))
-                throw new Exception("CosmosDb__AccountEndpoint is NULL");
+                throw new Exception("CosmosDb:AccountEndpoint is NULL");
 
-            // Uses Managed Identity in Azure, Azure CLI / VS locally
-            var credential = new DefaultAzureCredential();
-
-            return new CosmosClient(endpoint, credential);
+            return new CosmosClient(endpoint, new DefaultAzureCredential());
         });
 
         // Container
-        services.AddSingleton<Container>(sp =>
+        services.AddSingleton(sp =>
         {
             var client = sp.GetRequiredService<CosmosClient>();
 
-            var databaseName = Environment.GetEnvironmentVariable("CosmosDb__DatabaseName");
+            var databaseName = config["CosmosDb:DatabaseName"];
+            var containerName = config["CosmosDb:ContainerName"];
 
             if (string.IsNullOrEmpty(databaseName))
-                throw new Exception("CosmosDb__DatabaseName is NULL");
+                throw new Exception("CosmosDb:DatabaseName is NULL");
 
-            var containerName = Environment.GetEnvironmentVariable("CosmosDb__ContainerName");
-            
             if (string.IsNullOrEmpty(containerName))
-                throw new Exception("CosmosDb__ContainerName is NULL");
+                throw new Exception("CosmosDb:ContainerName is NULL");
 
             return client.GetContainer(databaseName, containerName);
         });
