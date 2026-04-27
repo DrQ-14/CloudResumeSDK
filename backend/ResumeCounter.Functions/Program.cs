@@ -13,10 +13,10 @@ var host = new HostBuilder()
         // CosmosClient (Managed Identity)
         services.AddSingleton(sp =>
         {
-            var endpoint = config["CosmosDb:AccountEndpoint"];
+            var endpoint = config["CosmosDb:Endpoint"];
 
             if (string.IsNullOrEmpty(endpoint))
-                throw new Exception("CosmosDb:AccountEndpoint is NULL");
+                throw new Exception("CosmosDb:Endpoint is NULL");
 
             return new CosmosClient(endpoint, new DefaultAzureCredential());
         });
