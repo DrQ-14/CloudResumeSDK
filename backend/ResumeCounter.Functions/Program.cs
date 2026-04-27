@@ -26,8 +26,8 @@ var host = new HostBuilder()
         {
             var client = sp.GetRequiredService<CosmosClient>();
 
-            var databaseName = config["CosmosDb__DatabaseName"];
-            var containerName = config["CosmosDb__ContainerName"];
+            var databaseName = config["CosmosDb__Database"];
+            var containerName = config["CosmosDb__Container"];
 
             if (string.IsNullOrEmpty(databaseName))
                 throw new Exception("CosmosDb__DatabaseName is NULL");
