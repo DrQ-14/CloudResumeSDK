@@ -21,8 +21,8 @@ var host = new HostBuilder()
             var client = serviceProvider.GetRequiredService<CosmosClient>();
 
             return client
-                .GetDatabase("MyDb")
-                .GetContainer("Counters");
+                .GetDatabase("resume-db")
+                .GetContainer("counter");
         });
 
         // Repository
