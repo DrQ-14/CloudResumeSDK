@@ -6,31 +6,23 @@ using Microsoft.Extensions.Configuration;
 
 var host = new HostBuilder()
     .ConfigureFunctionsWorkerDefaults()
-    .ConfigureServices((context, services) =>
+    .ConfigureServices(services =>
     {
-        var config = context.Configuration;
-
-        // CosmosClient (Managed Identity)
-        services.AddSingleton(sp =>
+        // Cosmos client
+        services.AddSingleton(serviceProvider =>
         {
-            var config = sp.GetRequiredService<IConfiguration>();
-            var connectionString = config["CosmosDb__ConnectionString"];
-        
-            if (string.IsNullOrWhiteSpace(connectionString))
-                throw new Exception("CosmosDb__ConnectionString is missing");
-        
-            return new CosmosClient(connectionString);
+            var config = serviceProvider.GetRequiredService<IConfiguration>();
+            return new CosmosClient(config["CosmosDbConnection"]);
         });
 
         // Container
-        services.AddSingleton(sp =>
+        services.AddSingleton(serviceProvider =>
         {
-            var client = sp.GetRequiredService<CosmosClient>();
-            var config = sp.GetRequiredService<IConfiguration>();
-        
+            var client = serviceProvider.GetRequiredService<CosmosClient>();
+
             return client
-                .GetDatabase(config["CosmosDb__DatabaseName"])
-                .GetContainer(config["CosmosDb__ContainerName"]);
+                .GetDatabase("MyDb")
+                .GetContainer("Counters");
         });
 
         // Repository
@@ -42,3 +34,41 @@ var host = new HostBuilder()
     .Build();
 
 host.Run();
+
+//using Azure.Identity;
+
+/* var host = new HostBuilder()
+    .ConfigureFunctionsWorkerDefaults()
+    .ConfigureServices((context, services) =>
+    {
+        var config = context.Configuration;
+
+        // CosmosClient (Managed Identity)
+        services.AddSingleton(sp =>
+        {
+            var endpoint = config["CosmosDb__AccountEndpoint"];
+
+            return new CosmosClient(endpoint, new DefaultAzureCredential());
+        });
+
+        // Container
+        services.AddSingleton(sp =>
+        {
+            var client = sp.GetRequiredService<CosmosClient>();
+
+            var database= config["CosmosDb__Database"];
+            var container = config["CosmosDb__Container"];
+
+            return client.GetContainer(database, container);
+        });
+
+        // Repository
+        services.AddSingleton<ICounterRepository, CounterRepository>();
+
+        // Service
+        services.AddSingleton<ResumeCounterService>();
+    })
+    .Build();
+
+host.Run();
+ */
