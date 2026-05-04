@@ -210,7 +210,7 @@ jobs:
       - name: Generate SAS URL
         id: sas
         run: |
-          EXPIRY=$(date -u -d "1 month" '+%Y-%m-%dT%H:%MZ')
+          EXPIRY=$(date -u -d "7 days" '+%Y-%m-%dT%H:%MZ')
 
           SAS=$(az storage blob generate-sas \
             --account-name $STORAGE \
