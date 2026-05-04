@@ -1,0 +1,10 @@
+name = "tanager-edge-api"
+main = "worker.ts"
+compatibility_date = "2026-05-04"
+
+[vars]
+AZURE_FUNCTION_URL = "https://resume-dev-function.azurewebsites.net"
+
+routes = [
+  "api.tanager-solutions.com/*"
+]
