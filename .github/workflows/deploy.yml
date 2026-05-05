@@ -236,3 +236,35 @@ jobs:
           az functionapp restart \
             --name $AZURE_FUNCTIONAPP_NAME \
             --resource-group $AZURE_RESOURCE_GROUP
+
+  deploy_worker:
+    name: "Deploy Cloudflare Worker"
+    needs: [terraform, test]
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install dependencies
+        run: npm install
+        working-directory: worker
+
+      # OPTIONAL but recommended if you use TS build
+      - name: Build Worker
+        run: npm run build
+        working-directory: worker
+
+      - name: Deploy Worker (Wrangler)
+        run: npx wrangler deploy
+        working-directory: worker
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
