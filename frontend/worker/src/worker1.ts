@@ -87,6 +87,7 @@ export default {
 
     ctx.waitUntil(cache.put(cacheKey, finalResponse.clone()));
 
-    return finalResponse;
+    //return finalResponse;
+    return new Response("WORKER HIT");
   },
 };
