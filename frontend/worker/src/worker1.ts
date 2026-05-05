@@ -37,26 +37,6 @@ export default {
       return withCors(new Response("Not Found", { status: 404 }));
     }
 
-    const ip = request.headers.get("CF-Connecting-IP") || "unknown";
-
-    if (!globalThis.rateLimitStore) {
-      globalThis.rateLimitStore = new Map();
-    }
-
-    const now = Date.now();
-    const windowMs = 10 * 1000;
-    const limit = 20;
-
-    const record = globalThis.rateLimitStore.get(ip) || [];
-    const recentRequests = record.filter((t: number) => now - t < windowMs);
-
-    if (recentRequests.length >= limit) {
-      return withCors(new Response("Too Many Requests", { status: 429 }));
-    }
-
-    recentRequests.push(now);
-    globalThis.rateLimitStore.set(ip, recentRequests);
-
     const cache = caches.default;
     const cacheKey = new Request(url.toString(), request);
 
