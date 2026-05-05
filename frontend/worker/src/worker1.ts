@@ -1,21 +1,23 @@
 //Worker1
 function withCors(response: Response) {
-  const newResponse = new Response(response.clone().body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers: response.headers,
-  });
+  // ✅ SAFE: create a fresh Headers object
+  const headers = new Headers(response.headers);
 
-  newResponse.headers.set(
+  headers.set(
     "Access-Control-Allow-Origin",
     "https://www.tanager-solutions.com",
   );
 
-  newResponse.headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+  headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 
-  newResponse.headers.set("Access-Control-Allow-Headers", "Content-Type");
+  headers.set("Access-Control-Allow-Headers", "Content-Type");
 
-  return newResponse;
+  // ✅ SAFE: reuse original response directly (no body manipulation)
+  return new Response(response.body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers,
+  });
 }
 
 export default {
