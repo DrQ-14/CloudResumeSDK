@@ -17,6 +17,17 @@ export default {
     //  but works as a lightweight spam/refresh guard.
     const ip = request.headers.get("CF-Connecting-IP") || "unknown";
 
+    // HANDLE CORS PREFLIGHT
+    if (request.method === "OPTIONS") {
+      return new Response(null, {
+        headers: {
+          "Access-Control-Allow-Origin": "https://www.tanager-solutions.com",
+          "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+          "Access-Control-Allow-Headers": "Content-Type",
+        },
+      });
+    }
+
     // simple in-memory store (resets on cold start)
     if (!globalThis.rateLimitStore) {
       globalThis.rateLimitStore = new Map();
@@ -46,8 +57,22 @@ export default {
     let response = await cache.match(cacheKey);
 
     if (response) {
-      // return cached response immediately
-      return response;
+      // ⚠️ IMPORTANT: still add CORS to cached responses
+      const cachedWithCors = new Response(response.body, response);
+      cachedWithCors.headers.set(
+        "Access-Control-Allow-Origin",
+        "https://www.tanager-solutions.com",
+      );
+      cachedWithCors.headers.set(
+        "Access-Control-Allow-Methods",
+        "GET, POST, OPTIONS",
+      );
+      cachedWithCors.headers.set(
+        "Access-Control-Allow-Headers",
+        "Content-Type",
+      );
+
+      return cachedWithCors;
     }
 
     // 4. FORWARD REQUEST TO AZURE FUNCTION (origin)
@@ -60,13 +85,27 @@ export default {
 
     response = await fetch(forwardedRequest);
 
-    // 5. CACHE RESPONSE AT EDGE (5–30 seconds)
-    const cacheResponse = new Response(response.body, response);
+    // ===============================
+    // 5. ADD CORS HEADERS (IMPORTANT)
+    // ===============================
 
-    cacheResponse.headers.set("Cache-Control", "public, max-age=10");
+    const corsResponse = new Response(response.body, response);
 
-    ctx.waitUntil(cache.put(cacheKey, cacheResponse.clone()));
+    corsResponse.headers.set(
+      "Access-Control-Allow-Origin",
+      "https://www.tanager-solutions.com",
+    );
 
-    return cacheResponse;
+    corsResponse.headers.set(
+      "Access-Control-Allow-Methods",
+      "GET, POST, OPTIONS",
+    );
+
+    corsResponse.headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+    // 6. CACHE THE CORS-FIXED RESPONSE
+    cache.put(cacheKey, corsResponse.clone());
+
+    return corsResponse;
   },
 };

@@ -8,13 +8,11 @@ location     = "East US 2"
 
 custom_domains = [
   "tanager-solutions.com",
-  "www.tanager-solutions.com",
-  "api.tanager-solutions.com"
+  "www.tanager-solutions.com"
 ]
 
 cors_origins = [
   "http://localhost:8000",
   "https://thankful-coast-04da4630f.6.azurestaticapps.net",
-  "https://www.tanager-solutions.com",
-  "https://api.tanager-solutions.com"
+  "https://www.tanager-solutions.com"
 ]

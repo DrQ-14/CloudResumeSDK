@@ -15,6 +15,11 @@ $(document).ready(function () {
       const res = await fetch(
         "https://api.tanager-solutions.com/api/ResumeCounter",
       );
+
+      if (!res.ok) {
+        throw new Error(`HTTP error ${res.status}`);
+      }
+
       const data = await res.json();
       counterElement.textContent = data.count;
     } catch (err) {
