@@ -285,4 +285,7 @@ jobs:
 
       # ✅ NEW: Verify deployment (fails pipeline if broken)
       - name: Verify deployment
-        run: curl -f https://api.tanager-solutions.com/api/ResumeCounter
+        run: |
+          response=$(curl -s https://api.tanager-solutions.com/api/ResumeCounter)
+          echo "$response"
+          echo "$response" | grep count

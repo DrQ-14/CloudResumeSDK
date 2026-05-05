@@ -6,9 +6,7 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 AZURE_FUNCTION_URL = "https://resume-dev-function.azurewebsites.net"
 
-routes = [
-  "api.tanager-solutions.com/*"
-]
+routes = ["api.tanager-solutions.com/api/*"]
 
 [observability]
 enabled = false
