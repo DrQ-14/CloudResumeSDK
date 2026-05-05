@@ -13,7 +13,7 @@ function withCors(response: Response) {
 
   return newResponse;
 }
-//
+
 export default {
   async fetch(request: Request, env: any, ctx: any) {
     const url = new URL(request.url);
