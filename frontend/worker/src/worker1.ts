@@ -69,7 +69,18 @@ export default {
     try {
       response = await fetch(forwardedRequest);
     } catch (err) {
-      return withCors(new Response("Upstream Error", { status: 502 }));
+      return withCors(new Response("Azure unreachable", { status: 502 }));
+    }
+
+    // ALWAYS wrap even errors from Azure
+    if (!response) {
+      return withCors(new Response("No response from origin", { status: 502 }));
+    }
+
+    if (!response.ok) {
+      const text = await response.text();
+
+      return withCors(new Response(text, { status: response.status }));
     }
 
     const finalResponse = withCors(response);
