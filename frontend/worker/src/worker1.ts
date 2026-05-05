@@ -1,6 +1,10 @@
 //Worker1
 function withCors(response: Response) {
-  const newResponse = new Response(response.body, response);
+  const newResponse = new Response(response.clone().body, {
+    status: response.status,
+    statusText: response.statusText,
+    headers: response.headers,
+  });
 
   newResponse.headers.set(
     "Access-Control-Allow-Origin",
