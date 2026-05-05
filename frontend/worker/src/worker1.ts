@@ -21,8 +21,8 @@ function withCors(response: Response) {
 }
 
 export default {
-  async fetch(request: Request, env: any, ctx: any) {
-    const url = new URL(request.url);
+  async fetch(/*request: Request, env: any, ctx: any*/) {
+    /*const url = new URL(request.url);
     const pathname = url.pathname;
 
     const allowed = ["/api/ResumeCounter"];
@@ -73,6 +73,7 @@ export default {
 
     ctx.waitUntil(cache.put(cacheKey, finalResponse.clone()));
 
-    return finalResponse;
+    return finalResponse;*/
+    return new Response("OK");
   },
 };
