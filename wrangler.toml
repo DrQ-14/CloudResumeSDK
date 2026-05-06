@@ -12,7 +12,7 @@ routes = [
 
 [[kv_namespaces]]
 binding = "VISITORS_KV"
-id = "REAL_NAMESPACE_ID"
+id = "fc913d7a648740a8bb0d130e64f010f3"
 
 [observability]
 enabled = false
