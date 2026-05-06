@@ -264,7 +264,7 @@ jobs:
         working-directory: worker
 
       - name: Install Wrangler
-        run: npm install -g wrangler@4.87.0
+        run: npm install -g wrangler@4.88.0
 
       - name: Deploy Worker
         run: wrangler deploy
