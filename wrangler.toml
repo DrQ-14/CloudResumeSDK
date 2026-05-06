@@ -6,6 +6,10 @@ compatibility_flags = ["nodejs_compat"]
 [vars]
 AZURE_FUNCTION_URL = "https://resume-dev-function.azurewebsites.net"
 
+[[kv_namespaces]]
+binding = "VISITORS_KV"
+id = "VISITOR_COUNTER_ID"
+
 routes = ["api.tanager-solutions.com/api/*"]
 
 [observability]

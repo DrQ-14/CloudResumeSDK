@@ -1,5 +1,5 @@
 //Worker1
-function withCors(response: Response) {
+function withCors(response: Response, extraHeaders: Headers = new Headers()) {
   const headers = new Headers(response.headers);
 
   headers.set(
@@ -10,6 +10,11 @@ function withCors(response: Response) {
   headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
 
   headers.set("Access-Control-Allow-Headers", "Content-Type");
+
+  // Why: allows us to attach Set-Cookie when needed
+  for (const [key, value] of extraHeaders.entries()) {
+    headers.set(key, value);
+  }
 
   return new Response(response.body, {
     status: response.status,
@@ -39,48 +44,91 @@ export default {
       // Why: explicit routing is safer than allowlists
       // Why: makes API behavior predictable and scalable
 
-      const cache = caches.default;
-      const cacheKey = new Request(url.toString(), request);
+      const cookieHeader = request.headers.get("Cookie") || "";
 
-      let response = await cache.match(cacheKey);
+      // Try to extract existing visitorId from cookies
+      let visitorId = cookieHeader
+        .split(";")
+        .map((c) => c.trim())
+        .find((c) => c.startsWith("visitorId="))
+        ?.split("=")[1];
 
-      // Why: avoids repeated Azure calls (performance + cost reduction)
-      if (response) {
-        return withCors(response);
+      let isNewVisitor = false;
+
+      // If no cookie exists → this is a new visitor
+      if (!visitorId) {
+        visitorId = crypto.randomUUID(); // Why: generate unique ID per user
+        isNewVisitor = true;
       }
 
-      const targetUrl = env.AZURE_FUNCTION_URL + pathname + url.search;
+      // STEP B: CHECK KV (HAVE WE SEEN THIS USER?)
+      const existing = await env.VISITORS_KV.get(visitorId);
 
-      const forwardedRequest = new Request(targetUrl, {
-        method: request.method,
-        headers: request.headers,
-        body: request.body,
-      });
+      // If not found in KV → first time we’ve seen this visitor
+      if (!existing) {
+        isNewVisitor = true;
 
-      // Why: passes secret securely to backend for authentication
-      forwardedRequest.headers.set("x-origin-secret", env.ORIGIN_SECRET);
+        // Store visitor in KV with expiration (e.g. 1 day)
+        await env.VISITORS_KV.put(visitorId, "1", {
+          expirationTtl: 86400, // Why: prevents permanent storage + allows recount later
+        });
+      }
 
-      try {
-        response = await fetch(forwardedRequest);
-      } catch (err) {
-        // Why: prevents hard failure if Azure is temporarily unreachable
-        return withCors(new Response("Azure unreachable", { status: 502 }));
+      // STEP C: DECIDE WHETHER TO INCREMENT
+      let response;
+
+      if (isNewVisitor) {
+        // Why: only call Azure when we need to increment
+
+        const targetUrl = env.AZURE_FUNCTION_URL + pathname + url.search;
+
+        const forwardedRequest = new Request(targetUrl, {
+          method: request.method,
+          headers: request.headers,
+          body: request.body,
+        });
+
+        forwardedRequest.headers.set("x-origin-secret", env.ORIGIN_SECRET);
+
+        try {
+          response = await fetch(forwardedRequest);
+        } catch {
+          return withCors(new Response("Azure unreachable", { status: 502 }));
+        }
+      } else {
+        // Why: skip increment for repeat visitor
+        // You can either:
+        // - call a "get count" endpoint
+        // - OR return a cached/static response
+
+        const targetUrl = env.AZURE_FUNCTION_URL + "/api/GetCounter";
+
+        response = await fetch(targetUrl);
       }
 
       if (!response || !response.ok) {
-        // Why: preserves Azure error response instead of hiding it
         const text = await response.text();
         return withCors(
           new Response(text, { status: response?.status || 502 }),
         );
       }
 
-      const finalResponse = withCors(response);
+      // STEP D: SET COOKIE (IF NEW USER)
+      const extraHeaders = new Headers();
 
-      // Why: stores response at Cloudflare edge for faster future requests
-      ctx.waitUntil(cache.put(cacheKey, finalResponse.clone()));
+      if (isNewVisitor) {
+        extraHeaders.set(
+          "Set-Cookie",
+          `visitorId=${visitorId}; Path=/; Max-Age=31536000; HttpOnly; Secure`,
+        );
+        // Why:
+        // - persists identity across reloads
+        // - prevents duplicate counting
+      }
 
-      return finalResponse;
+      return withCors(response, extraHeaders);
     }
+
+    return new Response("Not Found", { status: 404 });
   },
 };
