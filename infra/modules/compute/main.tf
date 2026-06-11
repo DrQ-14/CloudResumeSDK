@@ -37,7 +37,7 @@ resource "azurerm_linux_function_app" "function_app" {
    site_config {
     application_stack {
       dotnet_version = "8.0"
-      use_dotnet_isolated_runtime = true  
+      use_dotnet_isolated_runtime = true
     }
 
     cors {
@@ -52,16 +52,16 @@ resource "azurerm_linux_function_app" "function_app" {
     FUNCTIONS_WORKER_RUNTIME = "dotnet-isolated"
 
     WEBSITE_RUN_FROM_PACKAGE = "1"
-    
+
     AzureWebJobsStorage = var.storage_connection_string
 
-    AzureWebJobsStorage__accountName = var.storage_account_name
-    storage_uses_managed_identity = true
-    AzureWebJobsStorage__credential = "managedidentity"
-    
-    AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
-    AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
-    AzureWebJobsStorage__tableServiceUri = "https://${var.storage_account_name}.table.core.windows.net"
+    #AzureWebJobsStorage__accountName = var.storage_account_name
+    #storage_uses_managed_identity = true
+    #AzureWebJobsStorage__credential = "managedidentity"
+
+    #AzureWebJobsStorage__blobServiceUri  = "https://${var.storage_account_name}.blob.core.windows.net"
+    #AzureWebJobsStorage__queueServiceUri = "https://${var.storage_account_name}.queue.core.windows.net"
+    #AzureWebJobsStorage__tableServiceUri = "https://${var.storage_account_name}.table.core.windows.net"
 
     CosmosDb__AccountEndpoint  = var.cosmos_endpoint
     CosmosDb__Database         = var.cosmos_database_name
@@ -70,6 +70,6 @@ resource "azurerm_linux_function_app" "function_app" {
     APPLICATIONINSIGHTS_CONNECTION_STRING = azurerm_application_insights.appi.connection_string
     AzureWebJobsFeatureFlags = "EnableWorkerIndexing"
   }
-  
+
   tags = var.tags
 }
