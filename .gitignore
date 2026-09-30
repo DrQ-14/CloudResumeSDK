@@ -6,6 +6,9 @@
 # dotenv files
 .env
 
+#Info
+frontend/index.html
+
 # Terraform
 .terraform/
 *.tfstate
