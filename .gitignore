@@ -6,8 +6,9 @@
 # dotenv files
 .env
 
-#Info
+#Final
 frontend/index.html
+deploy.yml
 
 # Terraform
 .terraform/
