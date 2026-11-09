@@ -5,7 +5,7 @@
 **Status: In Progress**
 
 [![Static Badge](https://img.shields.io/badge/Online-%23F38020?style=for-the-badge&logo=cloudflare&label=live%20site)](https://www.tanager-solutions.com/)
-/*[![Deploy to Azure Static Web App](https://img.shields.io/github/actions/workflow/status/DrQ-14/CloudResumeSDK/deploy.yml?style=for-the-badge)](https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml)*/
+[!Deploy to Azure Static Web App(https://img.shields.io/github/actions/workflow/status/DrQ-14/CloudResumeSDK/deploy.yml?style=for-the-badge)(https://github.com/DrQ-14/CloudResumeSDK/actions/workflows/deploy.yml)]
 [![Microsoft Azure](https://custom-icon-badges.demolab.com/badge/Microsoft%20Azure-0089D6?style=for-the-badge&logo=msazure&logoColor=white)](https://azure.microsoft.com/en-us)
 [![Terraform](https://img.shields.io/badge/Terraform-844FBA?style=for-the-badge&logo=terraform&logoColor=fff)](https://developer.hashicorp.com/terraform)
 [![.NET](https://img.shields.io/badge/.NET-8.0-512BD4?style=for-the-badge&)](https://dotnet.microsoft.com/en-us/)
